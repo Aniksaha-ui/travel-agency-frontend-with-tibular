@@ -27,13 +27,7 @@ function App() {
             </div>
             <div className="card-body border-bottom py-3">
               <div className="d-flex">
-                <div className="text-muted">
-                  Show
-                  <div className="mx-2 d-inline-block">
-                    <input type="text" className="form-control form-control-sm" defaultValue={8} size={3} aria-label="Invoices count" />
-                  </div>
-                  entries
-                </div>
+                <div></div>
                 <div className="ms-auto text-muted">
                   Search:
                   <div className="ms-2 d-inline-block">
@@ -42,11 +36,11 @@ function App() {
                 </div>
               </div>
             </div>
-            <div className="table-responsive">
-              <table className="table card-table table-vcenter text-nowrap datatable table-bordered p-2">
+            <div className="table-responsive mx-2 mt-1">
+              <table className="table table-bordered">
                 <thead>
                   <tr>
-                    <th className="w-1">No. {/* Download SVG icon from http://tabler-icons.io/i/chevron-up */}
+                    <th className="w-1">No.
                       <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-sm icon-thick" width={24} height={24} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M6 15l6 -6l6 6" /></svg>
                     </th>
                     <th>Invoice Subject</th>
@@ -69,7 +63,7 @@ function App() {
                       87956621
                     </td>
                     <td>
-                      15 Dec 2017
+                      15 Dec 2019
                     </td>
                     <td>
                       <span className="badge bg-success me-1" /> Paid
