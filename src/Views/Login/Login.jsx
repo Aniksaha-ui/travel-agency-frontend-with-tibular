@@ -1,69 +1,93 @@
 import { useRef } from "react";
 import AdminLayout from "../../Layout/AdminLayout";
+import useApi from "../../Hooks/useApi";
+import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
+import { userInformationAtom } from "../../State/atoms";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useRecoilState(userInformationAtom);
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
-  const handleLogin = (event) => {
+  const api = useApi();
+  const handleLogin = async (event) => {
     event.preventDefault();
-    const req = {"email": emailRef.current.value, "password": passwordRef.current.value};
-    console.log(req);
-
-  }
+    const req = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+    const response = await api.login(req);
+    console.log(response);
+    if (response) {
+      localStorage.setItem("token", response?.access_token);
+      localStorage.setItem("user", response?.user);
+      await setUserInfo(response?.user);
+    }
+    navigate("/");
+  };
 
   return (
     <div className="page page-center">
       <div className="container container-tight py-4">
         <div className="text-center mb-4">
           <a href="." className="navbar-brand navbar-brand-autodark">
-            <img src="https://flynextbd.com/wp-content/uploads/2023/09/Fly-Next-PNG-abhaya-Lib-Font.png" height={36} alt />
+            <img
+              src="https://flynextbd.com/wp-content/uploads/2023/09/Fly-Next-PNG-abhaya-Lib-Font.png"
+              height={36}
+              alt
+            />
           </a>
         </div>
         <div className="card card-md">
           <div className="card-body">
             <h2 className="h2 text-center mb-4">Login to your account</h2>
-              <div className="mb-3">
-                <label className="form-label">Email address</label>
-                <input
+            <div className="mb-3">
+              <label className="form-label">Email address</label>
+              <input
                 ref={emailRef}
-                  type="email"
+                type="email"
+                className="form-control"
+                placeholder="your@email.com"
+                autoComplete="off"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="form-label">
+                Password
+                <span className="form-label-description">
+                  <a href="./forgot-password.html">I forgot password</a>
+                </span>
+              </label>
+              <div className="input-group input-group-flat">
+                <input
+                  ref={passwordRef}
+                  type="password"
                   className="form-control"
-                  placeholder="your@email.com"
+                  placeholder="Your password"
                   autoComplete="off"
                 />
               </div>
-              <div className="mb-2">
-                <label className="form-label">
-                  Password
-                  <span className="form-label-description">
-                    <a href="./forgot-password.html">I forgot password</a>
-                  </span>
-                </label>
-                <div className="input-group input-group-flat">
-                  <input
-                  ref={passwordRef}
-                    type="password"
-                    className="form-control"
-                    placeholder="Your password"
-                    autoComplete="off"
-                  />
-                </div>
-              </div>
-              <div className="mb-2">
-                <label className="form-check">
-                  <input type="checkbox" className="form-check-input" />
-                  <span className="form-check-label">
-                    Remember me on this device
-                  </span>
-                </label>
-              </div>
-              <div className="form-footer">
-                <button onClick={handleLogin} type="submit" className="btn btn-primary w-100">
-                  Sign in
-                </button>
-              </div>
+            </div>
+            <div className="mb-2">
+              <label className="form-check">
+                <input type="checkbox" className="form-check-input" />
+                <span className="form-check-label">
+                  Remember me on this device
+                </span>
+              </label>
+            </div>
+            <div className="form-footer">
+              <button
+                onClick={handleLogin}
+                type="submit"
+                className="btn btn-primary w-100"
+              >
+                Sign in
+              </button>
+            </div>
           </div>
           <div className="hr-text">or</div>
           <div className="card-body">
