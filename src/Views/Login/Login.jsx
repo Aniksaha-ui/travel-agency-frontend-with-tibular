@@ -26,7 +26,7 @@ const Login = () => {
       localStorage.setItem("user", response?.user);
       await setUserInfo(response?.user);
     }
-    navigate("/");
+    navigate("admin/routes");
   };
 
   return (
