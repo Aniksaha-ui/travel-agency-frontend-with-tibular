@@ -5,6 +5,7 @@ import useApi from "./Hooks/useApi";
 import fetchData from "./Utils/Functions/fetchInformation";
 import Search from "./Utils/Components/Search";
 import { PaginationFooter } from "./Utils/Components/PaginationFooter";
+import Loading from "./Utils/Components/Loading";
 
 function App() {
   const [page, setPage] = useState(1);
@@ -12,9 +13,10 @@ function App() {
   const [lastPage, setLastPage] = useState([]);
   const [routes, setRoutes] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState("");
   const api = useApi();
   const fetchRouteInformation = async () => {
-    await fetchData( api.fetchRoutes, page,setLastPage,setRoutes, search, setPaginationInformation);
+    await fetchData( api.fetchRoutes, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading);
   };
 
   useEffect(() => {
@@ -23,6 +25,10 @@ function App() {
     }
     fetchRouteInformation();
   }, [page, search]);
+
+  if(loading){
+    return <Loading />
+  }
 
   return (
     <AdminLayout>

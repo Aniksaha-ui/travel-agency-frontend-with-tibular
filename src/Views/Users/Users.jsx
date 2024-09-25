@@ -4,6 +4,7 @@ import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
 import AdminLayout from "../../Layout/AdminLayout";
 import Search from "../../Utils/Components/Search";
 import useApi from "../../Hooks/useApi";
+import Loading from "../../Utils/Components/Loading";
 
 function Users() {
     const [page, setPage] = useState(1);
@@ -11,9 +12,10 @@ function Users() {
     const [lastPage, setLastPage] = useState([]);
     const [routes, setRoutes] = useState([]);
     const [search, setSearch] = useState("");
+    const [loading,setLoading] = useState(true);
     const api = useApi();
     const fetchRouteInformation = async () => {
-      await fetchData( api.fetchUsers, page,setLastPage,setRoutes, search, setPaginationInformation);
+      await fetchData( api.fetchUsers, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading);
     };
   
     useEffect(() => {
@@ -22,7 +24,11 @@ function Users() {
       }
       fetchRouteInformation();
     }, [page, search]);
-  
+
+    if(loading){
+      return <Loading />
+    }
+
     return (
       <AdminLayout>
         <div className="page-wrapper">

@@ -4,7 +4,8 @@ const fetchData = async (
   setLastPage,
   setData,
   search,
-  setPaginationInformation
+  setPaginationInformation,
+  setLoading
 ) => {
   try {
     const response = await apiFunction(page, search);
@@ -16,6 +17,7 @@ const fetchData = async (
         from: response.data.from,
         total: response.data.total
       });
+      setLoading(false)
     }
   } catch (error) {
     console.error("Error fetching data:", error);
