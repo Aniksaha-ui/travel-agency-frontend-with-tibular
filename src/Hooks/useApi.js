@@ -45,10 +45,29 @@ const useApi = () => {
     return null;
   };
 
+
+
+  /****************************************************Users Api ***********************************/
+  const fetchUsers = async (page,search) => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : '';
+
+    const response = await axiosClient.apiClient("GET", `admin/users?page=${page}${query}`);
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+  /****************************************************Users Api ***********************************/
+
   return {
     getLocalStorageValue,
     login,
     fetchRoutes,
+    fetchUsers
   };
 };
 
