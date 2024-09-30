@@ -5,6 +5,7 @@ import AdminLayout from "../../Layout/AdminLayout";
 import Search from "../../Utils/Components/Search";
 import useApi from "../../Hooks/useApi";
 import Loading from "../../Utils/Components/Loading";
+import debounce from "../../Utils/Functions/debounce";
 
 function Users() {
     const [page, setPage] = useState(1);
@@ -17,7 +18,7 @@ function Users() {
     const fetchRouteInformation = async () => {
       await fetchData( api.fetchUsers, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading);
     };
-  
+
     useEffect(() => {
       if (search != "") {
         setPage(1);

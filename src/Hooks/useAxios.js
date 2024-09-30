@@ -3,7 +3,7 @@ import { BAD_REQUEST_ERROR, LOGIN_ERROR, NETWORK_ERROR } from "../Utils/Constant
 
 
 const useAxios = () => {
-  const axiosConfig = { baseURL: "http://127.0.0.1:8000/api/" };
+  const axiosConfig = { baseURL: "https://travelbookingbackend.infinitycodehubltd.com/public/api/" };
   const api = axios.create(axiosConfig);
 
   api.interceptors.request.use((axiosConfig) => {
