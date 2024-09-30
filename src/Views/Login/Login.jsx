@@ -23,7 +23,7 @@ const Login = () => {
     console.log(response);
     if (response) {
       localStorage.setItem("token", response?.access_token);
-      localStorage.setItem("user", response?.user);
+      localStorage.setItem("user", JSON.stringify(response?.user));
       await setUserInfo(response?.user);
     }
     navigate("admin/routes");

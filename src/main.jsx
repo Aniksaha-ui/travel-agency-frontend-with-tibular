@@ -6,15 +6,21 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Views/Login/Login.jsx";
 import { RecoilRoot } from "recoil";
 import Users from "./Views/Users/Users.jsx";
+import RouteInformation from "./Views/Routes/Routes.jsx";
+import AddRoutes from "./Views/Routes/AddRoutes.jsx";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <RecoilRoot>
+    <ToastContainer></ToastContainer>
+    <RecoilRoot>
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="admin/routes" element={<App />}></Route>
+          <Route path="admin/routes" element={ <RouteInformation />}></Route>
+          <Route path="admin/routes/add" element={ <AddRoutes />}></Route>
           <Route path="/admin/users" element={<Users />}></Route>
         </Routes>
       </RecoilRoot>

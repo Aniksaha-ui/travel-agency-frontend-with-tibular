@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "./Layout/AdminLayout";
-import "./index.css";
-import useApi from "./Hooks/useApi";
-import fetchData from "./Utils/Functions/fetchInformation";
-import Search from "./Utils/Components/Search";
-import { PaginationFooter } from "./Utils/Components/PaginationFooter";
-import Loading from "./Utils/Components/Loading";
+import Loading from "../../Utils/Components/Loading";
+import useApi from "../../Hooks/useApi";
+import AdminLayout from "../../Layout/AdminLayout";
+import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
+import Search from "../../Utils/Components/Search";
+import fetchData from "../../Utils/Functions/fetchInformation";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-function App() {
+
+function RouteInformation() {
   const [page, setPage] = useState(1);
   const [paginationInformation,setPaginationInformation] = useState({to:0,from:0,total: 0});
   const [lastPage, setLastPage] = useState([]);
@@ -15,6 +17,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState("");
   const api = useApi();
+  const navigation = useNavigate();
   const fetchRouteInformation = async () => {
     await fetchData( api.fetchRoutes, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading);
   };
@@ -29,6 +32,20 @@ function App() {
   if(loading){
     return <Loading />
   }
+
+  const handleAddNewRoute = () =>{
+    navigation("/admin/routes/add");
+  }
+
+  const handleDelete = async (id) => {
+    const response = await api.deleteRoute(id);
+    console.log(response);
+    if (response) {
+      console.log(response,"response")
+      toast("Route Delete Successfully")
+      fetchRouteInformation(api.fetchRoutes, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading)
+    }
+  };
 
   return (
     <AdminLayout>
@@ -47,7 +64,7 @@ function App() {
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
                     <h3 className="card-title">Route List</h3>
-                    <div className="btn btn-primary">Add New</div>
+                    <div onClick={()=>handleAddNewRoute()} className="btn btn-primary">Add New</div>
                   </div>                   
                   <Search search={search} setSearch={setSearch} />   {/* search */}
                   <div className="table-responsive mx-2 mt-1">
@@ -71,6 +88,18 @@ function App() {
                               {route.destination}
                             </td>
                             <td>{route.route_name}</td>
+                           <td>
+                           <button data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Edit" className="btn btn-sm btn-success me-2">
+                                <i className="fas fa-edit"></i>
+                           </button>
+                            <button onClick={()=>handleDelete(route.id)} data-bs-toggle="tooltip"
+                               data-bs-placement="top"
+                                title="Delete" className="btn btn-sm btn-danger">
+                                 <i className="fas fa-trash"></i>
+                            </button>
+                           </td>
                           </tr>
                         ))}
                       </tbody>
@@ -87,4 +116,4 @@ function App() {
   );
 }
 
-export default App;
+export default RouteInformation;

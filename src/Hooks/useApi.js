@@ -30,11 +30,13 @@ const useApi = () => {
     return null;
   };
 
+  const fetchRoutes = async (page, search) => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
 
-  const fetchRoutes = async (page,search) => {
-    const query = search ? `&search=${encodeURIComponent(search)}` : '';
-
-    const response = await axiosClient.apiClient("GET", `admin/routes?page=${page}${query}`);
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/routes?page=${page}${query}`
+    );
     if (response) {
       if (response?.data) {
         return response.data;
@@ -45,13 +47,30 @@ const useApi = () => {
     return null;
   };
 
+  const addRoute = async (route) => {
+    const response = await axiosClient.apiClient("POST", "admin/routes", route);
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
+    console.log(response.data);
+  };
 
+  const deleteRoute = async (id) => {
+    const response = await axiosClient.apiClient("DELETE", `admin/routes/${id}`);
+    if (response?.data.data === 1) {
+      return response.data.isExecute;
+    }
+    console.log(response.isExecute);
+  };
 
   /****************************************************Users Api ***********************************/
-  const fetchUsers = async (page,search) => {
-    const query = search ? `&search=${encodeURIComponent(search)}` : '';
+  const fetchUsers = async (page, search) => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
 
-    const response = await axiosClient.apiClient("GET", `admin/users?page=${page}${query}`);
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/users?page=${page}${query}`
+    );
     if (response) {
       if (response?.data) {
         return response.data;
@@ -61,13 +80,16 @@ const useApi = () => {
     }
     return null;
   };
+
   /****************************************************Users Api ***********************************/
 
   return {
     getLocalStorageValue,
     login,
     fetchRoutes,
-    fetchUsers
+    fetchUsers,
+    addRoute,
+    deleteRoute
   };
 };
 
