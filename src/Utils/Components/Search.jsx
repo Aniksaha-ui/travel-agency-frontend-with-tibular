@@ -20,7 +20,6 @@ const Search = ({ search, setSearch }) => {
           Search:
           <div className="ms-2 d-inline-block">
             <input
-            value={search}
               onChange={(e) => setDebounceSearch(e.target.value)}
               type="text"
               className="form-control form-control-sm"
