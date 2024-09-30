@@ -43,6 +43,8 @@ function RouteInformation() {
     if (response) {
       console.log(response,"response")
       toast("Route Delete Successfully")
+      setPage(1);
+      setSearch("")
       fetchRouteInformation(api.fetchRoutes, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading)
     }
   };
