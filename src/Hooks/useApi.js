@@ -134,6 +134,47 @@ const useApi = () => {
     console.log(response.isExecute);
   };
 
+  /***************************************vehicles api *********************************/
+
+
+  /***************************************Seats Api*********************************/
+  const fetchSeats = async (page, search) => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/seat?page=${page}${query}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const addSeat = async (seat) => {
+    const response = await axiosClient.apiClient("POST", "admin/seat", seat);
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
+    console.log(response.data);
+  };
+
+  const deleteSeat = async (id) => {
+    const response = await axiosClient.apiClient("DELETE", `admin/seat/${id}`);
+    if (response?.data.data === 1) {
+      return response.data.isExecute;
+    }
+    console.log(response.isExecute);
+  };
+
+
+  /***************************************Seats Api*********************************/
+
+
 
   return {
     getLocalStorageValue,
@@ -145,7 +186,10 @@ const useApi = () => {
     deleteRoute,
     fetchVehicle,
     addVehicle,
-    deleteVehicle
+    deleteVehicle,
+    fetchSeats,
+    addSeat,
+    deleteSeat
   };
 };
 
