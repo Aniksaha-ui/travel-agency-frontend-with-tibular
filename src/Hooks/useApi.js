@@ -47,6 +47,21 @@ const useApi = () => {
     return null;
   };
 
+  const fetchRouteDropDownList = async () => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/routes/dropdown`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
   const addRoute = async (route) => {
     const response = await axiosClient.apiClient("POST", "admin/routes", route);
     if (response?.data.data === true) {
@@ -83,13 +98,54 @@ const useApi = () => {
 
   /****************************************************Users Api ***********************************/
 
+
+  /***************************************vehicles api *********************************/
+
+  const fetchVehicle = async (page, search) => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/vehicles?page=${page}${query}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const addVehicle = async (route) => {
+    const response = await axiosClient.apiClient("POST", "admin/vehicles", route);
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
+    console.log(response.data);
+  };
+
+  const deleteVehicle = async (id) => {
+    const response = await axiosClient.apiClient("DELETE", `admin/vehicles/${id}`);
+    if (response?.data.data === 1) {
+      return response.data.isExecute;
+    }
+    console.log(response.isExecute);
+  };
+
+
   return {
     getLocalStorageValue,
     login,
     fetchRoutes,
+    fetchRouteDropDownList,
     fetchUsers,
     addRoute,
-    deleteRoute
+    deleteRoute,
+    fetchVehicle,
+    addVehicle,
+    deleteVehicle
   };
 };
 

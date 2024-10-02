@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import Loading from "../../Utils/Components/Loading";
 import useApi from "../../Hooks/useApi";
-import AdminLayout from "../../Layout/AdminLayout";
-import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
-import Search from "../../Utils/Components/Search";
-import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
+import fetchData from "../../Utils/Functions/fetchInformation";
+import Loading from "../../Utils/Components/Loading";
 import { toast } from "react-toastify";
+import AdminLayout from "../../Layout/AdminLayout";
+import Search from "../../Utils/Components/Search";
+import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
 
 
 
-function RouteInformation() {
+
+function VehicleInformation() {
   const [page, setPage] = useState(1);
   const [paginationInformation,setPaginationInformation] = useState({to:0,from:0,total: 0});
   const [lastPage, setLastPage] = useState([]);
@@ -20,7 +21,7 @@ function RouteInformation() {
   const api = useApi();
   const navigation = useNavigate();
   const fetchRouteInformation = async () => {
-    await fetchData( api.fetchRoutes, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading);
+    await fetchData( api.fetchVehicle, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading);
   };
 
   useEffect(() => {
@@ -34,16 +35,15 @@ function RouteInformation() {
     return <Loading />
   }
 
-  const handleAddNewRoute = () =>{
-    navigation("/admin/routes/add");
+  const handleAddNewVehicle = () =>{
+    navigation("/admin/vehicles/add");
   }
 
   const handleDelete = async (id) => {
-    const response = await api.deleteRoute(id);
-    console.log(response);
+    const response = await api.deleteVehicle(id);
     if (response) {
       console.log(response,"response")
-      toast("Route Delete Successfully")
+      toast("Vehicles Delete Successfully")
       fetchRouteInformation(api.fetchRoutes, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading)
     }
   };
@@ -64,8 +64,8 @@ function RouteInformation() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">Route List</h3>
-                    <div onClick={()=>handleAddNewRoute()} className="btn btn-primary">Add New</div>
+                    <h3 className="card-title">Vehicle List</h3>
+                    <div onClick={()=>handleAddNewVehicle()} className="btn btn-primary">Add New</div>
                   </div>                   
                   <Search search={search} setSearch={setSearch} />   {/* search */}
                   <div className="table-responsive mx-2 mt-1">
@@ -73,22 +73,24 @@ function RouteInformation() {
                       <thead>
                         <tr>
                           <th>SL</th>
-                          <th>Origin</th>
-                          <th>Destination</th>
-                          <th>Route Name</th>
+                          <th>Vehicle Name</th>
+                          <th>Vehicle Type</th>
+                          <th>Route</th>
+                          <th>Total Seat</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {routes.map((route, index) => (
                           <tr key={index}>
-                            <td>{route.id}</td>
-                            <td>{route.origin}</td>
+                            <td>{index +1 }</td>
+                            <td>{route.vehicle_name}</td>
                             <td>
                               <span className="badge bg-success me-1" />
-                              {route.destination}
+                              {route.vehicle_type}
                             </td>
                             <td>{route.route_name}</td>
+                            <td>{route.total_seats}</td>
                            <td>
                            <button data-bs-toggle="tooltip"
                                 data-bs-placement="top"
@@ -117,4 +119,4 @@ function RouteInformation() {
   );
 }
 
-export default RouteInformation;
+export default VehicleInformation;

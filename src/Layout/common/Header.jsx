@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -433,21 +434,16 @@ const Header = () => {
                   <div className="dropdown-menu">
                     <div className="dropdown-menu-columns">
                       <div className="dropdown-menu-column">
-                        <a className="dropdown-item" href="./accordion.html">
-                          Accordion
-                        </a>
-                        <a className="dropdown-item" href="./blank.html">
-                          Blank page
-                        </a>
-                        <a className="dropdown-item" href="./badges.html">
-                          Badges
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
-                        <a className="dropdown-item" href="./buttons.html">
-                          Buttons
-                        </a>
+                        <Link className="dropdown-item" to="/admin/users">
+                          User Management
+                        </Link>
+                        <Link className="dropdown-item" to="/admin/routes">
+                          Routes Management
+                        </Link>
+                    
+                        <Link className="dropdown-item" to="/admin/vehicles">
+                          Vehicle Management
+                        </Link>
                         <div className="dropend">
                           <a
                             className="dropdown-item dropdown-toggle"
