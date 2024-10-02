@@ -118,6 +118,22 @@ const useApi = () => {
     return null;
   };
 
+
+  const fetchVehicleDropDownList = async () => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/vehicles/dropdown`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
   const addVehicle = async (route) => {
     const response = await axiosClient.apiClient("POST", "admin/vehicles", route);
     if (response?.data.data === true) {
@@ -185,6 +201,7 @@ const useApi = () => {
     addRoute,
     deleteRoute,
     fetchVehicle,
+    fetchVehicleDropDownList,
     addVehicle,
     deleteVehicle,
     fetchSeats,

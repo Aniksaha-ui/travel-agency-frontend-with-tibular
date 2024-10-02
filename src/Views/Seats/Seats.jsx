@@ -34,7 +34,7 @@ function SeatsInformation() {
     return <Loading />
   }
 
-  const handleAddNewRoute = () =>{
+  const handleAddNewSeat = () =>{
     navigation("/admin/seat/add");
   }
 
@@ -64,7 +64,7 @@ function SeatsInformation() {
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
                     <h3 className="card-title">Route List</h3>
-                    <div onClick={()=>handleAddNewRoute()} className="btn btn-primary">Add New</div>
+                    <div onClick={()=>handleAddNewSeat()} className="btn btn-primary">Add New</div>
                   </div>                   
                   <Search search={search} setSearch={setSearch} />   {/* search */}
                   <div className="table-responsive mx-2 mt-1">
