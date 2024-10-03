@@ -1,26 +1,24 @@
 import { useEffect, useState } from "react";
-import Loading from "../../Utils/Components/Loading";
-import useApi from "../../Hooks/useApi";
-import AdminLayout from "../../Layout/AdminLayout";
-import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
-import Search from "../../Utils/Components/Search";
-import fetchData from "../../Utils/Functions/fetchInformation";
+import useApi from "../../../Hooks/useApi";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import fetchData from "../../../Utils/Functions/fetchInformation";
+import Loading from "../../../Utils/Components/Loading";
+import AdminLayout from "../../../Layout/AdminLayout";
+import Search from "../../../Utils/Components/Search";
+import { PaginationFooter } from "../../../Utils/Components/PaginationFooter";
 
 
 
-function SeatsInformation() {
+function VehicleWiseSeatReport() {
   const [page, setPage] = useState(1);
   const [paginationInformation,setPaginationInformation] = useState({to:0,from:0,total: 0});
   const [lastPage, setLastPage] = useState([]);
-  const [seats, setSeats] = useState([]);
+  const [routes, setRoutes] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState("");
   const api = useApi();
-  const navigation = useNavigate();
   const fetchRouteInformation = async () => {
-    await fetchData( api.fetchSeats, page,setLastPage,setSeats, search, setPaginationInformation,setLoading);
+    await fetchData( api.vehicleWiseSeatReport, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading);
   };
 
   useEffect(() => {
@@ -34,18 +32,7 @@ function SeatsInformation() {
     return <Loading />
   }
 
-  const handleAddNewSeat = () =>{
-    navigation("/admin/seat/add");
-  }
 
-  const handleDelete = async (id) => {
-    const response = await api.deleteSeat(id);
-    console.log(response);
-    if (response) {
-      toast("Route Delete Successfully")
-      fetchRouteInformation(api.fetchRoutes, page,setLastPage,setSeats, search, setPaginationInformation,setLoading)
-    }
-  };
 
   return (
     <AdminLayout>
@@ -62,10 +49,6 @@ function SeatsInformation() {
             <div className="row row-cards">
               <div className="col-12">
                 <div className="card">
-                  <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">Seats List</h3>
-                    <div onClick={()=>handleAddNewSeat()} className="btn btn-primary">Add New</div>
-                  </div>                   
                   <Search search={search} setSearch={setSearch} />   {/* search */}
                   <div className="table-responsive mx-2 mt-1">
                     <table className="table table-bordered">
@@ -73,33 +56,27 @@ function SeatsInformation() {
                         <tr>
                           <th>SL</th>
                           <th>Vehicle Name</th>
-                          <th>Seat Number</th>
-                          <th>Class</th>
-                          <th>Type</th>
+                          <th>Vehicle Type</th>
+                          <th>Available Seat</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {seats.map((seat, index) => (
+                        {routes.map((route, index) => (
                           <tr key={index}>
-                            <td>{index+1}</td>
-                            <td>{seat.vehicle_name}</td>
+                            <td>{index +1 }</td>
+                            <td>{route.vehicle_name}</td>
                             <td>
-                              {seat.seat_number}
+                              <span className="badge bg-success me-1" />
+                              {route.vehicle_type}
                             </td>
-                            <td>{seat.seat_class}</td>
-                            <td>{seat.seat_type}</td>
+                            <td>{route.available_seats}</td>
                            <td>
                            <button data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                title="Edit" className="btn btn-sm btn-success me-2">
-                                <i className="fas fa-edit"></i>
+                                title="Edit" className="p-2 btn btn-sm btn-success me-2">
+                                <i className="fas fa-info"></i>
                            </button>
-                            <button onClick={()=>handleDelete(seat.id)} data-bs-toggle="tooltip"
-                               data-bs-placement="top"
-                                title="Delete" className="btn btn-sm btn-danger">
-                                 <i className="fas fa-trash"></i>
-                            </button>
                            </td>
                           </tr>
                         ))}
@@ -117,4 +94,4 @@ function SeatsInformation() {
   );
 }
 
-export default SeatsInformation;
+export default VehicleWiseSeatReport;

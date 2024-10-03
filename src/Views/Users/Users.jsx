@@ -46,7 +46,7 @@ function Users() {
                 <div className="col-12">
                   <div className="card">
                     <div className="card-header d-flex align-items-center justify-content-between">
-                      <h3 className="card-title">Route List</h3>
+                      <h3 className="card-title">User List</h3>
                       <div className="btn btn-primary">Add New</div>
                     </div>                   
                     <Search search={search} setSearch={setSearch} />   {/* search */}

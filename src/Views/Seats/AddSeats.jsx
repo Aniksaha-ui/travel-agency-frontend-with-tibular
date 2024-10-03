@@ -34,10 +34,10 @@ const AddSeats = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let response = api.addRoute(formData);
+    let response = api.addSeat(formData);
     if (response) {
-      toast("Add New Route Successfully");
-      navigate("/admin/routes");
+      toast("Add Seat Successfully");
+      navigate("/admin/seat");
     }
   };
   return (
@@ -69,16 +69,23 @@ const AddSeats = () => {
                      Vehicle Name
                     </label>
                     <div className="col">
-                      <select onChange={handleChange} name="vehicle_id" className="form-select">
+                    <select 
+                      value={formData.vehicle_id} 
+                      onChange={(e) => setFormData({ ...formData, vehicle_id: e.target.value })} 
+                      name="vehicle_id" 
+                      className="form-select"
+                    >
+                      <option value="">Select a vehicle</option> {/* Default option */}
                       {vehicle.map((vehicleInfo, index) => (
-                              <option key={index} value={vehicleInfo.id}>
-                                  {vehicleInfo.vehicle_name}
-                              </option>
-                          ))}
-                      </select>
-                      <small className="form-hint">
-                      Enter Vehicle Type(Economic, Business...)
-                      </small>
+                        <option key={index} value={vehicleInfo.id}>
+                          {vehicleInfo.vehicle_name}
+                        </option>
+                      ))}
+                    </select>
+                    <small className="form-hint">
+                      Enter Vehicle Type (Economic, Business...)
+                    </small>   
+                   
                     </div>
                   </div>
 
@@ -88,6 +95,7 @@ const AddSeats = () => {
                     </label>
                     <div className="col">
                       <select onChange={handleChange} name="seat_class" className="form-select">
+                      <option value="">Select a Seat Class</option>
                       {seatClass.map((seat, index) => (
                               <option key={index} value={seat}>
                                   {seat}
@@ -106,6 +114,7 @@ const AddSeats = () => {
                     </label>
                     <div className="col">
                       <select onChange={handleChange} name="seat_type" className="form-select">
+                      <option value="">Select a Seat Type</option>
                       {seatType.map((seat, index) => (
                               <option key={index} value={seat}>
                                   {seat}
@@ -145,6 +154,7 @@ const AddSeats = () => {
                     </label>
                     <div className="col">
                       <select onChange={handleChange} name="is_available" className="form-select">
+                      <option value="">Availablelity</option> {/* Default option */}
                       {availableStatus.map((status, index) => (
                               <option key={index} value={index}>
                                   {status}

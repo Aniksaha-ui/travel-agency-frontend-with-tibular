@@ -1,9 +1,11 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import AdminLayout from "../../Layout/AdminLayout";
 import useApi from "../../Hooks/useApi";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { userInformationAtom } from "../../State/atoms";
+import { jwtDecode } from "jwt-decode";
+// import isTokenExpired from "../../Utils/Functions/tokenVerification";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,8 +13,27 @@ const Login = () => {
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
-
   const api = useApi();
+  const token = localStorage.getItem("token") ?? null;
+  useEffect(()=>{
+    if(token){
+      navigate("admin/routes");
+    }
+    
+  },[])
+
+  const isTokenExpired = (token) => {
+    if (!token) {
+      return true;  
+    }
+    const decodedToken = jwtDecode(token);
+    if (!decodedToken.exp) {
+      return true;  
+    }
+    const currentTime = Date.now() / 1000;
+    return decodedToken.exp < currentTime;
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
     const req = {
@@ -28,6 +49,7 @@ const Login = () => {
     }
     navigate("admin/routes");
   };
+  
 
   return (
     <div className="page page-center">

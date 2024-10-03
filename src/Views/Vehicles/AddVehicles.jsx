@@ -82,6 +82,7 @@ const AddVehicles = () => {
                       </label>
                       <div className="col">
                         <select onChange={handleChange} name="vehicle_type" className="form-select">
+                        <option value="">Select a type</option> {/* Default option */}
                         {vehicleTypeEnum.map((vehicle, index) => (
                                 <option key={index} value={vehicle}>
                                     {vehicle}
@@ -118,6 +119,7 @@ const AddVehicles = () => {
                       </label>
                       <div className="col">
                         <select onChange={handleChange} name="route_id" className="form-select">
+                        <option value="">Select a route</option>
                         {routes.map((route, index) => (
                                 <option key={index} value={route.id}>
                                     {route.route_name}

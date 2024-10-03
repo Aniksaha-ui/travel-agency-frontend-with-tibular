@@ -429,7 +429,7 @@ const Header = () => {
                         <path d="M16 5.25l-8 4.5" />
                       </svg>
                     </span>
-                    <span className="nav-link-title">Interface</span>
+                    <span className="nav-link-title">Management</span>
                   </a>
                   <div className="dropdown-menu">
                     <div className="dropdown-menu-columns">
@@ -444,87 +444,10 @@ const Header = () => {
                         <Link className="dropdown-item" to="/admin/vehicles">
                           Vehicle Management
                         </Link>
-                        <div className="dropend">
-                          <a
-                            className="dropdown-item dropdown-toggle"
-                            href="#sidebar-cards"
-                            data-bs-toggle="dropdown"
-                            data-bs-auto-close="outside"
-                            role="button"
-                            aria-expanded="false"
-                          >
-                            Cards
-                            <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                              New
-                            </span>
-                          </a>
-                          <div className="dropdown-menu">
-                            <a href="./cards.html" className="dropdown-item">
-                              Sample cards
-                            </a>
-                            <a
-                              href="./card-actions.html"
-                              className="dropdown-item"
-                            >
-                              Card actions
-                              <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                                New
-                              </span>
-                            </a>
-                            <a
-                              href="./cards-masonry.html"
-                              className="dropdown-item"
-                            >
-                              Cards Masonry
-                            </a>
-                          </div>
-                        </div>
-                        <a className="dropdown-item" href="./colors.html">
-                          Colors
-                        </a>
-                        <a className="dropdown-item" href="./datagrid.html">
-                          Data grid
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
-                        <a
-                          className="dropdown-item active"
-                          href="./datatables.html"
-                        >
-                          Datatables
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
-                        <a className="dropdown-item" href="./dropdowns.html">
-                          Dropdowns
-                        </a>
-                        <a className="dropdown-item" href="./modals.html">
-                          Modals
-                        </a>
-                        <a className="dropdown-item" href="./maps.html">
-                          Maps
-                        </a>
-                        <a className="dropdown-item" href="./map-fullsize.html">
-                          Map fullsize
-                        </a>
-                        <a className="dropdown-item" href="./maps-vector.html">
-                          Vector maps
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
-                        <a className="dropdown-item" href="./navigation.html">
-                          Navigation
-                        </a>
-                        <a className="dropdown-item" href="./charts.html">
-                          Charts
-                        </a>
-                        <a className="dropdown-item" href="./pagination.html">
-                          {/* Download SVG icon from http://tabler-icons.io/i/pie-chart */}
-                          Pagination
-                        </a>
+                        <Link className="dropdown-item" to="/admin/seat">
+                          Seat Management
+                        </Link>
+             
                       </div>
                       <div className="dropdown-menu-column">
                         <a className="dropdown-item" href="./placeholder.html">
@@ -545,164 +468,6 @@ const Header = () => {
                         <a className="dropdown-item" href="./tabs.html">
                           Tabs
                         </a>
-                        <a className="dropdown-item" href="./tables.html">
-                          Tables
-                        </a>
-                        <a className="dropdown-item" href="./carousel.html">
-                          Carousel
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
-                        <a className="dropdown-item" href="./lists.html">
-                          Lists
-                        </a>
-                        <a className="dropdown-item" href="./typography.html">
-                          Typography
-                        </a>
-                        <a className="dropdown-item" href="./offcanvas.html">
-                          Offcanvas
-                        </a>
-                        <a className="dropdown-item" href="./markdown.html">
-                          Markdown
-                        </a>
-                        <a className="dropdown-item" href="./dropzone.html">
-                          Dropzone
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
-                        <a className="dropdown-item" href="./lightbox.html">
-                          Lightbox
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
-                        <a className="dropdown-item" href="./tinymce.html">
-                          TinyMCE
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="./inline-player.html"
-                        >
-                          Inline player
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
-                        <div className="dropend">
-                          <a
-                            className="dropdown-item dropdown-toggle"
-                            href="#sidebar-authentication"
-                            data-bs-toggle="dropdown"
-                            data-bs-auto-close="outside"
-                            role="button"
-                            aria-expanded="false"
-                          >
-                            Authentication
-                          </a>
-                          <div className="dropdown-menu">
-                            <a href="./sign-in.html" className="dropdown-item">
-                              Sign in
-                            </a>
-                            <a
-                              href="./sign-in-link.html"
-                              className="dropdown-item"
-                            >
-                              Sign in link
-                            </a>
-                            <a
-                              href="./sign-in-illustration.html"
-                              className="dropdown-item"
-                            >
-                              Sign in with illustration
-                            </a>
-                            <a
-                              href="./sign-in-cover.html"
-                              className="dropdown-item"
-                            >
-                              Sign in with cover
-                            </a>
-                            <a href="./sign-up.html" className="dropdown-item">
-                              Sign up
-                            </a>
-                            <a
-                              href="./forgot-password.html"
-                              className="dropdown-item"
-                            >
-                              Forgot password
-                            </a>
-                            <a
-                              href="./terms-of-service.html"
-                              className="dropdown-item"
-                            >
-                              Terms of service
-                            </a>
-                            <a
-                              href="./auth-lock.html"
-                              className="dropdown-item"
-                            >
-                              Lock screen
-                            </a>
-                          </div>
-                        </div>
-                        <div className="dropend">
-                          <a
-                            className="dropdown-item dropdown-toggle"
-                            href="#sidebar-error"
-                            data-bs-toggle="dropdown"
-                            data-bs-auto-close="outside"
-                            role="button"
-                            aria-expanded="false"
-                          >
-                            {/* Download SVG icon from http://tabler-icons.io/i/file-minus */}
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="icon icon-inline me-1"
-                              width={24}
-                              height={24}
-                              viewBox="0 0 24 24"
-                              strokeWidth={2}
-                              stroke="currentColor"
-                              fill="none"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <path
-                                stroke="none"
-                                d="M0 0h24v24H0z"
-                                fill="none"
-                              />
-                              <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                              <path d="M9 14l6 0" />
-                            </svg>
-                            Error pages
-                          </a>
-                          <div className="dropdown-menu">
-                            <a
-                              href="./error-404.html"
-                              className="dropdown-item"
-                            >
-                              404 page
-                            </a>
-                            <a
-                              href="./error-500.html"
-                              className="dropdown-item"
-                            >
-                              500 page
-                            </a>
-                            <a
-                              href="./error-maintenance.html"
-                              className="dropdown-item"
-                            >
-                              Maintenance page
-                            </a>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -758,14 +523,14 @@ const Header = () => {
                         <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
                       </svg>
                     </span>
-                    <span className="nav-link-title">Extra</span>
+                    <span className="nav-link-title">Reports</span>
                   </a>
                   <div className="dropdown-menu">
                     <div className="dropdown-menu-columns">
                       <div className="dropdown-menu-column">
-                        <a className="dropdown-item" href="./empty.html">
-                          Empty page
-                        </a>
+                        <Link className="dropdown-item" to="/admin/vehiclewiseseatreport">
+                         Vehicle - Total Seat Report
+                        </Link>
                         <a
                           className="dropdown-item"
                           href="./cookie-banner.html"

@@ -191,6 +191,26 @@ const useApi = () => {
   /***************************************Seats Api*********************************/
 
 
+  /**************************************Report Api*********************************/
+  const vehicleWiseSeatReport = async (page, search) => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/vehiclewisetotalseat?page=${page}${query}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+  /**************************************Report Api*********************************/
+
+
 
   return {
     getLocalStorageValue,
@@ -206,7 +226,8 @@ const useApi = () => {
     deleteVehicle,
     fetchSeats,
     addSeat,
-    deleteSeat
+    deleteSeat,
+    vehicleWiseSeatReport
   };
 };
 
