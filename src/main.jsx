@@ -8,8 +8,8 @@ import { RecoilRoot } from "recoil";
 import Users from "./Views/Users/Users.jsx";
 import RouteInformation from "./Views/Routes/Routes.jsx";
 import AddRoutes from "./Views/Routes/AddRoutes.jsx";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import VehicleInformation from "./Views/Vehicles/Vehicles.jsx";
 import AddVehicles from "./Views/Vehicles/AddVehicles.jsx";
 import SeatsInformation from "./Views/Seats/Seats.jsx";
@@ -20,20 +20,26 @@ import VehicleSeatLayout from "./Views/Reports/VehicleReports/vehicleSeatLayout.
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-    <ToastContainer></ToastContainer>
-    <RecoilRoot>
+      <ToastContainer></ToastContainer>
+      <RecoilRoot>
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="admin/routes" element={ <RouteInformation />}></Route>
-          <Route path="admin/routes/add" element={ <AddRoutes />}></Route>
+          <Route path="admin/routes" element={<RouteInformation />}></Route>
+          <Route path="admin/routes/add" element={<AddRoutes />}></Route>
           <Route path="/admin/users" element={<Users />}></Route>
-          <Route path="admin/vehicles" element={ <VehicleInformation />}></Route>
-          <Route path="admin/vehicles/add" element={ <AddVehicles />}></Route>
-          <Route path="admin/seat" element={ <SeatsInformation />}></Route>
-          <Route path="admin/seat/add" element={ <AddSeats />}></Route>
-          <Route path="admin/vehiclewiseseatreport" element={ <VehicleWiseSeatReport />}></Route>
-          <Route path="admin/vehiclewiseseatreportseat/:id" element={ <VehicleSeatLayout />}></Route>
+          <Route path="admin/vehicles" element={<VehicleInformation />}></Route>
+          <Route path="admin/vehicles/add" element={<AddVehicles />}></Route>
+          <Route path="admin/seat" element={<SeatsInformation />}></Route>
+          <Route path="admin/seat/add" element={<AddSeats />}></Route>
+          <Route
+            path="admin/vehiclewiseseatreport"
+            element={<VehicleWiseSeatReport />}
+          ></Route>
+          <Route
+            path="admin/vehicleSeatLayout/:id"
+            element={<VehicleSeatLayout />}
+          ></Route>
         </Routes>
       </RecoilRoot>
     </BrowserRouter>
