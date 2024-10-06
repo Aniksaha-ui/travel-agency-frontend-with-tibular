@@ -208,6 +208,23 @@ const useApi = () => {
     }
     return null;
   };
+
+  const vehicleWiseAllSeat = async(id)=>{
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/vehiclewiseseat/${id}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  
+  }
+
   /**************************************Report Api*********************************/
 
 
@@ -227,7 +244,8 @@ const useApi = () => {
     fetchSeats,
     addSeat,
     deleteSeat,
-    vehicleWiseSeatReport
+    vehicleWiseSeatReport,
+    vehicleWiseAllSeat
   };
 };
 
