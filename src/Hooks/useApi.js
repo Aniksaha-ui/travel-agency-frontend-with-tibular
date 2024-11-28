@@ -71,7 +71,10 @@ const useApi = () => {
   };
 
   const deleteRoute = async (id) => {
-    const response = await axiosClient.apiClient("DELETE", `admin/routes/${id}`);
+    const response = await axiosClient.apiClient(
+      "DELETE",
+      `admin/routes/${id}`
+    );
     if (response?.data.data === 1) {
       return response.data.isExecute;
     }
@@ -98,7 +101,6 @@ const useApi = () => {
 
   /****************************************************Users Api ***********************************/
 
-
   /***************************************vehicles api *********************************/
 
   const fetchVehicle = async (page, search) => {
@@ -118,7 +120,6 @@ const useApi = () => {
     return null;
   };
 
-
   const fetchVehicleDropDownList = async () => {
     const response = await axiosClient.apiClient(
       "GET",
@@ -135,7 +136,11 @@ const useApi = () => {
   };
 
   const addVehicle = async (route) => {
-    const response = await axiosClient.apiClient("POST", "admin/vehicles", route);
+    const response = await axiosClient.apiClient(
+      "POST",
+      "admin/vehicles",
+      route
+    );
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
@@ -143,7 +148,10 @@ const useApi = () => {
   };
 
   const deleteVehicle = async (id) => {
-    const response = await axiosClient.apiClient("DELETE", `admin/vehicles/${id}`);
+    const response = await axiosClient.apiClient(
+      "DELETE",
+      `admin/vehicles/${id}`
+    );
     if (response?.data.data === 1) {
       return response.data.isExecute;
     }
@@ -151,7 +159,6 @@ const useApi = () => {
   };
 
   /***************************************vehicles api *********************************/
-
 
   /***************************************Seats Api*********************************/
   const fetchSeats = async (page, search) => {
@@ -187,9 +194,7 @@ const useApi = () => {
     console.log(response.isExecute);
   };
 
-
   /***************************************Seats Api*********************************/
-
 
   /**************************************Report Api*********************************/
   const vehicleWiseSeatReport = async (page, search) => {
@@ -209,7 +214,7 @@ const useApi = () => {
     return null;
   };
 
-  const vehicleWiseAllSeat = async(id)=>{
+  const vehicleWiseAllSeat = async (id) => {
     const response = await axiosClient.apiClient(
       "GET",
       `admin/vehiclewiseseat/${id}`
@@ -222,12 +227,36 @@ const useApi = () => {
       return { message: response.message, data: [] };
     }
     return null;
-  
-  }
+  };
 
   /**************************************Report Api*********************************/
 
+  /**************************************Trips Api *********************************/
 
+  const fetchTrips = async (page, search) => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/trip?page=${page}${query}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const addTrip = async (trip) => {
+    const response = await axiosClient.apiClient("POST", "admin/trip", trip);
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
+    console.log(response.data);
+  };
 
   return {
     getLocalStorageValue,
@@ -245,7 +274,9 @@ const useApi = () => {
     addSeat,
     deleteSeat,
     vehicleWiseSeatReport,
-    vehicleWiseAllSeat
+    vehicleWiseAllSeat,
+    fetchTrips,
+    addTrip,
   };
 };
 
