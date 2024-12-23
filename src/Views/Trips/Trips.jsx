@@ -8,11 +8,13 @@ import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
-
 function Trips() {
   const [page, setPage] = useState(1);
-  const [paginationInformation,setPaginationInformation] = useState({to:0,from:0,total: 0});
+  const [paginationInformation, setPaginationInformation] = useState({
+    to: 0,
+    from: 0,
+    total: 0,
+  });
   const [lastPage, setLastPage] = useState([]);
   const [trips, setTrips] = useState([]);
   const [search, setSearch] = useState("");
@@ -20,7 +22,15 @@ function Trips() {
   const api = useApi();
   const navigation = useNavigate();
   const fetchRouteInformation = async () => {
-    await fetchData( api.fetchTrips, page,setLastPage,setTrips, search, setPaginationInformation,setLoading);
+    await fetchData(
+      api.fetchTrips,
+      page,
+      setLastPage,
+      setTrips,
+      search,
+      setPaginationInformation,
+      setLoading
+    );
   };
 
   useEffect(() => {
@@ -30,21 +40,28 @@ function Trips() {
     fetchRouteInformation();
   }, [page, search]);
 
-  if(loading){
-    return <Loading />
+  if (loading) {
+    return <Loading />;
   }
 
-
-  const handleAddNewTour = () =>{
+  const handleAddNewTour = () => {
     navigation("/admin/trips/add");
-  }
+  };
 
   const handleDelete = async (id) => {
     const response = await api.deleteRoute(id);
     if (response) {
-      console.log(response,"response")
-      toast("Route Delete Successfully")
-      fetchRouteInformation(api.fetchRoutes, page,setLastPage,setTrips, search, setPaginationInformation,setLoading)
+      console.log(response, "response");
+      toast("Route Delete Successfully");
+      fetchRouteInformation(
+        api.fetchRoutes,
+        page,
+        setLastPage,
+        setTrips,
+        search,
+        setPaginationInformation,
+        setLoading
+      );
     }
   };
 
@@ -65,9 +82,15 @@ function Trips() {
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
                     <h3 className="card-title">Trip List</h3>
-                    <div onClick={()=>handleAddNewTour()} className="btn btn-primary">Add New</div>
-                  </div>                   
-                  <Search search={search} setSearch={setSearch} />   {/* search */}
+                    <div
+                      onClick={() => handleAddNewTour()}
+                      className="btn btn-primary"
+                    >
+                      Add New
+                    </div>
+                  </div>
+                  <Search search={search} setSearch={setSearch} />{" "}
+                  {/* search */}
                   <div className="table-responsive mx-2 mt-1">
                     <table className="table table-bordered">
                       <thead>
@@ -87,30 +110,44 @@ function Trips() {
                           <tr key={index}>
                             <td>{trip.id}</td>
                             <td>{trip.trip_name}</td>
+                            <td>{trip.route_name}</td>
+                            <td>{trip.vehicle_name}</td>
                             <td>
                               <span className="badge bg-success me-1" />
                               {trip.departure_time}
                             </td>
                             <td>{trip.arrival_time}</td>
                             <td>{trip.price}</td>
-                           <td>
-                           <button data-bs-toggle="tooltip"
+                            <td>
+                              <button
+                                data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                title="Edit" className="btn btn-sm btn-success me-2">
+                                title="Edit"
+                                className="btn btn-sm btn-success me-2"
+                              >
                                 <i className="fas fa-edit"></i>
-                           </button>
-                            <button onClick={()=>handleDelete(trip.id)} data-bs-toggle="tooltip"
-                               data-bs-placement="top"
-                                title="Delete" className="btn btn-sm btn-danger">
-                                 <i className="fas fa-trash"></i>
-                            </button>
-                           </td>
+                              </button>
+                              <button
+                                onClick={() => handleDelete(trip.id)}
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Delete"
+                                className="btn btn-sm btn-danger"
+                              >
+                                <i className="fas fa-trash"></i>
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
-                  <PaginationFooter paginationInformation={paginationInformation} lastPage={lastPage} page={page} setPage={setPage} />
+                  <PaginationFooter
+                    paginationInformation={paginationInformation}
+                    lastPage={lastPage}
+                    page={page}
+                    setPage={setPage}
+                  />
                 </div>
               </div>
             </div>

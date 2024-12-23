@@ -440,14 +440,16 @@ const Header = () => {
                         <Link className="dropdown-item" to="/admin/routes">
                           Routes Management
                         </Link>
-                    
+
                         <Link className="dropdown-item" to="/admin/vehicles">
                           Vehicle Management
                         </Link>
                         <Link className="dropdown-item" to="/admin/seat">
                           Seat Management
                         </Link>
-             
+                        <Link className="dropdown-item" to="/admin/trips">
+                          Trip Management
+                        </Link>
                       </div>
                       <div className="dropdown-menu-column">
                         <a className="dropdown-item" href="./placeholder.html">
@@ -528,8 +530,11 @@ const Header = () => {
                   <div className="dropdown-menu">
                     <div className="dropdown-menu-columns">
                       <div className="dropdown-menu-column">
-                        <Link className="dropdown-item" to="/admin/vehiclewiseseatreport">
-                         Vehicle - Total Seat Report
+                        <Link
+                          className="dropdown-item"
+                          to="/admin/vehiclewiseseatreport"
+                        >
+                          Vehicle - Total Seat Report
                         </Link>
                         <a
                           className="dropdown-item"
