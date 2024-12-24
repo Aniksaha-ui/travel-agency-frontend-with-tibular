@@ -18,6 +18,7 @@ import VehicleWiseSeatReport from "./Views/Reports/VehicleReports/VehicleWiseSea
 import VehicleSeatLayout from "./Views/Reports/VehicleReports/vehicleSeatLayout.jsx";
 import Trips from "./Views/Trips/Trips.jsx";
 import AddTrips from "./Views/Trips/AddTrips.jsx";
+import VehicleBookingForTrip from "./Views/Vehicles/VehicleBookingForTrip.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -32,6 +33,10 @@ createRoot(document.getElementById("root")).render(
           <Route path="/admin/users" element={<Users />}></Route>
           <Route path="admin/vehicles" element={<VehicleInformation />}></Route>
           <Route path="admin/vehicles/add" element={<AddVehicles />}></Route>
+          <Route
+            path="admin/vehicles/bookfortrip/:id"
+            element={<VehicleBookingForTrip />}
+          ></Route>
           <Route path="admin/seat" element={<SeatsInformation />}></Route>
           <Route path="admin/seat/add" element={<AddSeats />}></Route>
           <Route
