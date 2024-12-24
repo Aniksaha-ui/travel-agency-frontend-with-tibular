@@ -5,18 +5,14 @@ const useRoutesInformation = () => {
   const [routes, setRoutes] = useState([]);
   const api = useApi();
   useEffect(() => {
-   fetchrouteDropDownInformation();
+    fetchrouteDropDownInformation();
   }, []);
 
   const fetchrouteDropDownInformation = async () => {
     const response = await api.fetchRouteDropDownList();
-    console.log(response);
-   setRoutes(response.data)
+    setRoutes(response.data);
   };
-  return [routes,setRoutes]
+  return [routes, setRoutes];
 };
-
-
-
 
 export default useRoutesInformation;

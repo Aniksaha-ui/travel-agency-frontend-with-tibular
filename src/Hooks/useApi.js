@@ -233,7 +233,7 @@ const useApi = () => {
 
   /**************************************Trips Api *********************************/
 
-  const fetchTrips = async (page, search) => {
+  const fetchTrips = async (page = "", search = "") => {
     const query = search ? `&search=${encodeURIComponent(search)}` : "";
 
     const response = await axiosClient.apiClient(

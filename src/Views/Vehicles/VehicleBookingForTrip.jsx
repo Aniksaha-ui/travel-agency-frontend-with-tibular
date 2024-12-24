@@ -3,6 +3,7 @@ import AdminLayout from "../../Layout/AdminLayout";
 import { useEffect, useState } from "react";
 import fetchData from "../../Utils/Functions/fetchInformation";
 import useApi from "../../Hooks/useApi";
+import useTripsInformation from "../../Hooks/useTripInformation";
 
 const BusLayout = ({ data }) => {
   // Group seats by class for better organization
@@ -12,6 +13,72 @@ const BusLayout = ({ data }) => {
     groups[key].push(seat);
     return groups;
   }, {});
+
+  return (
+    <div className="card p-4 border-3 container my-4">
+      <h3 className="text-center mb-4">Bus Layout</h3>
+      {Object.entries(seatGroups).map(([seatClass, seats]) => (
+        <div key={seatClass} className="mb-4">
+          <h5 className="text-capitalize text-primary">{seatClass} Class</h5>
+          <div className="row g-3">
+            {seats.map((seat) => (
+              <div key={seat.id} className="col-3">
+                <div
+                  className={`card text-center ${
+                    seat.is_available ? "border-success" : "border-danger"
+                  }`}
+                  style={{
+                    backgroundColor: seat.is_available ? "#d4edda" : "#f8d7da",
+                  }}
+                >
+                  <div className="card-body p-2">
+                    <h6 className="card-title mb-1">{seat.seat_number}</h6>
+                    <p className="card-text text-muted mb-0">
+                      {seat.seat_type.charAt(0).toUpperCase() +
+                        seat.seat_type.slice(1)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const VehicleBookingForTrip = () => {
+  const [seatData, setSeatData] = useState([]);
+  const params = useParams();
+  const { id } = params;
+  const [trips, setTrips] = useTripsInformation();
+
+  const [formData, setFormData] = useState({
+    trip_id: "",
+    vehicle_id: id,
+  });
+  useEffect(() => {
+    fetchVehicleAllSeats(id);
+  }, []);
+  const api = useApi();
+  const fetchVehicleAllSeats = async (id) => {
+    const response = await api.vehicleWiseAllSeat(id);
+    setSeatData(response.data);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
 
   return (
     <AdminLayout>
@@ -27,44 +94,29 @@ const BusLayout = ({ data }) => {
           <div className="container-xl">
             <div className="row row-cards">
               <div className="col-12">
-                <div className="card p-4 border-3 container my-4">
-                  <h3 className="text-center mb-4">Bus Layout</h3>
-                  {Object.entries(seatGroups).map(([seatClass, seats]) => (
-                    <div key={seatClass} className="mb-4">
-                      <h5 className="text-capitalize text-primary">
-                        {seatClass} Class
-                      </h5>
-                      <div className="row g-3">
-                        {seats.map((seat) => (
-                          <div key={seat.id} className="col-3">
-                            <div
-                              className={`card text-center ${
-                                seat.is_available
-                                  ? "border-success"
-                                  : "border-danger"
-                              }`}
-                              style={{
-                                backgroundColor: seat.is_available
-                                  ? "#d4edda"
-                                  : "#f8d7da",
-                              }}
-                            >
-                              <div className="card-body p-2">
-                                <h6 className="card-title mb-1">
-                                  {seat.seat_number}
-                                </h6>
-                                <p className="card-text text-muted mb-0">
-                                  {seat.seat_type.charAt(0).toUpperCase() +
-                                    seat.seat_type.slice(1)}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <form className="card p-5" onSubmit={handleSubmit}>
+                  <h3 className="text-center">Booking Trip</h3>
+                  <div className="col">
+                    <select
+                      onChange={handleChange}
+                      name="trip_id"
+                      className="form-select"
+                    >
+                      <option value="">Select a route</option>
+                      {trips.map((trip, index) => (
+                        <option key={index} value={trip.id}>
+                          {trip.trip_name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="card-footer text-end">
+                    <button type="submit" className="btn btn-primary">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+                <BusLayout data={seatData} />
               </div>
             </div>
           </div>
@@ -72,24 +124,6 @@ const BusLayout = ({ data }) => {
       </div>
     </AdminLayout>
   );
-};
-
-const VehicleBookingForTrip = () => {
-  const [seatData, setSeatData] = useState([]);
-
-  const params = useParams();
-  const { id } = params;
-
-  useEffect(() => {
-    fetchVehicleAllSeats(id);
-  }, []);
-  const api = useApi();
-  const fetchVehicleAllSeats = async (id) => {
-    const response = await api.vehicleWiseAllSeat(id);
-    setSeatData(response.data);
-  };
-
-  return <BusLayout data={seatData} />;
 };
 
 export default VehicleBookingForTrip;
