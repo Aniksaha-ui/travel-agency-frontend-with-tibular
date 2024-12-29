@@ -229,6 +229,15 @@ const useApi = () => {
     return null;
   };
 
+
+  const addVehicleBookingForTrip = async (trip) => {
+    const response = await axiosClient.apiClient("POST", "admin/trip/vehicle/booking", trip);
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
+   
+  }
+
   /**************************************Report Api*********************************/
 
   /**************************************Trips Api *********************************/
@@ -277,6 +286,7 @@ const useApi = () => {
     vehicleWiseAllSeat,
     fetchTrips,
     addTrip,
+    addVehicleBookingForTrip
   };
 };
 

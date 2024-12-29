@@ -21,3 +21,14 @@ When customer want to book this trip they will find available_seat for the trip 
 
 
 -------------------------------------------------------
+
+
+
+----------------------------------------------------------
+Booking list 
+---------------------------------------------------------
+
+
+----------------------------------------------------------
+In trip there will be a summery, where admin can see the details of the trip and also the vehicle layout 
+---------------------------------------------------------

@@ -67,25 +67,25 @@ const AddTrips = () => {
                         Vehicle Name
                       </label>
                       <div className="col">
-                        <select
-                          value={formData.trip_name}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              vehicle_id: e.target.value,
-                            })
-                          }
-                          name="vehicle_id"
-                          className="form-select"
-                        >
-                          <option value="">Select a vehicle</option>{" "}
-                          {/* Default option */}
-                          {vehicle.map((vehicleInfo, index) => (
-                            <option key={index} value={vehicleInfo.id}>
-                              {vehicleInfo.vehicle_name}
-                            </option>
-                          ))}
-                        </select>
+                      <select
+                        value={formData.vehicle_id} // Bind to the correct property
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            vehicle_id: e.target.value, // Update vehicle_id
+                          })
+                        }
+                        name="vehicle_id"
+                        className="form-select"
+                      >
+                        <option value="">Select a vehicle</option> {/* Default option */}
+                        {vehicle.map((vehicleInfo, index) => (
+                          <option key={index} value={vehicleInfo.id}>
+                            {vehicleInfo.vehicle_name}
+                          </option>
+                        ))}
+                      </select>
+
                         <small className="form-hint">
                           Enter Vehicle Type (Economic, Business...)
                         </small>
@@ -94,12 +94,12 @@ const AddTrips = () => {
 
                     <div className="mb-3 row">
                       <label className="col-3 col-form-label required">
-                        Seat Type
+                        Route 
                       </label>
                       <div className="col">
                         <select
                           onChange={handleChange}
-                          name="seat_type"
+                          name="route_id"
                           className="form-select"
                         >
                           <option value="">Select Route</option>
@@ -127,7 +127,7 @@ const AddTrips = () => {
                           onChange={handleChange}
                           className="form-control"
                           aria-describedby="emailHelp"
-                          placeholder="Enter email"
+                          placeholder="Enter trip name"
                         />
                         <small className="form-hint">
                           Enter the trip_name(Ex - Dhaka Region)

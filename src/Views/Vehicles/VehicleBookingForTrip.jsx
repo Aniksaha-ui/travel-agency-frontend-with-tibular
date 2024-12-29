@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../../Layout/AdminLayout";
 import { useEffect, useState } from "react";
 import fetchData from "../../Utils/Functions/fetchInformation";
 import useApi from "../../Hooks/useApi";
 import useTripsInformation from "../../Hooks/useTripInformation";
+import { toast } from "react-toastify";
 
 const BusLayout = ({ data }) => {
   // Group seats by class for better organization
@@ -49,10 +50,14 @@ const BusLayout = ({ data }) => {
 };
 
 const VehicleBookingForTrip = () => {
+  const navigate = useNavigate();
   const [seatData, setSeatData] = useState([]);
   const params = useParams();
   const { id } = params;
+  const api = useApi();
+  /***States ****/
   const [trips, setTrips] = useTripsInformation();
+  /***States ****/
 
   const [formData, setFormData] = useState({
     trip_id: "",
@@ -61,7 +66,6 @@ const VehicleBookingForTrip = () => {
   useEffect(() => {
     fetchVehicleAllSeats(id);
   }, []);
-  const api = useApi();
   const fetchVehicleAllSeats = async (id) => {
     const response = await api.vehicleWiseAllSeat(id);
     setSeatData(response.data);
@@ -77,7 +81,11 @@ const VehicleBookingForTrip = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    let response = api.addVehicleBookingForTrip(formData);
+    if (response) {
+      toast("Vehicle Booked Successfully");
+      navigate("/admin/vehicles");
+    }
   };
 
   return (
