@@ -19,6 +19,7 @@ import VehicleSeatLayout from "./Views/Reports/VehicleReports/vehicleSeatLayout.
 import Trips from "./Views/Trips/Trips.jsx";
 import AddTrips from "./Views/Trips/AddTrips.jsx";
 import VehicleBookingForTrip from "./Views/Vehicles/VehicleBookingForTrip.jsx";
+import TripsDetails from "./Views/Trips/TripsDetails.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -50,6 +51,7 @@ createRoot(document.getElementById("root")).render(
 
           <Route path="admin/trips" element={<Trips />}></Route>
           <Route path="admin/trips/add" element={<AddTrips />}></Route>
+          <Route path="admin/trips/:tourId" element={<TripsDetails />}></Route>
         </Routes>
       </RecoilRoot>
     </BrowserRouter>

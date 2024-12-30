@@ -267,6 +267,15 @@ const useApi = () => {
     console.log(response.data);
   };
 
+
+  const fetchTourDetailsInformation = async (tourId) => {
+    const response = await axiosClient.apiClient("POST", "admin/tripsummery",{trip_id :tourId });
+    if (response?.data.data) {
+      return response.data.data;
+    }
+    return [];
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -286,7 +295,8 @@ const useApi = () => {
     vehicleWiseAllSeat,
     fetchTrips,
     addTrip,
-    addVehicleBookingForTrip
+    addVehicleBookingForTrip,
+    fetchTourDetailsInformation
   };
 };
 

@@ -65,6 +65,10 @@ function Trips() {
     }
   };
 
+  const handleDetails = (id) =>{
+    navigation(`/admin/trips/${id}`)
+  }
+
   return (
     <AdminLayout>
       <div className="page-wrapper">
@@ -135,6 +139,15 @@ function Trips() {
                                 className="btn btn-sm btn-danger"
                               >
                                 <i className="fas fa-trash"></i>
+                              </button>
+                              <button
+                                onClick={() => handleDetails(trip.id)}
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Delete"
+                                className="btn btn-sm btn-danger ms-2"
+                              >
+                                <i className="fas fa-info"></i>
                               </button>
                             </td>
                           </tr>
