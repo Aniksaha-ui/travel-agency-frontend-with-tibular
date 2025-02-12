@@ -60,8 +60,7 @@ const BusLayout = ({ data }) => {
                   <div className="card-body p-2">
                     <h6 className="card-title mb-1">{seat.seat_number}</h6>
                     <p className="card-text text-muted mb-0">
-                      {seat.seat_type.charAt(0).toUpperCase() +
-                        seat.seat_type.slice(1)}
+                      {seat.seat_type}
                     </p>
                   </div>
                 </div>

@@ -8,8 +8,8 @@ import {
 const useAxios = () => {
   const axiosConfig = {
     baseURL: "https://travelbooking.infinitycodehubltd.com/public/api/",
+    // baseURL: "http://127.0.0.1:8000/api/",
   };
-  // const axiosConfig = { baseURL: "http://127.0.0.1:8000/api/" };
   const api = axios.create(axiosConfig);
 
   api.interceptors.request.use((axiosConfig) => {
