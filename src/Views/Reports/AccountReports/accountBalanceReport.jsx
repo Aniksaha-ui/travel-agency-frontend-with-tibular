@@ -12,37 +12,44 @@ import {
   Legend as LineLegend,
   ResponsiveContainer,
 } from "recharts";
+import { Modal, Button } from "react-bootstrap"; // ✅ Import Modal from React Bootstrap
+
 const AccountBalanceReport = () => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
   const api = useApi();
   const [accountBalance, setAccountBalance] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [accountHistory, setAccountHistory] = useState([]);
+
   useEffect(() => {
     fetchAccountBalance();
   }, []);
 
   const fetchAccountBalance = async () => {
     const response = await api.fetchAccountBalanceReport();
-    console.log(response, "res");
     if (response && response.data) {
       setAccountBalance(response.data);
+    }
+  };
+
+  const handleDetails = async (type) => {
+    const response = await api.fetchAccountBalanceHistoryReport(type);
+    if (response && response.data) {
+      console.log(response, "res");
+
+      await setAccountHistory(response.data);
+      setIsModalOpen(true);
     }
   };
 
   return (
     <AdminLayout>
       <div className="page-wrapper">
-        <div className="page-header d-print-none">
-          <div className="container-xl">
-            <div className="row g-2 align-items-center">
-              <div className="col"></div>
-            </div>
-          </div>
-        </div>
         <div className="page-body">
           <div className="container-xl">
             <div className="row row-cards">
               <div className="col-6">
-                <div className="card  d-flex align-items-center justify-content-center">
+                <div className="card d-flex align-items-center justify-content-center">
                   <h1 className="text-center text-primary mt-3">
                     Account Balance Report
                   </h1>
@@ -69,14 +76,14 @@ const AccountBalanceReport = () => {
               </div>
 
               <div className="col-6">
-                <div className="card  d-flex align-items-center justify-content-center">
+                <div className="card d-flex align-items-center justify-content-center">
                   <h1 className="text-center text-primary mt-3">
                     Account Balance Report
                   </h1>
                   <ResponsiveContainer width="100%" height={400}>
                     <BarChart data={accountBalance}>
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="account_name" />
+                      <XAxis dataKey="type" />
                       <YAxis />
                       <Tooltip />
                       <Legend />
@@ -111,7 +118,14 @@ const AccountBalanceReport = () => {
                             <td>{account.account_number}</td>
                             <td>{account.amount}</td>
                             <td>{account.type}</td>
-                            <td>{account.type}</td>
+                            <td>
+                              <button
+                                onClick={() => handleDetails(account.type)}
+                                className="btn btn-sm btn-danger"
+                              >
+                                <i className="fas fa-book"></i> View History
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>

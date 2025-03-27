@@ -229,14 +229,16 @@ const useApi = () => {
     return null;
   };
 
-
   const addVehicleBookingForTrip = async (trip) => {
-    const response = await axiosClient.apiClient("POST", "admin/trip/vehicle/booking", trip);
+    const response = await axiosClient.apiClient(
+      "POST",
+      "admin/trip/vehicle/booking",
+      trip
+    );
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
-   
-  }
+  };
 
   /**************************************Report Api*********************************/
 
@@ -267,23 +269,32 @@ const useApi = () => {
     console.log(response.data);
   };
 
-
   const fetchTourDetailsInformation = async (tourId) => {
-    const response = await axiosClient.apiClient("POST", "admin/tripsummery",{trip_id :tourId });
+    const response = await axiosClient.apiClient("POST", "admin/tripsummery", {
+      trip_id: tourId,
+    });
     if (response?.data.data) {
       return response.data.data;
     }
     return [];
   };
 
-
-
-
   const fetchAccountBalanceReport = async () => {
+    const response = await axiosClient.apiClient("GET", `admin/accountBalance`);
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
 
+  const fetchAccountBalanceHistoryReport = async (type) => {
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/accountBalance`
+      `admin/accountHistory/${type}`
     );
     if (response) {
       if (response?.data) {
@@ -316,7 +327,8 @@ const useApi = () => {
     addTrip,
     addVehicleBookingForTrip,
     fetchTourDetailsInformation,
-    fetchAccountBalanceReport
+    fetchAccountBalanceReport,
+    fetchAccountBalanceHistoryReport,
   };
 };
 
