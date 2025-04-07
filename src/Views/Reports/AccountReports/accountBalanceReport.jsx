@@ -13,7 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Modal, Button } from "react-bootstrap"; // ✅ Import Modal from React Bootstrap
-
+import './style.css';
 const AccountBalanceReport = () => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
   const api = useApi();
@@ -137,6 +137,61 @@ const AccountBalanceReport = () => {
           </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <Modal
+          size="lg"
+          show={isModalOpen}
+          onHide={() => setIsModalOpen(false)}
+          style={{ width: "100vw", height: "100vh" }}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Account History</Modal.Title>
+          </Modal.Header>
+          <Modal.Body
+            style={{
+              overflowY: "scroll",
+              maxHeight: "calc(100vh - 200px)",
+            }}
+          >
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>SL</th>
+                  <th>user_account_no</th>
+                  <th>getaway</th>
+                  <th>Amount</th>
+                  <th>transaction_reference</th>
+                  <th>purpose</th>
+                  <th>Transaction Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {accountHistory.map((history, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{history.user_account_no}</td>
+                    <td>{history.getaway}</td>
+                    <td>{history.amount}</td>
+                    <td>{history.transaction_reference}</td>
+                    <td>{history.purpose}</td>
+                    <td>{history.tran_date}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => setIsModalOpen(false)}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
+
     </AdminLayout>
   );
 };
