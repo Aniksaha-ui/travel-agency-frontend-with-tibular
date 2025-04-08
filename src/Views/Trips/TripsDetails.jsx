@@ -33,6 +33,8 @@ const TripSummeryView = ({ tripSummery }) => {
 };
 
 const BusLayout = ({ data }) => {
+
+  
   const seatGroups = data.reduce((groups, seat) => {
     const key = seat.seat_class;
     if (!groups[key]) groups[key] = [];
@@ -40,10 +42,15 @@ const BusLayout = ({ data }) => {
     return groups;
   }, {});
 
+
+  console.log(seatGroups, "data");
+
+
   return (
     <div className="card p-4 border-3 container my-4">
       <h3 className="text-center mb-4">Bus Layout</h3>
       {Object.entries(seatGroups).map(([seatClass, seats]) => (
+          
         <div key={seatClass} className="mb-4">
           <h5 className="text-capitalize text-primary">{seatClass} Class</h5>
           <div className="row g-3">
@@ -54,7 +61,7 @@ const BusLayout = ({ data }) => {
                     seat.is_available ? "border-success" : "border-danger"
                   }`}
                   style={{
-                    backgroundColor: seat.is_available ? "#d4edda" : "red",
+                    backgroundColor: seat.is_available==="1" ? "#48ce4d" : "#f55a42",
                   }}
                 >
                   <div className="card-body p-2">

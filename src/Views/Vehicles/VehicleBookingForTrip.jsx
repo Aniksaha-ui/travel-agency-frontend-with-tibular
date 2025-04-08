@@ -7,7 +7,7 @@ import useTripsInformation from "../../Hooks/useTripInformation";
 import { toast } from "react-toastify";
 
 const BusLayout = ({ data }) => {
-  console.log(data);
+
   // Group seats by class for better organization
   const seatGroups = data.reduce((groups, seat) => {
     const key = seat.seat_class;
@@ -16,6 +16,7 @@ const BusLayout = ({ data }) => {
     return groups;
   }, {});
 
+  console.log(seatGroups, "seatGroups");
   return (
     <div className="card p-4 border-3 container my-4">
       <h3 className="text-center mb-4">Bus Layout</h3>
@@ -24,17 +25,23 @@ const BusLayout = ({ data }) => {
           <h5 className="text-capitalize text-primary">{seatClass} Class</h5>
           <div className="row g-3">
             {seats.map((seat) => (
-              <div key={seat.id} className="col-3">
+              <div
+                key={`${seatClass}-${seat.seat_number}-${seat.id}`}
+                className="col-3"
+              >
                 <div
                   className={`card text-center ${
-                    seat.is_available ? "border-success" : "border-danger"
+                    seat.is_available ? 'border-success' : 'border-danger'
                   }`}
                   style={{
-                    backgroundColor: seat.is_available ? "#d4edda" : "#f8d7da",
+                    backgroundColor: seat.is_available ? '#d4edda' : '#f8d7da',
                   }}
                 >
                   <div className="card-body p-2">
-                    <h6 className="card-title mb-1">{seat.seat_number}</h6>
+                    <h6 className="card-title mb-1">
+                      {seat.seat_number} -{' '}
+                      {seat.is_available ? 'Available' : 'Booked'}
+                    </h6>
                     <p className="card-text text-muted mb-0">
                       {seat.seat_type.charAt(0).toUpperCase() +
                         seat.seat_type.slice(1)}
@@ -49,7 +56,6 @@ const BusLayout = ({ data }) => {
     </div>
   );
 };
-
 const VehicleBookingForTrip = () => {
   const navigate = useNavigate();
   const [seatData, setSeatData] = useState([]);
@@ -71,6 +77,8 @@ const VehicleBookingForTrip = () => {
     const response = await api.vehicleWiseAllSeat(id);
     setSeatData(response.data);
   };
+
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -125,7 +133,10 @@ const VehicleBookingForTrip = () => {
                     </button>
                   </div>
                 </form>
+                {seatData && seatData.length > 0 && (
+
                 <BusLayout data={seatData} />
+                )}
               </div>
             </div>
           </div>

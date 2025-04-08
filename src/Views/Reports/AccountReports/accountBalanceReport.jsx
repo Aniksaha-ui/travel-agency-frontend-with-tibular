@@ -27,6 +27,8 @@ const AccountBalanceReport = () => {
 
   const fetchAccountBalance = async () => {
     const response = await api.fetchAccountBalanceReport();
+    console.log(response, "res");
+    
     if (response && response.data) {
       setAccountBalance(response.data);
     }
@@ -57,7 +59,7 @@ const AccountBalanceReport = () => {
                     <Pie
                       data={accountBalance}
                       dataKey="amount"
-                      nameKey="account_name"
+                      nameKey="account_number"
                       outerRadius={150}
                       fill="#8884d8"
                       label
