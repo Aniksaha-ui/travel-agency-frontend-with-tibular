@@ -7,6 +7,7 @@ import Search from "../../Utils/Components/Search";
 import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { status } from "../../Utils/Constants/common";
 
 function Trips() {
   const [page, setPage] = useState(1);
@@ -38,7 +39,7 @@ function Trips() {
       setPage(1);
     }
     fetchRouteInformation();
-  }, [page, search]);
+  }, [page, search, trips]);
 
   if (loading) {
     return <Loading />;
@@ -65,9 +66,21 @@ function Trips() {
     }
   };
 
-  const handleDetails = (id) =>{
-    navigation(`/admin/trips/${id}`)
-  }
+  const handleDetails = (id) => {
+    navigation(`/admin/trips/${id}`);
+  };
+
+  const handleCompleted = async (id) => {
+    const response = await api.markAsCompleted(id);
+    if (response) {
+      toast("Trip Marked as Completed Successfully");
+      setTrips((prevTrips) =>
+        prevTrips.map((trip) =>
+          trip.id === id ? { ...trip, is_active: "0" } : trip
+        )
+      );
+    }
+  };
 
   return (
     <AdminLayout>
@@ -106,6 +119,7 @@ function Trips() {
                           <th>Departure Date</th>
                           <th>Arrival Date</th>
                           <th>Price</th>
+                          <th>status</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -122,6 +136,7 @@ function Trips() {
                             </td>
                             <td>{trip.arrival_time}</td>
                             <td>{trip.price}</td>
+                            <td>{status[trip.is_active]}</td>
                             <td>
                               <button
                                 data-bs-toggle="tooltip"
@@ -148,6 +163,16 @@ function Trips() {
                                 className="btn btn-sm btn-danger ms-2"
                               >
                                 <i className="fas fa-info"></i>
+                              </button>
+
+                              <button
+                                onClick={() => handleCompleted(trip.id)}
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Mark as Completed"
+                                className="btn btn-sm btn-success ms-2"
+                              >
+                                <i className="fas fa-check"></i>
                               </button>
                             </td>
                           </tr>

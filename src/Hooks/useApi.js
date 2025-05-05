@@ -269,6 +269,14 @@ const useApi = () => {
     console.log(response.data);
   };
 
+  const markAsCompleted = async (id) => {
+    const response = await axiosClient.apiClient("GET", `admin/trip/${id}`);
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
+    console.log(response.data);
+  };
+
   const fetchTourDetailsInformation = async (tourId) => {
     const response = await axiosClient.apiClient("POST", "admin/tripsummery", {
       trip_id: tourId,
@@ -306,6 +314,23 @@ const useApi = () => {
     return null;
   };
 
+  const fetchBookings = async (page = "", search = "") => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/booking?page=${page}${query}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -329,6 +354,8 @@ const useApi = () => {
     fetchTourDetailsInformation,
     fetchAccountBalanceReport,
     fetchAccountBalanceHistoryReport,
+    fetchBookings,
+    markAsCompleted,
   };
 };
 

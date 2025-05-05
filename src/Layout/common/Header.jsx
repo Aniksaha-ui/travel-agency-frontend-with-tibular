@@ -452,6 +452,9 @@ const Header = () => {
                         </Link>
                       </div>
                       <div className="dropdown-menu-column">
+                        <Link className="dropdown-item" to="/admin/bookings">
+                          Bookings
+                        </Link>
                         <a className="dropdown-item" href="./placeholder.html">
                           Placeholder
                         </a>
@@ -536,15 +539,12 @@ const Header = () => {
                         >
                           Vehicle - Total Seat Report
                         </Link>
-                        <a
+                        <Link
                           className="dropdown-item"
-                          href="./cookie-banner.html"
+                          to="/admin/account/balance"
                         >
-                          Cookie banner
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
+                          Account - Balance Report
+                        </Link>
                         <a className="dropdown-item" href="./activity.html">
                           Activity
                         </a>
