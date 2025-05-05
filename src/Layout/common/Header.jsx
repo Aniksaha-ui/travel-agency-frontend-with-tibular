@@ -450,6 +450,9 @@ const Header = () => {
                         <Link className="dropdown-item" to="/admin/trips">
                           Trip Management
                         </Link>
+                        <Link className="dropdown-item" to="/admin/packages">
+                          Package Management
+                        </Link>
                       </div>
                       <div className="dropdown-menu-column">
                         <Link className="dropdown-item" to="/admin/bookings">

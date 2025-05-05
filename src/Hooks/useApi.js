@@ -331,6 +331,47 @@ const useApi = () => {
     return null;
   };
 
+  const fetchPackages = async (page = "", search = "") => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+    const response = await axiosClient.apiClient("POST", `admin/packages`, {
+      page: page,
+      search: search,
+    });
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const fetchPackageDetails = async (id) => {
+    const response = await axiosClient.apiClient("GET", `packages/${id}`);
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const addPackage = async (packageData) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      "admin/packages/create",
+      packageData
+    );
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
+    console.log(response.data);
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -356,6 +397,9 @@ const useApi = () => {
     fetchAccountBalanceHistoryReport,
     fetchBookings,
     markAsCompleted,
+    fetchPackages,
+    fetchPackageDetails,
+    addPackage,
   };
 };
 
