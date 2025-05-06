@@ -235,9 +235,7 @@ const useApi = () => {
       "admin/trip/vehicle/booking",
       trip
     );
-    if (response?.data.data === true) {
-      return response.data.isExecute;
-    }
+    return response;
   };
 
   /**************************************Report Api*********************************/

@@ -7,7 +7,6 @@ import useTripsInformation from "../../Hooks/useTripInformation";
 import { toast } from "react-toastify";
 
 const BusLayout = ({ data }) => {
-
   // Group seats by class for better organization
   const seatGroups = data.reduce((groups, seat) => {
     const key = seat.seat_class;
@@ -31,16 +30,16 @@ const BusLayout = ({ data }) => {
               >
                 <div
                   className={`card text-center ${
-                    seat.is_available ? 'border-success' : 'border-danger'
+                    seat.is_available ? "border-success" : "border-danger"
                   }`}
                   style={{
-                    backgroundColor: seat.is_available ? '#d4edda' : '#f8d7da',
+                    backgroundColor: seat.is_available ? "#d4edda" : "#f8d7da",
                   }}
                 >
                   <div className="card-body p-2">
                     <h6 className="card-title mb-1">
-                      {seat.seat_number} -{' '}
-                      {seat.is_available ? 'Available' : 'Booked'}
+                      {seat.seat_number} -{" "}
+                      {seat.is_available ? "Available" : "Booked"}
                     </h6>
                     <p className="card-text text-muted mb-0">
                       {seat.seat_type.charAt(0).toUpperCase() +
@@ -78,8 +77,6 @@ const VehicleBookingForTrip = () => {
     setSeatData(response.data);
   };
 
-  
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -88,12 +85,14 @@ const VehicleBookingForTrip = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = api.addVehicleBookingForTrip(formData);
-    if (response) {
-      toast("Vehicle Booked Successfully");
+    let response = await api.addVehicleBookingForTrip(formData);
+    if (response.data.data.status === true) {
+      toast(response.data.data.message);
       navigate("/admin/vehicles");
+    } else {
+      toast(response.data.data.message);
     }
   };
 
@@ -134,8 +133,7 @@ const VehicleBookingForTrip = () => {
                   </div>
                 </form>
                 {seatData && seatData.length > 0 && (
-
-                <BusLayout data={seatData} />
+                  <BusLayout data={seatData} />
                 )}
               </div>
             </div>
