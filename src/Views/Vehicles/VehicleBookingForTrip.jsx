@@ -62,7 +62,8 @@ const VehicleBookingForTrip = () => {
   const { id } = params;
   const api = useApi();
   /***States ****/
-  const [trips, setTrips] = useTripsInformation();
+  // const [trips, setTrips] = useTripsInformation();
+  const [trips, setTrips] = useState([]);
   /***States ****/
 
   const [formData, setFormData] = useState({
@@ -71,10 +72,16 @@ const VehicleBookingForTrip = () => {
   });
   useEffect(() => {
     fetchVehicleAllSeats(id);
+    fetchTripInformation();
   }, []);
   const fetchVehicleAllSeats = async (id) => {
     const response = await api.vehicleWiseAllSeat(id);
     setSeatData(response.data);
+  };
+
+  const fetchTripInformation = async () => {
+    const response = await api.fetchTripsDropDown();
+    setTrips(response.data);
   };
 
   const handleChange = (e) => {

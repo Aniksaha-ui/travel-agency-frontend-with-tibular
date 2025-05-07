@@ -259,6 +259,18 @@ const useApi = () => {
     return null;
   };
 
+  const fetchTripsDropDown = async () => {
+    const response = await axiosClient.apiClient("GET", `admin/trip/dropdown`);
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
   const addTrip = async (trip) => {
     const response = await axiosClient.apiClient("POST", "admin/trip", trip);
     if (response?.data.data === true) {
@@ -388,6 +400,7 @@ const useApi = () => {
     vehicleWiseSeatReport,
     vehicleWiseAllSeat,
     fetchTrips,
+    fetchTripsDropDown,
     addTrip,
     addVehicleBookingForTrip,
     fetchTourDetailsInformation,
