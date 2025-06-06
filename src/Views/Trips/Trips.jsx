@@ -39,7 +39,7 @@ function Trips() {
       setPage(1);
     }
     fetchRouteInformation();
-  }, [page, search, trips]);
+  }, [page, search]);
 
   if (loading) {
     return <Loading />;
@@ -47,6 +47,10 @@ function Trips() {
 
   const handleAddNewTour = () => {
     navigation("/admin/trips/add");
+  };
+
+  const handleEdit = (id) => {
+    navigation(`/admin/trips/update/${id}`);
   };
 
   const handleDelete = async (id) => {
@@ -73,12 +77,12 @@ function Trips() {
   const handleCompleted = async (id) => {
     const response = await api.markAsCompleted(id);
     if (response) {
-      toast("Trip Marked as Completed Successfully");
       setTrips((prevTrips) =>
         prevTrips.map((trip) =>
-          trip.id === id ? { ...trip, is_active: "0" } : trip
+          trip.id === id ? { ...trip, is_active: 0 } : trip
         )
       );
+      toast("Trip Marked as Completed Successfully");
     }
   };
 
@@ -141,8 +145,10 @@ function Trips() {
                               <button
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
+                                updateTrip
                                 title="Edit"
                                 className="btn btn-sm btn-success me-2"
+                                onClick={() => handleEdit(trip.id)}
                               >
                                 <i className="fas fa-edit"></i>
                               </button>
@@ -165,15 +171,17 @@ function Trips() {
                                 <i className="fas fa-info"></i>
                               </button>
 
-                              <button
-                                onClick={() => handleCompleted(trip.id)}
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Mark as Completed"
-                                className="btn btn-sm btn-success ms-2"
-                              >
-                                <i className="fas fa-check"></i>
-                              </button>
+                              {trip.is_active === 1 && (
+                                <button
+                                  onClick={() => handleCompleted(trip.id)}
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="top"
+                                  title="Mark as Completed"
+                                  className="btn btn-sm btn-success ms-2"
+                                >
+                                  <i className="fas fa-check"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         ))}

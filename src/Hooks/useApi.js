@@ -67,7 +67,6 @@ const useApi = () => {
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
-    console.log(response.data);
   };
 
   const deleteRoute = async (id) => {
@@ -78,7 +77,6 @@ const useApi = () => {
     if (response?.data.data === 1) {
       return response.data.isExecute;
     }
-    console.log(response.isExecute);
   };
 
   /****************************************************Users Api ***********************************/
@@ -144,7 +142,6 @@ const useApi = () => {
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
-    console.log(response.data);
   };
 
   const deleteVehicle = async (id) => {
@@ -155,7 +152,6 @@ const useApi = () => {
     if (response?.data.data === 1) {
       return response.data.isExecute;
     }
-    console.log(response.isExecute);
   };
 
   /***************************************vehicles api *********************************/
@@ -183,7 +179,6 @@ const useApi = () => {
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
-    console.log(response.data);
   };
 
   const deleteSeat = async (id) => {
@@ -191,7 +186,6 @@ const useApi = () => {
     if (response?.data.data === 1) {
       return response.data.isExecute;
     }
-    console.log(response.isExecute);
   };
 
   /***************************************Seats Api*********************************/
@@ -271,12 +265,37 @@ const useApi = () => {
     return null;
   };
 
+  const getTripById = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/single/trip/${id}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
   const addTrip = async (trip) => {
     const response = await axiosClient.apiClient("POST", "admin/trip", trip);
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
-    console.log(response.data);
+  };
+
+  const updateTrip = async (id, trip) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `/admin/trip/update/${id}`,
+      trip
+    );
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
   };
 
   const markAsCompleted = async (id) => {
@@ -284,7 +303,6 @@ const useApi = () => {
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
-    console.log(response.data);
   };
 
   const fetchTourDetailsInformation = async (tourId) => {
@@ -379,7 +397,6 @@ const useApi = () => {
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
-    console.log(response.data);
   };
 
   return {
@@ -401,7 +418,9 @@ const useApi = () => {
     vehicleWiseAllSeat,
     fetchTrips,
     fetchTripsDropDown,
+    getTripById,
     addTrip,
+    updateTrip,
     addVehicleBookingForTrip,
     fetchTourDetailsInformation,
     fetchAccountBalanceReport,

@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminLayout from "../../Layout/AdminLayout";
 import useApi from "../../Hooks/useApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import useRoutesInformation from "../../Hooks/useRouteInformation";
 import useVehicleInformation from "../../Hooks/useVehicleInformation";
 
-const AddTrips = () => {
+const FormTrips = ({ action }) => {
   const navigate = useNavigate();
   const [routes, setRoutes] = useRoutesInformation();
   const [vehicle, setVehicle] = useVehicleInformation();
-
+  const { id } = useParams();
   const api = useApi();
   const [formData, setFormData] = useState({
     vehicle_id: "",
@@ -23,6 +23,16 @@ const AddTrips = () => {
     image: "",
   });
 
+  useEffect(() => {
+    if (action === "update") {
+      const fetchTripData = async () => {
+        const tripData = await api.getTripById(id);
+        setFormData(tripData.data);
+      };
+      fetchTripData();
+    }
+  }, [(action = "update")]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -33,11 +43,23 @@ const AddTrips = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const form_data = new FormData();
+    Object.keys(formData).forEach((key) =>
+      form_data.append(key, formData[key])
+    );
 
-    let response = api.addTrip(formData);
-    if (response) {
-      toast("Add Trip Successfully");
-      navigate("/admin/trips");
+    if (action === "add") {
+      let response = api.addTrip(form_data);
+      if (response) {
+        toast("Add Trip Successfully");
+        navigate("/admin/trips");
+      }
+    } else {
+      let response = api.updateTrip(id, form_data);
+      if (response) {
+        toast("Update Trip Successfully");
+        navigate("/admin/trips");
+      }
     }
   };
   return (
@@ -100,6 +122,7 @@ const AddTrips = () => {
                       </label>
                       <div className="col">
                         <select
+                          value={formData.route_id}
                           onChange={handleChange}
                           name="route_id"
                           className="form-select"
@@ -137,17 +160,20 @@ const AddTrips = () => {
 
                     <div className="mb-3 row">
                       <label className="col-3 col-form-label required">
-                        Image URL
+                        Image
                       </label>
                       <div className="col">
                         <input
                           name="image"
-                          type="text"
-                          value={formData.image}
-                          onChange={handleChange}
+                          type="file"
+                          accept=".png, .jpg, .jpeg"
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              image: e.target.files[0],
+                            })
+                          }
                           className="form-control"
-                          aria-describedby="emailHelp"
-                          placeholder="Enter image URL"
                         />
                       </div>
                     </div>
@@ -160,7 +186,13 @@ const AddTrips = () => {
                         <input
                           name="departure_time"
                           type="date"
-                          value={formData.departure_time}
+                          value={
+                            formData.departure_time
+                              ? new Date(formData.departure_time)
+                                  .toISOString()
+                                  .split("T")[0]
+                              : ""
+                          }
                           onChange={handleChange}
                           className="form-control"
                           aria-describedby="emailHelp"
@@ -179,7 +211,13 @@ const AddTrips = () => {
                         <input
                           name="arrival_time"
                           type="date"
-                          value={formData.arrival_time}
+                          value={
+                            formData.arrival_time
+                              ? new Date(formData.arrival_time)
+                                  .toISOString()
+                                  .split("T")[0]
+                              : ""
+                          }
                           onChange={handleChange}
                           className="form-control"
                           aria-describedby="emailHelp"
@@ -226,4 +264,4 @@ const AddTrips = () => {
   );
 };
 
-export default AddTrips;
+export default FormTrips;

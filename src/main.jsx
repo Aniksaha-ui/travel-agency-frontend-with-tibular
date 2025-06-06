@@ -17,7 +17,7 @@ import AddSeats from "./Views/Seats/AddSeats.jsx";
 import VehicleWiseSeatReport from "./Views/Reports/VehicleReports/VehicleWiseSeatReport.jsx";
 import VehicleSeatLayout from "./Views/Reports/VehicleReports/vehicleSeatLayout.jsx";
 import Trips from "./Views/Trips/Trips.jsx";
-import AddTrips from "./Views/Trips/AddTrips.jsx";
+import FormTrips from "./Views/Trips/AddTrips.jsx";
 import VehicleBookingForTrip from "./Views/Vehicles/VehicleBookingForTrip.jsx";
 import TripsDetails from "./Views/Trips/TripsDetails.jsx";
 import AccountBalanceReport from "./Views/Reports/AccountReports/accountBalanceReport.jsx";
@@ -53,10 +53,16 @@ createRoot(document.getElementById("root")).render(
             path="admin/vehicleSeatLayout/:id"
             element={<VehicleSeatLayout />}
           ></Route>
-
           <Route path="admin/trips" element={<Trips />}></Route>
-          <Route path="admin/trips/add" element={<AddTrips />}></Route>
           <Route path="admin/trips/:tourId" element={<TripsDetails />}></Route>
+          <Route
+            path="admin/trips/add"
+            element={<FormTrips action="add" />}
+          ></Route>
+          <Route
+            path="/admin/trips/update/:id"
+            element={<FormTrips action="update" />}
+          ></Route>
           <Route
             path="admin/account/balance"
             element={<AccountBalanceReport />}
@@ -65,7 +71,11 @@ createRoot(document.getElementById("root")).render(
           <Route path="admin/bookings" element={<Bookings />}></Route>
           <Route path="admin/packages" element={<Packages />}></Route>
           <Route path="admin/packages/:id" element={<PackageDetails />}></Route>
-          <Route path="/admin/packages/add" element={<PackageAdd />}></Route>
+
+          <Route
+            path="/admin/packages/update/:id"
+            element={<PackageAdd action="update" />}
+          ></Route>
         </Routes>
       </RecoilRoot>
     </BrowserRouter>

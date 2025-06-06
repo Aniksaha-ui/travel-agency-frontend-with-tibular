@@ -39,7 +39,7 @@ function Packages() {
     }
     fetchPackageInformation();
   }, [page, search]);
-
+  
   if (loading) {
     return <Loading />;
   }
