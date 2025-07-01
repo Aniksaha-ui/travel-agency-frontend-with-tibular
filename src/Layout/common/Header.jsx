@@ -458,6 +458,9 @@ const Header = () => {
                         <Link className="dropdown-item" to="/admin/bookings">
                           Bookings
                         </Link>
+                        <Link className="dropdown-item" to="/admin/refunds">
+                          Refunds
+                        </Link>
                         <a className="dropdown-item" href="./placeholder.html">
                           Placeholder
                         </a>
@@ -548,6 +551,13 @@ const Header = () => {
                         >
                           Account - Balance Report
                         </Link>
+                        <Link
+                          className="dropdown-item"
+                          to="/admin/vehicletrackingreport"
+                        >
+                          Vehicle Tracking Report
+                        </Link>
+
                         <a className="dropdown-item" href="./activity.html">
                           Activity
                         </a>

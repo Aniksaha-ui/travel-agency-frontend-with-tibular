@@ -3,12 +3,12 @@ import Loading from "../../Utils/Components/Loading";
 import useApi from "../../Hooks/useApi";
 import AdminLayout from "../../Layout/AdminLayout";
 import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
-import Search from "../../Utils/Components/Search";
 import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Search from "../../Utils/Components/Search";
 
-function Bookings() {
+function Refunds() {
   const [page, setPage] = useState(1);
   const [paginationInformation, setPaginationInformation] = useState({
     to: 0,
@@ -16,17 +16,17 @@ function Bookings() {
     total: 0,
   });
   const [lastPage, setLastPage] = useState([]);
-  const [bookings, setBookings] = useState([]);
+  const [refunds, setRefunds] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState("");
   const api = useApi();
   const navigation = useNavigate();
-  const fetchBookingInformation = async () => {
+  const fetchRefundInformation = async () => {
     await fetchData(
-      api.fetchBookings,
+      api.fetchRefunds,
       page,
       setLastPage,
-      setBookings,
+      setRefunds,
       search,
       setPaginationInformation,
       setLoading
@@ -37,14 +37,12 @@ function Bookings() {
     if (search != "") {
       setPage(1);
     }
-    fetchBookingInformation();
+    fetchRefundInformation();
   }, [page, search]);
 
   if (loading) {
     return <Loading />;
   }
-
-  console.log(bookings, "bookings");
 
   return (
     <AdminLayout>
@@ -67,27 +65,23 @@ function Bookings() {
                     <table className="table table-bordered">
                       <thead>
                         <tr>
-                          <th>Booking Id</th>
+                          <th>SL</th>
                           <th>Trip Name</th>
-                          <th>Booking Type</th>
-                          <th>Package Name</th>
-                          <th>User Name</th>
-                          <th>Payment Status</th>
+                          <th>Reason For Refund</th>
+                          <th>Disbursement Status</th>
                           <th>Seats</th>
                           <th>Booking Date</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {bookings.map((bookings, index) => (
+                        {refunds.map((refund, index) => (
                           <tr key={index}>
-                            <td>{bookings.id}</td>
-                            <td>{bookings.trip_name}</td>
-                            <td>{bookings.booking_type}</td>
-                            <td>{bookings.package_name}</td>
-                            <td>{bookings.username}</td>
-                            <td>{bookings.status}</td>
-                            <td>{bookings.seat_ids}</td>
-                            <td>{bookings.created_at}</td>
+                            <td>{refund.id}</td>
+                            <td>{refund.trip_name}</td>
+                            <td>{refund.reason}</td>
+                            <td>{refund.status}</td>
+                            <td>{refund.seat_ids}</td>
+                            <td>{refund.booking_date}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -109,4 +103,4 @@ function Bookings() {
   );
 }
 
-export default Bookings;
+export default Refunds;

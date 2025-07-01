@@ -399,6 +399,52 @@ const useApi = () => {
     }
   };
 
+  const fetchRefunds = async (page, search) => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/refund?page=${page}${query}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const vehicleTrackingReport = async () => {
+    try {
+      const response = await axiosClient.apiClient(
+        "POST",
+        "admin/useageOfVehicle",
+        {}
+      );
+      console.log(response.data.data.data, "res");
+
+      if (response.data.data.data.length > 0) {
+        return response.data.data.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchGuideDropDown = async () => {
+    const response = await axiosClient.apiClient("GET", `admin/guide/dropdown`);
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -430,6 +476,9 @@ const useApi = () => {
     fetchPackages,
     fetchPackageDetails,
     addPackage,
+    vehicleTrackingReport,
+    fetchRefunds,
+    fetchGuideDropDown,
   };
 };
 

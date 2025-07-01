@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminLayout from "../../Layout/AdminLayout";
 import useTripsInformation from "../../Hooks/useTripInformation";
 import useApi from "../../Hooks/useApi";
@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const PackageAdd = () => {
+  const [guideInformation, setGuideInformation] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -17,10 +18,23 @@ const PackageAdd = () => {
     inclusions: [""],
     exclusions: [""],
     pricing: [{ adult_price: "", child_price: "" }],
+    guide_id: "",
   });
   const navigate = useNavigate();
   const [trips, setTrips] = useTripsInformation();
   const api = useApi();
+
+  useEffect(() => {
+    fetchGuideDropDown();
+  }, []);
+
+  const fetchGuideDropDown = async () => {
+    const response = await api.fetchGuideDropDown();
+    if (response.status === true) {
+      setGuideInformation(response.data);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -108,6 +122,22 @@ const PackageAdd = () => {
                           {trips.map((trip, index) => (
                             <option key={index} value={trip.id}>
                               {trip.trip_name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="mb-3">
+                        <label>Guide Name</label>
+                        <select
+                          onChange={handleChange}
+                          name="guide_id"
+                          className="form-select"
+                        >
+                          <option value="">Select a guide</option>
+                          {guideInformation.map((guide, index) => (
+                            <option key={index} value={guide.id}>
+                              {guide.name}
                             </option>
                           ))}
                         </select>
