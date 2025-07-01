@@ -5,7 +5,7 @@ import AdminLayout from "../../Layout/AdminLayout";
 import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
 import Search from "../../Utils/Components/Search";
 import fetchData from "../../Utils/Functions/fetchInformation";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Bookings() {
@@ -20,7 +20,7 @@ function Bookings() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState("");
   const api = useApi();
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const fetchBookingInformation = async () => {
     await fetchData(
       api.fetchBookings,
@@ -43,8 +43,6 @@ function Bookings() {
   if (loading) {
     return <Loading />;
   }
-
-  console.log(bookings, "bookings");
 
   return (
     <AdminLayout>
@@ -75,6 +73,7 @@ function Bookings() {
                           <th>Payment Status</th>
                           <th>Seats</th>
                           <th>Booking Date</th>
+                          <th>Invoice</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -88,6 +87,14 @@ function Bookings() {
                             <td>{bookings.status}</td>
                             <td>{bookings.seat_ids}</td>
                             <td>{bookings.created_at}</td>
+                            <td>
+                              <Link
+                                to={`/admin/bookinginvoice/${bookings.id}`}
+                                className="btn btn-sm btn-success me-2"
+                              >
+                                Invoice
+                              </Link>
+                            </td>
                           </tr>
                         ))}
                       </tbody>

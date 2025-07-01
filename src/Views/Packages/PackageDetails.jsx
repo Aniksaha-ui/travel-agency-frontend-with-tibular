@@ -72,16 +72,25 @@ const PackageDetails = () => {
                   <div className="card-body">
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
-                        Meal:{" "}
-                        {packageDetail.includes_meal === "1" ? "✅" : "❌"}
+                        Meal: {packageDetail.includes_meal == 1 ? "✅" : "❌"}
                       </li>
                       <li className="list-group-item">
                         Hotel:{" "}
-                        {packageDetail.includes_hotel === "1" ? "✅" : "❌"}
+                        {packageDetail.includes_hotel == "1" ? "✅" : "❌"}
                       </li>
                       <li className="list-group-item">
-                        Bus: {packageDetail.includes_bus === "1" ? "✅" : "❌"}
+                        Bus: {packageDetail.includes_bus == "1" ? "✅" : "❌"}
                       </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="card mt-4 shadow-sm">
+                  <div className="card-header bg-primary text-white">
+                    <h3 className="mb-0">✅ Inclusions</h3>
+                  </div>
+                  <div className="card-body">
+                    <ul className="list-group list-group-flush">
                       {packageDetail.inclusions?.map((item, index) => (
                         <li key={index} className="list-group-item">
                           {item} : ✅
@@ -90,7 +99,6 @@ const PackageDetails = () => {
                     </ul>
                   </div>
                 </div>
-
                 <div className="card mt-4 shadow-sm">
                   <div className="card-header bg-danger text-white">
                     <h3 className="mb-0">❌ Exclusions</h3>

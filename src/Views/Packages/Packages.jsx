@@ -39,7 +39,7 @@ function Packages() {
     }
     fetchPackageInformation();
   }, [page, search]);
-  
+
   if (loading) {
     return <Loading />;
   }
@@ -102,7 +102,7 @@ function Packages() {
                             <td>{Includestatus[pkg.includes_bus]}</td>
                             <td>
                               <button
-                                onClick={() => handleDetails(pkg.trip_id)}
+                                onClick={() => handleDetails(pkg.id)}
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
                                 title="Details"

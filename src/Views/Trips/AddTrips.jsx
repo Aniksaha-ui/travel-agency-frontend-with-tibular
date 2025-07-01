@@ -27,11 +27,12 @@ const FormTrips = ({ action }) => {
     if (action === "update") {
       const fetchTripData = async () => {
         const tripData = await api.getTripById(id);
+        console.log(tripData, "trip data");
         setFormData(tripData.data);
       };
       fetchTripData();
     }
-  }, [(action = "update")]);
+  }, [action === "update"]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,7 +92,7 @@ const FormTrips = ({ action }) => {
                       </label>
                       <div className="col">
                         <select
-                          value={formData.vehicle_id} // Bind to the correct property
+                          value={formData.vehicle_id || ""} // Bind to the correct property
                           onChange={(e) =>
                             setFormData({
                               ...formData,

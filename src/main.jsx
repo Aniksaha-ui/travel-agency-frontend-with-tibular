@@ -27,6 +27,7 @@ import PackageDetails from "./Views/Packages/PackageDetails.jsx";
 import PackageAdd from "./Views/Packages/PackageAdd.jsx";
 import VehicleTrackingReport from "./Views/Reports/VehicleTrackingReport/VehicleTrackingReport.jsx";
 import Refunds from "./Views/Refunds/Refunds.jsx";
+import BookingInvoice from "./Views/Bookings/BookingInvoice.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -64,6 +65,11 @@ createRoot(document.getElementById("root")).render(
           ></Route>
 
           <Route path="admin/bookings" element={<Bookings />}></Route>
+          <Route
+            path="admin/bookinginvoice/:id"
+            element={<BookingInvoice />}
+          ></Route>
+
           <Route path="admin/packages" element={<Packages />}></Route>
           <Route path="admin/packages/:id" element={<PackageDetails />}></Route>
 

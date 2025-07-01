@@ -445,6 +445,22 @@ const useApi = () => {
     return null;
   };
 
+  const fetchBookingInvoiceByBookingId = async (bookingId) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `admin/booking-invoice`,
+      {
+        bookingId,
+      }
+    );
+
+    if (response.data) {
+      return response.data;
+    } else {
+      return { message: response.message, data: [] };
+    }
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -479,6 +495,7 @@ const useApi = () => {
     vehicleTrackingReport,
     fetchRefunds,
     fetchGuideDropDown,
+    fetchBookingInvoiceByBookingId,
   };
 };
 

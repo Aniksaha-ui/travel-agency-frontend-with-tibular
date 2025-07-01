@@ -117,7 +117,7 @@ const PackageAdd = () => {
                           className="form-select"
                         >
                           <option value={formData.trip_id}>
-                            Select a route
+                            Select a Trip
                           </option>
                           {trips.map((trip, index) => (
                             <option key={index} value={trip.id}>
