@@ -293,9 +293,12 @@ const useApi = () => {
       `/admin/trip/update/${id}`,
       trip
     );
-    if (response?.data.data === true) {
-      return response.data.isExecute;
-    }
+
+    console.log(response, "response");
+
+    // if (response?.data.data === true) {
+    //   return response.data.isExecute;
+    // }
   };
 
   const markAsCompleted = async (id) => {
@@ -461,6 +464,58 @@ const useApi = () => {
     }
   };
 
+  const fetchGuideInformation = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `admin/guide?page=${page}${query}`
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addGuide = async (guide) => {
+    const response = await axiosClient.apiClient("POST", "admin/guide", guide);
+    console.log(response.data.status, "res");
+    if (response.data.status === true) {
+      return response.data.status;
+    }
+  };
+
+  const getGuideById = async (id) => {
+    const response = await axiosClient.apiClient("GET", `admin/guide/${id}`);
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const updateGuide = async (guide) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `/admin/guide/update`,
+      guide
+    );
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -482,7 +537,7 @@ const useApi = () => {
     fetchTripsDropDown,
     getTripById,
     addTrip,
-    updateTrip,
+    updateGuide: updateTrip,
     addVehicleBookingForTrip,
     fetchTourDetailsInformation,
     fetchAccountBalanceReport,
@@ -496,6 +551,10 @@ const useApi = () => {
     fetchRefunds,
     fetchGuideDropDown,
     fetchBookingInvoiceByBookingId,
+    fetchGuideInformation,
+    addGuide,
+    getGuideById,
+    updateGuide,
   };
 };
 

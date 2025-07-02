@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "./Layout/AdminLayout";
-import "./index.css";
-import useApi from "./Hooks/useApi";
-import fetchData from "./Utils/Functions/fetchInformation";
-import Search from "./Utils/Components/Search";
-import { PaginationFooter } from "./Utils/Components/PaginationFooter";
-import Loading from "./Utils/Components/Loading";
+import useApi from "../../Hooks/useApi";
+import AdminLayout from "../../Layout/AdminLayout";
+import { useNavigate } from "react-router-dom";
+import Search from "../../Utils/Components/Search";
+import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
+import fetchData from "../../Utils/Functions/fetchInformation";
 
-function App() {
+const GuideInformation = () => {
   const [page, setPage] = useState(1);
   const [paginationInformation, setPaginationInformation] = useState({
     to: 0,
@@ -15,16 +14,17 @@ function App() {
     total: 0,
   });
   const [lastPage, setLastPage] = useState([]);
-  const [routes, setRoutes] = useState([]);
+  const [guides, setGuides] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState("");
   const api = useApi();
+  const navigation = useNavigate();
   const fetchRouteInformation = async () => {
     await fetchData(
-      api.fetchGuide,
+      api.fetchGuideInformation,
       page,
       setLastPage,
-      setRoutes,
+      setGuides,
       search,
       setPaginationInformation,
       setLoading
@@ -42,6 +42,32 @@ function App() {
     return <Loading />;
   }
 
+  const handleAddNewRoute = () => {
+    navigation("/admin/guide/add");
+  };
+
+  const handleDelete = async (id) => {
+    const response = await api.deleteRoute(id);
+    console.log(response);
+    if (response) {
+      console.log(response, "response");
+      toast("Route Delete Successfully");
+      fetchRouteInformation(
+        api.fetchGuide,
+        page,
+        setLastPage,
+        setGuides,
+        search,
+        setPaginationInformation,
+        setLoading
+      );
+    }
+  };
+
+  const handleEdit = (id) => {
+    navigation(`/admin/guide/update/${id}`);
+  };
+
   return (
     <AdminLayout>
       <div className="page-wrapper">
@@ -58,8 +84,13 @@ function App() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">Route List</h3>
-                    <div className="btn btn-primary">Add New</div>
+                    <h3 className="card-title">Guide Information</h3>
+                    <div
+                      onClick={() => handleAddNewRoute()}
+                      className="btn btn-primary"
+                    >
+                      Add New
+                    </div>
                   </div>
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}
@@ -68,22 +99,33 @@ function App() {
                       <thead>
                         <tr>
                           <th>SL</th>
-                          <th>Origin</th>
-                          <th>Destination</th>
-                          <th>Route Name</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Phone </th>
+                          <th>bio </th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {routes.map((route, index) => (
+                        {guides.map((guide, index) => (
                           <tr key={index}>
-                            <td>{route.id}</td>
-                            <td>{route.origin}</td>
+                            <td>{guide.id}</td>
+                            <td>{guide.name}</td>
+                            <td>{guide.email}</td>
+                            <td>{guide.phone}</td>
+                            <td>{guide.bio}</td>
                             <td>
-                              <span className="badge bg-success me-1" />
-                              {route.destination}
+                              <button
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                updateTrip
+                                title="Edit"
+                                className="btn btn-sm btn-success me-2"
+                                onClick={() => handleEdit(guide.id)}
+                              >
+                                <i className="fas fa-edit"></i>
+                              </button>
                             </td>
-                            <td>{route.route_name}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -103,6 +145,6 @@ function App() {
       </div>
     </AdminLayout>
   );
-}
+};
 
-export default App;
+export default GuideInformation;

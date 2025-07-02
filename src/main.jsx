@@ -28,6 +28,8 @@ import PackageAdd from "./Views/Packages/PackageAdd.jsx";
 import VehicleTrackingReport from "./Views/Reports/VehicleTrackingReport/VehicleTrackingReport.jsx";
 import Refunds from "./Views/Refunds/Refunds.jsx";
 import BookingInvoice from "./Views/Bookings/BookingInvoice.jsx";
+import GuideInformation from "./Views/Guides/Guides.jsx";
+import GuideForm from "./Views/Guides/GuideForm.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -80,6 +82,17 @@ createRoot(document.getElementById("root")).render(
           ></Route>
 
           <Route path="/admin/refunds" element={<Refunds />}></Route>
+
+          <Route path="admin/guide" element={<GuideInformation />}></Route>
+          <Route
+            path="admin/guide/add"
+            element={<GuideForm action="add" />}
+          ></Route>
+
+          <Route
+            path="admin/guide/update/:id"
+            element={<GuideForm action="update" />}
+          ></Route>
 
           {/* reports */}
           <Route

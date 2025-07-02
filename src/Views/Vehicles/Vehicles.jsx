@@ -58,7 +58,7 @@ function VehicleInformation() {
       console.log(response, "response");
       toast("Vehicles Delete Successfully");
       fetchRouteInformation(
-        api.fetchRoutes,
+        api.fetchGuide,
         page,
         setLastPage,
         setVehicles,

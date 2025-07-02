@@ -8,11 +8,13 @@ import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
-
 function SeatsInformation() {
   const [page, setPage] = useState(1);
-  const [paginationInformation,setPaginationInformation] = useState({to:0,from:0,total: 0});
+  const [paginationInformation, setPaginationInformation] = useState({
+    to: 0,
+    from: 0,
+    total: 0,
+  });
   const [lastPage, setLastPage] = useState([]);
   const [seats, setSeats] = useState([]);
   const [search, setSearch] = useState("");
@@ -20,7 +22,15 @@ function SeatsInformation() {
   const api = useApi();
   const navigation = useNavigate();
   const fetchRouteInformation = async () => {
-    await fetchData( api.fetchSeats, page,setLastPage,setSeats, search, setPaginationInformation,setLoading);
+    await fetchData(
+      api.fetchSeats,
+      page,
+      setLastPage,
+      setSeats,
+      search,
+      setPaginationInformation,
+      setLoading
+    );
   };
 
   useEffect(() => {
@@ -30,20 +40,28 @@ function SeatsInformation() {
     fetchRouteInformation();
   }, [page, search]);
 
-  if(loading){
-    return <Loading />
+  if (loading) {
+    return <Loading />;
   }
 
-  const handleAddNewSeat = () =>{
+  const handleAddNewSeat = () => {
     navigation("/admin/seat/add");
-  }
+  };
 
   const handleDelete = async (id) => {
     const response = await api.deleteSeat(id);
     console.log(response);
     if (response) {
-      toast("Route Delete Successfully")
-      fetchRouteInformation(api.fetchRoutes, page,setLastPage,setSeats, search, setPaginationInformation,setLoading)
+      toast("Route Delete Successfully");
+      fetchRouteInformation(
+        api.fetchGuide,
+        page,
+        setLastPage,
+        setSeats,
+        search,
+        setPaginationInformation,
+        setLoading
+      );
     }
   };
 
@@ -64,9 +82,15 @@ function SeatsInformation() {
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
                     <h3 className="card-title">Seats List</h3>
-                    <div onClick={()=>handleAddNewSeat()} className="btn btn-primary">Add New</div>
-                  </div>                   
-                  <Search search={search} setSearch={setSearch} />   {/* search */}
+                    <div
+                      onClick={() => handleAddNewSeat()}
+                      className="btn btn-primary"
+                    >
+                      Add New
+                    </div>
+                  </div>
+                  <Search search={search} setSearch={setSearch} />{" "}
+                  {/* search */}
                   <div className="table-responsive mx-2 mt-1">
                     <table className="table table-bordered">
                       <thead>
@@ -82,31 +106,41 @@ function SeatsInformation() {
                       <tbody>
                         {seats.map((seat, index) => (
                           <tr key={index}>
-                            <td>{index+1}</td>
+                            <td>{index + 1}</td>
                             <td>{seat.vehicle_name}</td>
-                            <td>
-                              {seat.seat_number}
-                            </td>
+                            <td>{seat.seat_number}</td>
                             <td>{seat.seat_class}</td>
                             <td>{seat.seat_type}</td>
-                           <td>
-                           <button data-bs-toggle="tooltip"
+                            <td>
+                              <button
+                                data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                title="Edit" className="btn btn-sm btn-success me-2">
+                                title="Edit"
+                                className="btn btn-sm btn-success me-2"
+                              >
                                 <i className="fas fa-edit"></i>
-                           </button>
-                            <button onClick={()=>handleDelete(seat.id)} data-bs-toggle="tooltip"
-                               data-bs-placement="top"
-                                title="Delete" className="btn btn-sm btn-danger">
-                                 <i className="fas fa-trash"></i>
-                            </button>
-                           </td>
+                              </button>
+                              <button
+                                onClick={() => handleDelete(seat.id)}
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Delete"
+                                className="btn btn-sm btn-danger"
+                              >
+                                <i className="fas fa-trash"></i>
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
-                  <PaginationFooter paginationInformation={paginationInformation} lastPage={lastPage} page={page} setPage={setPage} />
+                  <PaginationFooter
+                    paginationInformation={paginationInformation}
+                    lastPage={lastPage}
+                    page={page}
+                    setPage={setPage}
+                  />
                 </div>
               </div>
             </div>

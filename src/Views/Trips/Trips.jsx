@@ -59,7 +59,7 @@ function Trips() {
       console.log(response, "response");
       toast("Route Delete Successfully");
       fetchRouteInformation(
-        api.fetchRoutes,
+        api.fetchGuide,
         page,
         setLastPage,
         setTrips,
