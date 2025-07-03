@@ -7,8 +7,7 @@ import {
 
 const useAxios = () => {
   const axiosConfig = {
-    // baseURL: "https://travelbooking.infinitycodehubltd.com/public/api/",
-    baseURL: "http://127.0.0.1:8000/api/",
+    baseURL: import.meta.env.VITE_BASE_URL,
   };
   const api = axios.create(axiosConfig);
 

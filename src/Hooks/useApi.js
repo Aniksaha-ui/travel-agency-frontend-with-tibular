@@ -1,3 +1,13 @@
+import {
+  LOGIN_API_ENDPOINT,
+  ROUTES_API_ENDPOINT,
+  ROUTES_DROPDOWN_API_ENDPOINT,
+  SEATS_API_ENDPOINT,
+  USER_API_ENDPOINT,
+  VEHICLE_WISE_TOTAL_SEAT_REPORT_API_ENDPOINT,
+  VEHICLES_API_ENDPOINT,
+  VEHICLES_DROPDOWN_API_ENDPOINT,
+} from "../Utils/Constants/api";
 import useAxios from "./useAxios";
 
 const useApi = () => {
@@ -19,7 +29,11 @@ const useApi = () => {
   /** calling login api */
 
   const login = async (data) => {
-    const response = await axiosClient.apiClient("POST", "login", data);
+    const response = await axiosClient.apiClient(
+      "POST",
+      LOGIN_API_ENDPOINT,
+      data
+    );
     if (response) {
       if (response?.data) {
         return response.data;
@@ -35,7 +49,7 @@ const useApi = () => {
 
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/routes?page=${page}${query}`
+      `${ROUTES_API_ENDPOINT}?page=${page}${query}`
     );
     if (response) {
       if (response?.data) {
@@ -50,7 +64,7 @@ const useApi = () => {
   const fetchRouteDropDownList = async () => {
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/routes/dropdown`
+      ROUTES_DROPDOWN_API_ENDPOINT
     );
     if (response) {
       if (response?.data) {
@@ -63,7 +77,11 @@ const useApi = () => {
   };
 
   const addRoute = async (route) => {
-    const response = await axiosClient.apiClient("POST", "admin/routes", route);
+    const response = await axiosClient.apiClient(
+      "POST",
+      ROUTES_API_ENDPOINT,
+      route
+    );
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
@@ -72,7 +90,7 @@ const useApi = () => {
   const deleteRoute = async (id) => {
     const response = await axiosClient.apiClient(
       "DELETE",
-      `admin/routes/${id}`
+      `${ROUTES_API_ENDPOINT}/${id}`
     );
     if (response?.data.data === 1) {
       return response.data.isExecute;
@@ -85,7 +103,7 @@ const useApi = () => {
 
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/users?page=${page}${query}`
+      `${USER_API_ENDPOINT}?page=${page}${query}`
     );
     if (response) {
       if (response?.data) {
@@ -106,7 +124,7 @@ const useApi = () => {
 
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/vehicles?page=${page}${query}`
+      `${VEHICLES_API_ENDPOINT}?page=${page}${query}`
     );
     if (response) {
       if (response?.data) {
@@ -121,7 +139,7 @@ const useApi = () => {
   const fetchVehicleDropDownList = async () => {
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/vehicles/dropdown`
+      VEHICLES_DROPDOWN_API_ENDPOINT
     );
     if (response) {
       if (response?.data) {
@@ -136,7 +154,7 @@ const useApi = () => {
   const addVehicle = async (route) => {
     const response = await axiosClient.apiClient(
       "POST",
-      "admin/vehicles",
+      VEHICLES_API_ENDPOINT,
       route
     );
     if (response?.data.data === true) {
@@ -147,7 +165,7 @@ const useApi = () => {
   const deleteVehicle = async (id) => {
     const response = await axiosClient.apiClient(
       "DELETE",
-      `admin/vehicles/${id}`
+      `${VEHICLES_API_ENDPOINT}/${id}`
     );
     if (response?.data.data === 1) {
       return response.data.isExecute;
@@ -162,7 +180,7 @@ const useApi = () => {
 
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/seat?page=${page}${query}`
+      `${SEATS_API_ENDPOINT}?page=${page}${query}`
     );
     if (response) {
       if (response?.data) {
@@ -175,14 +193,21 @@ const useApi = () => {
   };
 
   const addSeat = async (seat) => {
-    const response = await axiosClient.apiClient("POST", "admin/seat", seat);
+    const response = await axiosClient.apiClient(
+      "POST",
+      SEATS_API_ENDPOINT,
+      seat
+    );
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
   };
 
   const deleteSeat = async (id) => {
-    const response = await axiosClient.apiClient("DELETE", `admin/seat/${id}`);
+    const response = await axiosClient.apiClient(
+      "DELETE",
+      `${SEATS_API_ENDPOINT}/${id}`
+    );
     if (response?.data.data === 1) {
       return response.data.isExecute;
     }
@@ -196,7 +221,7 @@ const useApi = () => {
 
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/vehiclewisetotalseat?page=${page}${query}`
+      `${VEHICLE_WISE_TOTAL_SEAT_REPORT_API_ENDPOINT}?page=${page}${query}`
     );
     if (response) {
       if (response?.data) {

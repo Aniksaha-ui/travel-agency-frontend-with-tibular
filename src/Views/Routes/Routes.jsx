@@ -7,12 +7,15 @@ import Search from "../../Utils/Components/Search";
 import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
-
+import { ROUTE_TITLE } from "../../Utils/Constants/text";
 
 function RouteInformation() {
   const [page, setPage] = useState(1);
-  const [paginationInformation,setPaginationInformation] = useState({to:0,from:0,total: 0});
+  const [paginationInformation, setPaginationInformation] = useState({
+    to: 0,
+    from: 0,
+    total: 0,
+  });
   const [lastPage, setLastPage] = useState([]);
   const [routes, setRoutes] = useState([]);
   const [search, setSearch] = useState("");
@@ -20,7 +23,15 @@ function RouteInformation() {
   const api = useApi();
   const navigation = useNavigate();
   const fetchRouteInformation = async () => {
-    await fetchData( api.fetchRoutes, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading);
+    await fetchData(
+      api.fetchRoutes,
+      page,
+      setLastPage,
+      setRoutes,
+      search,
+      setPaginationInformation,
+      setLoading
+    );
   };
 
   useEffect(() => {
@@ -30,21 +41,29 @@ function RouteInformation() {
     fetchRouteInformation();
   }, [page, search]);
 
-  if(loading){
-    return <Loading />
+  if (loading) {
+    return <Loading />;
   }
 
-  const handleAddNewRoute = () =>{
+  const handleAddNewRoute = () => {
     navigation("/admin/routes/add");
-  }
+  };
 
   const handleDelete = async (id) => {
     const response = await api.deleteRoute(id);
     console.log(response);
     if (response) {
-      console.log(response,"response")
-      toast("Route Delete Successfully")
-      fetchRouteInformation(api.fetchRoutes, page,setLastPage,setRoutes, search, setPaginationInformation,setLoading)
+      console.log(response, "response");
+      toast("Route Delete Successfully");
+      fetchRouteInformation(
+        api.fetchRoutes,
+        page,
+        setLastPage,
+        setRoutes,
+        search,
+        setPaginationInformation,
+        setLoading
+      );
     }
   };
 
@@ -64,10 +83,16 @@ function RouteInformation() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">Route List</h3>
-                    <div onClick={()=>handleAddNewRoute()} className="btn btn-primary">Add New</div>
-                  </div>                   
-                  <Search search={search} setSearch={setSearch} />   {/* search */}
+                    <h3 className="card-title">{ROUTE_TITLE}</h3>
+                    <div
+                      onClick={() => handleAddNewRoute()}
+                      className="btn btn-primary"
+                    >
+                      Add New
+                    </div>
+                  </div>
+                  <Search search={search} setSearch={setSearch} />{" "}
+                  {/* search */}
                   <div className="table-responsive mx-2 mt-1">
                     <table className="table table-bordered">
                       <thead>
@@ -89,24 +114,36 @@ function RouteInformation() {
                               {route.destination}
                             </td>
                             <td>{route.route_name}</td>
-                           <td>
-                           <button data-bs-toggle="tooltip"
+                            <td>
+                              <button
+                                data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                title="Edit" className="btn btn-sm btn-success me-2">
+                                title="Edit"
+                                className="btn btn-sm btn-success me-2"
+                              >
                                 <i className="fas fa-edit"></i>
-                           </button>
-                            <button onClick={()=>handleDelete(route.id)} data-bs-toggle="tooltip"
-                               data-bs-placement="top"
-                                title="Delete" className="btn btn-sm btn-danger">
-                                 <i className="fas fa-trash"></i>
-                            </button>
-                           </td>
+                              </button>
+                              <button
+                                onClick={() => handleDelete(route.id)}
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Delete"
+                                className="btn btn-sm btn-danger"
+                              >
+                                <i className="fas fa-trash"></i>
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
-                  <PaginationFooter paginationInformation={paginationInformation} lastPage={lastPage} page={page} setPage={setPage} />
+                  <PaginationFooter
+                    paginationInformation={paginationInformation}
+                    lastPage={lastPage}
+                    page={page}
+                    setPage={setPage}
+                  />
                 </div>
               </div>
             </div>

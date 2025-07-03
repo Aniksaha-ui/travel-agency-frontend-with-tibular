@@ -5,6 +5,8 @@ import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { userInformationAtom } from "../../State/atoms";
 import { jwtDecode } from "jwt-decode";
+import { LOGIN_PAGE_LOGO } from "../../Utils/Constants/images";
+import { LOGIN_TITLE, SIGN_IN_BUTTON_TEXT } from "../../Utils/Constants/text";
 // import isTokenExpired from "../../Utils/Functions/tokenVerification";
 
 const Login = () => {
@@ -15,20 +17,19 @@ const Login = () => {
   const passwordRef = useRef("");
   const api = useApi();
   const token = localStorage.getItem("token") ?? null;
-  useEffect(()=>{
-    if(token){
+  useEffect(() => {
+    if (token) {
       navigate("admin/routes");
     }
-    
-  },[])
+  }, []);
 
   const isTokenExpired = (token) => {
     if (!token) {
-      return true;  
+      return true;
     }
     const decodedToken = jwtDecode(token);
     if (!decodedToken.exp) {
-      return true;  
+      return true;
     }
     const currentTime = Date.now() / 1000;
     return decodedToken.exp < currentTime;
@@ -49,23 +50,18 @@ const Login = () => {
     }
     navigate("admin/routes");
   };
-  
 
   return (
     <div className="page page-center">
       <div className="container container-tight py-4">
         <div className="text-center mb-4">
           <a href="." className="navbar-brand navbar-brand-autodark">
-            <img
-              src="https://flynextbd.com/wp-content/uploads/2023/09/Fly-Next-PNG-abhaya-Lib-Font.png"
-              height={36}
-              alt
-            />
+            <img src={LOGIN_PAGE_LOGO} height={36} alt />
           </a>
         </div>
         <div className="card card-md">
           <div className="card-body">
-            <h2 className="h2 text-center mb-4">Login to your account</h2>
+            <h2 className="h2 text-center mb-4">{LOGIN_TITLE}</h2>
             <div className="mb-3">
               <label className="form-label">Email address</label>
               <input
@@ -107,7 +103,7 @@ const Login = () => {
                 type="submit"
                 className="btn btn-primary w-100"
               >
-                Sign in
+                {SIGN_IN_BUTTON_TEXT}
               </button>
             </div>
           </div>
