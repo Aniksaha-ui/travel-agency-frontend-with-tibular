@@ -1,9 +1,23 @@
 import {
+  ACCOUNT_BALANCE_API_ENDPOINT,
+  ACCOUNT_HISTORY_API_ENDPOINT,
+  ADD_VEHICLE_BOOKING_FOR_TRIP_API_ENDPOINT,
+  ADMIN_BOOKING_API_ENDPOINT,
+  ADMIN_BOOKING_INVOICE_API_ENDPOINT,
+  GUIDE_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
+  PACKAGE_API_ENDPOINT,
+  REFUND_API_ENDPOINT,
   ROUTES_API_ENDPOINT,
   ROUTES_DROPDOWN_API_ENDPOINT,
   SEATS_API_ENDPOINT,
+  SINGLE_PACKAGE_DETAILS,
+  TRIP_SINGLE_API_ENDPOINT,
+  TRIP_SUMMERY_API_ENDPOINT,
+  TRIPS_API_ENDPOINT,
   USER_API_ENDPOINT,
+  VEHICLE_API_ENDPOINT,
+  VEHICLE_WISE_SEAT_API_ENDPOINT,
   VEHICLE_WISE_TOTAL_SEAT_REPORT_API_ENDPOINT,
   VEHICLES_API_ENDPOINT,
   VEHICLES_DROPDOWN_API_ENDPOINT,
@@ -236,7 +250,7 @@ const useApi = () => {
   const vehicleWiseAllSeat = async (id) => {
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/vehiclewiseseat/${id}`
+      `${VEHICLE_WISE_SEAT_API_ENDPOINT}/${id}`
     );
     if (response) {
       if (response?.data) {
@@ -251,7 +265,7 @@ const useApi = () => {
   const addVehicleBookingForTrip = async (trip) => {
     const response = await axiosClient.apiClient(
       "POST",
-      "admin/trip/vehicle/booking",
+      ADD_VEHICLE_BOOKING_FOR_TRIP_API_ENDPOINT,
       trip
     );
     return response;
@@ -266,7 +280,7 @@ const useApi = () => {
 
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/trip?page=${page}${query}`
+      `${TRIPS_API_ENDPOINT}?page=${page}${query}`
     );
     if (response) {
       if (response?.data) {
@@ -279,7 +293,10 @@ const useApi = () => {
   };
 
   const fetchTripsDropDown = async () => {
-    const response = await axiosClient.apiClient("GET", `admin/trip/dropdown`);
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${TRIPS_API_ENDPOINT}/dropdown`
+    );
     if (response) {
       if (response?.data) {
         return response.data;
@@ -293,7 +310,7 @@ const useApi = () => {
   const getTripById = async (id) => {
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/single/trip/${id}`
+      `${TRIP_SINGLE_API_ENDPOINT}/${id}`
     );
     if (response) {
       if (response?.data) {
@@ -306,7 +323,11 @@ const useApi = () => {
   };
 
   const addTrip = async (trip) => {
-    const response = await axiosClient.apiClient("POST", "admin/trip", trip);
+    const response = await axiosClient.apiClient(
+      "POST",
+      TRIPS_API_ENDPOINT,
+      trip
+    );
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
@@ -315,7 +336,7 @@ const useApi = () => {
   const updateTrip = async (id, trip) => {
     const response = await axiosClient.apiClient(
       "POST",
-      `/admin/trip/update/${id}`,
+      `/${TRIPS_API_ENDPOINT}/update/${id}`,
       trip
     );
 
@@ -327,16 +348,23 @@ const useApi = () => {
   };
 
   const markAsCompleted = async (id) => {
-    const response = await axiosClient.apiClient("GET", `admin/trip/${id}`);
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${TRIPS_API_ENDPOINT}/${id}`
+    );
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
   };
 
   const fetchTourDetailsInformation = async (tourId) => {
-    const response = await axiosClient.apiClient("POST", "admin/tripsummery", {
-      trip_id: tourId,
-    });
+    const response = await axiosClient.apiClient(
+      "POST",
+      TRIP_SUMMERY_API_ENDPOINT,
+      {
+        trip_id: tourId,
+      }
+    );
     if (response?.data.data) {
       return response.data.data;
     }
@@ -344,7 +372,10 @@ const useApi = () => {
   };
 
   const fetchAccountBalanceReport = async () => {
-    const response = await axiosClient.apiClient("GET", `admin/accountBalance`);
+    const response = await axiosClient.apiClient(
+      "GET",
+      ACCOUNT_BALANCE_API_ENDPOINT
+    );
     if (response) {
       if (response?.data) {
         return response.data;
@@ -358,7 +389,7 @@ const useApi = () => {
   const fetchAccountBalanceHistoryReport = async (type) => {
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/accountHistory/${type}`
+      `${ACCOUNT_HISTORY_API_ENDPOINT}/${type}`
     );
     if (response) {
       if (response?.data) {
@@ -375,7 +406,7 @@ const useApi = () => {
 
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/booking?page=${page}${query}`
+      `${ADMIN_BOOKING_API_ENDPOINT}?page=${page}${query}`
     );
     if (response) {
       if (response?.data) {
@@ -390,7 +421,7 @@ const useApi = () => {
   const fetchPackages = async (page = "", search = "") => {
     const query = search ? `&search=${encodeURIComponent(search)}` : "";
 
-    const response = await axiosClient.apiClient("POST", `admin/packages`, {
+    const response = await axiosClient.apiClient("POST", PACKAGE_API_ENDPOINT, {
       page: page,
       search: search,
     });
@@ -405,7 +436,10 @@ const useApi = () => {
   };
 
   const fetchPackageDetails = async (id) => {
-    const response = await axiosClient.apiClient("GET", `packages/${id}`);
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${SINGLE_PACKAGE_DETAILS}/${id}`
+    );
     if (response) {
       if (response?.data) {
         return response.data;
@@ -419,7 +453,7 @@ const useApi = () => {
   const addPackage = async (packageData) => {
     const response = await axiosClient.apiClient(
       "POST",
-      "admin/packages/create",
+      "${PACKAGE_API_ENDPOINT}/create",
       packageData
     );
     if (response?.data.data === true) {
@@ -432,7 +466,7 @@ const useApi = () => {
 
     const response = await axiosClient.apiClient(
       "GET",
-      `admin/refund?page=${page}${query}`
+      `${REFUND_API_ENDPOINT}?page=${page}${query}`
     );
     if (response) {
       if (response?.data) {
@@ -448,10 +482,9 @@ const useApi = () => {
     try {
       const response = await axiosClient.apiClient(
         "POST",
-        "admin/useageOfVehicle",
+        VEHICLE_API_ENDPOINT,
         {}
       );
-      console.log(response.data.data.data, "res");
 
       if (response.data.data.data.length > 0) {
         return response.data.data.data;
@@ -462,7 +495,10 @@ const useApi = () => {
   };
 
   const fetchGuideDropDown = async () => {
-    const response = await axiosClient.apiClient("GET", `admin/guide/dropdown`);
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${GUIDE_API_ENDPOINT}/dropdown`
+    );
     if (response) {
       if (response?.data) {
         return response.data;
@@ -476,7 +512,7 @@ const useApi = () => {
   const fetchBookingInvoiceByBookingId = async (bookingId) => {
     const response = await axiosClient.apiClient(
       "POST",
-      `admin/booking-invoice`,
+      ADMIN_BOOKING_INVOICE_API_ENDPOINT,
       {
         bookingId,
       }
@@ -495,7 +531,7 @@ const useApi = () => {
 
       const response = await axiosClient.apiClient(
         "GET",
-        `admin/guide?page=${page}${query}`
+        `${GUIDE_API_ENDPOINT}?page=${page}${query}`
       );
       if (response) {
         if (response?.data) {
@@ -511,7 +547,11 @@ const useApi = () => {
   };
 
   const addGuide = async (guide) => {
-    const response = await axiosClient.apiClient("POST", "admin/guide", guide);
+    const response = await axiosClient.apiClient(
+      "POST",
+      GUIDE_API_ENDPOINT,
+      guide
+    );
     console.log(response.data.status, "res");
     if (response.data.status === true) {
       return response.data.status;
@@ -519,7 +559,10 @@ const useApi = () => {
   };
 
   const getGuideById = async (id) => {
-    const response = await axiosClient.apiClient("GET", `admin/guide/${id}`);
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${GUIDE_API_ENDPOINT}/${id}`
+    );
     if (response) {
       if (response?.data) {
         return response.data;
@@ -533,7 +576,7 @@ const useApi = () => {
   const updateGuide = async (guide) => {
     const response = await axiosClient.apiClient(
       "POST",
-      `/admin/guide/update`,
+      `/${GUIDE_API_ENDPOINT}/update`,
       guide
     );
     if (response?.data.data === true) {
