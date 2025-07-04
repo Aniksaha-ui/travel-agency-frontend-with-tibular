@@ -1,0 +1,34 @@
+In vehicle list there will be a button "book for trip"
+
+interface
+
+-----------------------------------------------------
+trip_name : 
+vehicle_name :
+
+Bus layout will be show
+
+Are you sure to book this vechicle for the trip?
+
+if(yes){
+    find all seat of the vehicles and insert data into seat_availablities with some default value.
+}
+-----------------------------------------------------
+
+
+-------------------------------------------------------
+When customer want to book this trip they will find available_seat for the trip from seat_availablities table and can book
+
+
+-------------------------------------------------------
+
+
+
+----------------------------------------------------------
+Booking list 
+---------------------------------------------------------
+
+
+----------------------------------------------------------
+In trip there will be a summery, where admin can see the details of the trip and also the vehicle layout 
+---------------------------------------------------------

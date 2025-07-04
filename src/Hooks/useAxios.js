@@ -1,9 +1,14 @@
 import axios from "axios";
-import { BAD_REQUEST_ERROR, LOGIN_ERROR, NETWORK_ERROR } from "../Utils/Constants/Error";
-
+import {
+  BAD_REQUEST_ERROR,
+  LOGIN_ERROR,
+  NETWORK_ERROR,
+} from "../Utils/Constants/Error";
 
 const useAxios = () => {
-  const axiosConfig = { baseURL: "https://travelbookingbackend.infinitycodehubltd.com/public/api/" };
+  const axiosConfig = {
+    baseURL: import.meta.env.VITE_BASE_URL,
+  };
   const api = axios.create(axiosConfig);
 
   api.interceptors.request.use((axiosConfig) => {

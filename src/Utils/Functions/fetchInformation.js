@@ -11,7 +11,7 @@ const fetchData = async (
     const response = await apiFunction(page, search);
     if (response.data && response.data.data) {
       setLastPage(response.data.last_page);
-      setData(response.data.data);
+      setData(response.data.data ?? []);
       setPaginationInformation({
         to: response.data.to,
         from: response.data.from,

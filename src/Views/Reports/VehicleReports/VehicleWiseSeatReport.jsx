@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "./Layout/AdminLayout";
-import "./index.css";
-import useApi from "./Hooks/useApi";
-import fetchData from "./Utils/Functions/fetchInformation";
-import Search from "./Utils/Components/Search";
-import { PaginationFooter } from "./Utils/Components/PaginationFooter";
-import Loading from "./Utils/Components/Loading";
+import useApi from "../../../Hooks/useApi";
+import { useNavigate } from "react-router-dom";
+import fetchData from "../../../Utils/Functions/fetchInformation";
+import Loading from "../../../Utils/Components/Loading";
+import AdminLayout from "../../../Layout/AdminLayout";
+import Search from "../../../Utils/Components/Search";
+import { PaginationFooter } from "../../../Utils/Components/PaginationFooter";
 
-function App() {
+function VehicleWiseSeatReport() {
   const [page, setPage] = useState(1);
   const [paginationInformation, setPaginationInformation] = useState({
     to: 0,
@@ -19,9 +19,10 @@ function App() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState("");
   const api = useApi();
+  const navigate = useNavigate();
   const fetchRouteInformation = async () => {
     await fetchData(
-      api.fetchGuide,
+      api.vehicleWiseSeatReport,
       page,
       setLastPage,
       setRoutes,
@@ -42,6 +43,10 @@ function App() {
     return <Loading />;
   }
 
+  const handleNavigation = (vehicleId) => {
+    navigate(`/admin/vehicleSeatLayout/${vehicleId}`);
+  };
+
   return (
     <AdminLayout>
       <div className="page-wrapper">
@@ -57,10 +62,6 @@ function App() {
             <div className="row row-cards">
               <div className="col-12">
                 <div className="card">
-                  <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">Route List</h3>
-                    <div className="btn btn-primary">Add New</div>
-                  </div>
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}
                   <div className="table-responsive mx-2 mt-1">
@@ -68,22 +69,35 @@ function App() {
                       <thead>
                         <tr>
                           <th>SL</th>
-                          <th>Origin</th>
-                          <th>Destination</th>
-                          <th>Route Name</th>
+                          <th>Vehicle Name</th>
+                          <th>Vehicle Type</th>
+                          <th>Available Seat</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {routes.map((route, index) => (
                           <tr key={index}>
-                            <td>{route.id}</td>
-                            <td>{route.origin}</td>
+                            <td>{index + 1}</td>
+                            <td>{route.vehicle_name}</td>
                             <td>
                               <span className="badge bg-success me-1" />
-                              {route.destination}
+                              {route.vehicle_type}
                             </td>
-                            <td>{route.route_name}</td>
+                            <td>{route.available_seats}</td>
+                            <td>
+                              <button
+                                data-bs-toggle="tooltip"
+                                onClick={() =>
+                                  handleNavigation(route.vehicle_id)
+                                }
+                                data-bs-placement="top"
+                                title="Edit"
+                                className="p-2 btn btn-sm btn-success me-2"
+                              >
+                                <i className="fas fa-info"></i>
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -105,4 +119,4 @@ function App() {
   );
 }
 
-export default App;
+export default VehicleWiseSeatReport;

@@ -5,10 +5,10 @@ import AdminLayout from "../../Layout/AdminLayout";
 import Search from "../../Utils/Components/Search";
 import useApi from "../../Hooks/useApi";
 import Loading from "../../Utils/Components/Loading";
-import debounce from "../../Utils/Functions/debounce";
-import { USER_TITLE } from "../../Utils/Constants/text";
+import { Includestatus } from "../../Utils/Constants/common";
+import { useNavigate } from "react-router-dom";
 
-function Users() {
+function Packages() {
   const [page, setPage] = useState(1);
   const [paginationInformation, setPaginationInformation] = useState({
     to: 0,
@@ -16,16 +16,17 @@ function Users() {
     total: 0,
   });
   const [lastPage, setLastPage] = useState([]);
-  const [routes, setRoutes] = useState([]);
+  const [packages, setPackages] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const api = useApi();
-  const fetchRouteInformation = async () => {
+  const Navigate = useNavigate();
+  const fetchPackageInformation = async () => {
     await fetchData(
-      api.fetchUsers,
+      api.fetchPackages,
       page,
       setLastPage,
-      setRoutes,
+      setPackages,
       search,
       setPaginationInformation,
       setLoading
@@ -33,15 +34,19 @@ function Users() {
   };
 
   useEffect(() => {
-    if (search != "") {
+    if (search !== "") {
       setPage(1);
     }
-    fetchRouteInformation();
+    fetchPackageInformation();
   }, [page, search]);
 
   if (loading) {
     return <Loading />;
   }
+
+  const handleDetails = (id) => {
+    Navigate(`/admin/packages/${id}`);
+  };
 
   return (
     <AdminLayout>
@@ -59,8 +64,13 @@ function Users() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">{USER_TITLE}</h3>
-                    <div className="btn btn-primary">Add New</div>
+                    <h3 className="card-title">Packages</h3>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => Navigate("/admin/packages/add")}
+                    >
+                      Add New Package
+                    </button>
                   </div>
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}
@@ -69,18 +79,38 @@ function Users() {
                       <thead>
                         <tr>
                           <th>SL</th>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Role</th>
+                          <th>Package Id</th>
+                          <th>Package Name</th>
+                          <th>Trip Name</th>
+                          <th>Description</th>
+                          <th>Include Meal</th>
+                          <th>Include Hotel</th>
+                          <th>Include Vehicle</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {routes.map((route, index) => (
+                        {packages.map((pkg, index) => (
                           <tr key={index}>
-                            <td>{route.id}</td>
-                            <td>{route.name}</td>
-                            <td>{route.email}</td>
-                            <td>{route.role}</td>
+                            <td>{index + 1}</td>
+                            <td>{pkg.id}</td>
+                            <td>{pkg.name}</td>
+                            <td>{pkg.trip_name}</td>
+                            <td>{pkg.description}</td>
+                            <td>{Includestatus[pkg.includes_meal]}</td>
+                            <td>{Includestatus[pkg.includes_hotel]}</td>
+                            <td>{Includestatus[pkg.includes_bus]}</td>
+                            <td>
+                              <button
+                                onClick={() => handleDetails(pkg.id)}
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Details"
+                                className="btn btn-sm btn-success me-2"
+                              >
+                                <i className="fas fa-info"></i>
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -102,4 +132,4 @@ function Users() {
   );
 }
 
-export default Users;
+export default Packages;

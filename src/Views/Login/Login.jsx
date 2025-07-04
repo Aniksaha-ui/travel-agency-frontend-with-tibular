@@ -1,9 +1,13 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import AdminLayout from "../../Layout/AdminLayout";
 import useApi from "../../Hooks/useApi";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { userInformationAtom } from "../../State/atoms";
+import { jwtDecode } from "jwt-decode";
+import { LOGIN_PAGE_LOGO } from "../../Utils/Constants/images";
+import { LOGIN_TITLE, SIGN_IN_BUTTON_TEXT } from "../../Utils/Constants/text";
+// import isTokenExpired from "../../Utils/Functions/tokenVerification";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,8 +15,26 @@ const Login = () => {
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
-
   const api = useApi();
+  const token = localStorage.getItem("token") ?? null;
+  useEffect(() => {
+    if (token) {
+      navigate("admin/routes");
+    }
+  }, []);
+
+  const isTokenExpired = (token) => {
+    if (!token) {
+      return true;
+    }
+    const decodedToken = jwtDecode(token);
+    if (!decodedToken.exp) {
+      return true;
+    }
+    const currentTime = Date.now() / 1000;
+    return decodedToken.exp < currentTime;
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
     const req = {
@@ -23,7 +45,7 @@ const Login = () => {
     console.log(response);
     if (response) {
       localStorage.setItem("token", response?.access_token);
-      localStorage.setItem("user", response?.user);
+      localStorage.setItem("user", JSON.stringify(response?.user));
       await setUserInfo(response?.user);
     }
     navigate("admin/routes");
@@ -34,16 +56,12 @@ const Login = () => {
       <div className="container container-tight py-4">
         <div className="text-center mb-4">
           <a href="." className="navbar-brand navbar-brand-autodark">
-            <img
-              src="https://flynextbd.com/wp-content/uploads/2023/09/Fly-Next-PNG-abhaya-Lib-Font.png"
-              height={36}
-              alt
-            />
+            <img src={LOGIN_PAGE_LOGO} height={36} alt />
           </a>
         </div>
         <div className="card card-md">
           <div className="card-body">
-            <h2 className="h2 text-center mb-4">Login to your account</h2>
+            <h2 className="h2 text-center mb-4">{LOGIN_TITLE}</h2>
             <div className="mb-3">
               <label className="form-label">Email address</label>
               <input
@@ -85,7 +103,7 @@ const Login = () => {
                 type="submit"
                 className="btn btn-primary w-100"
               >
-                Sign in
+                {SIGN_IN_BUTTON_TEXT}
               </button>
             </div>
           </div>
