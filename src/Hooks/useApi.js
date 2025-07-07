@@ -451,7 +451,7 @@ const useApi = () => {
   const addPackage = async (packageData) => {
     const response = await axiosClient.apiClient(
       "POST",
-      "${PACKAGE_API_ENDPOINT}/create",
+      `${PACKAGE_API_ENDPOINT}/create`,
       packageData
     );
     if (response?.data.data === true) {
