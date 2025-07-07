@@ -42,7 +42,7 @@ const FormTrips = ({ action }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form_data = new FormData();
     Object.keys(formData).forEach((key) =>
@@ -50,10 +50,12 @@ const FormTrips = ({ action }) => {
     );
 
     if (action === "add") {
-      let response = api.addTrip(form_data);
-      if (response) {
-        toast("Add Trip Successfully");
+      let response = await api.addTrip(form_data);
+      if (response.data.original.isExecute == true) {
+        toast(response.data.original.message);
         navigate("/admin/trips");
+      } else {
+        toast(response.data.original.message);
       }
     } else {
       let response = api.updateTrip(id, form_data);
