@@ -324,12 +324,11 @@ const useApi = () => {
 
   const addTrip = async (trip) => {
     const response = await axiosClient.apiClient("POST", "admin/trip", trip);
-    if (response?.data.data === true) {
-      return response.data.isExecute;
+    console.log(response.data.isExecute, "response");
+
+    if (response.data) {
+      return response.data;
     }
-    // if (response?.data.data === true) {
-    //   return response.data.isExecute;
-    // }
   };
 
   const updateTrip = async (id, trip) => {
