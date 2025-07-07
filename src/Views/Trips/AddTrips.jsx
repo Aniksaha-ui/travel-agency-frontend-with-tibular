@@ -51,11 +51,13 @@ const FormTrips = ({ action }) => {
 
     if (action === "add") {
       let response = await api.addTrip(form_data);
-      if (response.data.original.isExecute == true) {
-        toast(response.data.original.message);
+      console.log(response, "response");
+
+      if (response.isExecute == true) {
+        toast(response.message);
         navigate("/admin/trips");
       } else {
-        toast(response.data.original.message);
+        toast(response.message);
       }
     } else {
       let response = api.updateTrip(id, form_data);
