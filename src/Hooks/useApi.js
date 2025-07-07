@@ -323,14 +323,13 @@ const useApi = () => {
   };
 
   const addTrip = async (trip) => {
-    const response = await axiosClient.apiClient(
-      "POST",
-      TRIPS_API_ENDPOINT,
-      trip
-    );
+    const response = await axiosClient.apiClient("POST", "admin/trip", trip);
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
+    // if (response?.data.data === true) {
+    //   return response.data.isExecute;
+    // }
   };
 
   const updateTrip = async (id, trip) => {
@@ -605,7 +604,7 @@ const useApi = () => {
     fetchTripsDropDown,
     getTripById,
     addTrip,
-    updateGuide: updateTrip,
+    updateTrip,
     addVehicleBookingForTrip,
     fetchTourDetailsInformation,
     fetchAccountBalanceReport,
