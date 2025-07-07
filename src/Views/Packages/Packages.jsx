@@ -82,7 +82,6 @@ function Packages() {
                           <th>Package Id</th>
                           <th>Package Name</th>
                           <th>Trip Name</th>
-                          <th>Description</th>
                           <th>Include Meal</th>
                           <th>Include Hotel</th>
                           <th>Include Vehicle</th>
@@ -96,7 +95,6 @@ function Packages() {
                             <td>{pkg.id}</td>
                             <td>{pkg.name}</td>
                             <td>{pkg.trip_name}</td>
-                            <td>{pkg.description}</td>
                             <td>{Includestatus[pkg.includes_meal]}</td>
                             <td>{Includestatus[pkg.includes_hotel]}</td>
                             <td>{Includestatus[pkg.includes_bus]}</td>
