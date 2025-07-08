@@ -24,3 +24,4 @@ export const SINGLE_PACKAGE_DETAILS = "packages";
 export const REFUND_API_ENDPOINT = "admin/refund";
 export const VEHICLE_API_ENDPOINT = "admin/useageOfVehicle";
 export const GUIDE_API_ENDPOINT = "admin/guide";
+

@@ -4,8 +4,12 @@ import {
   LOGIN_ERROR,
   NETWORK_ERROR,
 } from "../Utils/Constants/Error";
+import { Logout } from "../Utils/Functions/common";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const useAxios = () => {
+  const navigate = useNavigate();
   const axiosConfig = {
     baseURL: import.meta.env.VITE_BASE_URL,
   };
@@ -42,11 +46,15 @@ const useAxios = () => {
         if (error.message === NETWORK_ERROR) {
           console.log(error);
         } else if (error.message === LOGIN_ERROR) {
-          alert("Protected page.Please login with valid user");
+          toast("Protected page.Please login with valid user");
+          Logout();
+          navigate("/login");
         } else if (error.message === BAD_REQUEST_ERROR) {
-          alert("Please give the valid input");
+          toast("Please give the valid input");
+          Logout();
+          navigate("/login");
         } else {
-          alert(error.message);
+          toast(error.message);
         }
         return null;
       });
