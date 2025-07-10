@@ -4,8 +4,8 @@ import { getLocalStorage } from "../../Utils/Functions/localStorage";
 import { Logout } from "../../Utils/Functions/common";
 
 const Header = () => {
-  const userInformation = getLocalStorage("user");
-  console.log(userInformation);
+  const userInformation = getLocalStorage("user") ?? "";
+  // console.log(userInformation);
   const navigate = useNavigate();
   const handleLogout = () => {
     Logout();
@@ -351,9 +351,16 @@ const Header = () => {
                   style={{ backgroundImage: "url(./static/avatars/000m.jpg)" }}
                 />
                 <div className="d-none d-xl-block ps-2">
-                  <div>{userInformation.name}</div>
+                  <div>
+                    {userInformation != ""
+                      ? userInformation.name
+                      : "Name not set"}
+                  </div>
+                  {/* <div>TBA</div> */}
                   <div className="mt-1 small text-muted">
-                    {userInformation.role}
+                    {userInformation != ""
+                      ? userInformation.role
+                      : "Role not set"}
                   </div>
                 </div>
               </a>
@@ -534,7 +541,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/admin/trips">
+                  <Link className="nav-link" to="/admin/guide">
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       {/* Download SVG icon from http://tabler-icons.io/i/home */}
                       <svg

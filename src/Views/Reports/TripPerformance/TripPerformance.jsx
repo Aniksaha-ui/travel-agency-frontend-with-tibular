@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import useApi from "../../../Hooks/useApi";
 import AdminLayout from "../../../Layout/AdminLayout";
 import moment from "moment";
 
 const TripPerformance = () => {
-    const [trips,setTrips] = useState([]);
-    const api = useApi();
+  const [trips, setTrips] = useState([]);
+  const api = useApi();
 
-    useEffect(()=>{
-        fetchTripPerformanceReport();
-    },[]);
+  useEffect(() => {
+    fetchTripPerformanceReport();
+  }, []);
 
-    const fetchTripPerformanceReport = async () => {
-        const response = await api.tripPerformanceReport();
-        setTrips(response.data);
-    }
-    return (
-           <AdminLayout>
+  const fetchTripPerformanceReport = async () => {
+    const response = await api.tripPerformanceReport();
+    setTrips(response.data);
+  };
+  return (
+    <AdminLayout>
       <div className="page-wrapper">
         <div className="page-header d-print-none">
           <div className="container-xl">
@@ -49,10 +49,23 @@ const TripPerformance = () => {
                         {trips.map((trip, index) => (
                           <tr key={index}>
                             <td>{index + 1}</td>
-                            <td>{trip.trip_name}({moment(trip.departure_time).format("DD MMMM, YYYY")} - {moment(trip.arrival_time).format("DD MMMM, YYYY")})</td>
-                            <td>{trip.total_seats_booked + trip.total_seats_available}</td>
-                            <td>{trip.total_seats_booked }</td>
-                            <td>{trip.total_seats_available }</td>
+                            <td>
+                              {trip.trip_name}(
+                              {moment(trip.departure_time).format(
+                                "DD MMMM, YYYY"
+                              )}{" "}
+                              -{" "}
+                              {moment(trip.arrival_time).format(
+                                "DD MMMM, YYYY"
+                              )}
+                              )
+                            </td>
+                            <td>
+                              {parseInt(trip.total_seats_booked) +
+                                parseInt(trip.total_seats_available)}
+                            </td>
+                            <td>{trip.total_seats_booked}</td>
+                            <td>{trip.total_seats_available}</td>
                             <td>{trip.total_income}</td>
                             <td>{trip.total_cost}</td>
                             <td>{trip.profit}</td>
@@ -68,7 +81,7 @@ const TripPerformance = () => {
         </div>
       </div>
     </AdminLayout>
-    )
-}
+  );
+};
 
-export default TripPerformance
+export default TripPerformance;

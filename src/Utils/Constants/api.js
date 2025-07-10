@@ -13,7 +13,7 @@ export const VEHICLE_WISE_SEAT_API_ENDPOINT = "admin/vehiclewiseseat";
 export const ADD_VEHICLE_BOOKING_FOR_TRIP_API_ENDPOINT =
   "admin/trip/vehicle/booking";
 export const TRIPS_API_ENDPOINT = "admin/trip";
-export const TRIP_SINGLE_API_ENDPOINT = "admin/single/trip/";
+export const TRIP_SINGLE_API_ENDPOINT = "admin/single/trip";
 export const TRIP_SUMMERY_API_ENDPOINT = "admin/tripsummery";
 export const ACCOUNT_BALANCE_API_ENDPOINT = "admin/accountBalance";
 export const ACCOUNT_HISTORY_API_ENDPOINT = "admin/accountHistory";

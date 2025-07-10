@@ -42,13 +42,12 @@ const Login = () => {
       password: passwordRef.current.value,
     };
     const response = await api.login(req);
-    console.log(response);
     if (response) {
       localStorage.setItem("token", response?.access_token);
       localStorage.setItem("user", JSON.stringify(response?.user));
       await setUserInfo(response?.user);
     }
-    navigate("admin/routes");
+    navigate("/admin/routes");
   };
 
   return (
