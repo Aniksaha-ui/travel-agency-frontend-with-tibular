@@ -1,7 +1,16 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getLocalStorage } from "../../Utils/Functions/localStorage";
+import { Logout } from "../../Utils/Functions/common";
 
 const Header = () => {
+  const userInformation = getLocalStorage("user");
+  console.log(userInformation);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    Logout();
+    navigate("/login");
+  };
   return (
     <Fragment>
       <header className="navbar navbar-expand-md d-print-none">
@@ -342,27 +351,22 @@ const Header = () => {
                   style={{ backgroundImage: "url(./static/avatars/000m.jpg)" }}
                 />
                 <div className="d-none d-xl-block ps-2">
-                  <div>Paweł Kuna</div>
-                  <div className="mt-1 small text-muted">UI Designer</div>
+                  <div>{userInformation.name}</div>
+                  <div className="mt-1 small text-muted">
+                    {userInformation.role}
+                  </div>
                 </div>
               </a>
               <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="#" className="dropdown-item">
-                  Status
-                </a>
                 <a href="./profile.html" className="dropdown-item">
                   Profile
                 </a>
-                <a href="#" className="dropdown-item">
-                  Feedback
-                </a>
-                <div className="dropdown-divider" />
                 <a href="./settings.html" className="dropdown-item">
                   Settings
                 </a>
-                <a href="./sign-in.html" className="dropdown-item">
+                <button onClick={handleLogout} className="dropdown-item">
                   Logout
-                </a>
+                </button>
               </div>
             </div>
           </div>
