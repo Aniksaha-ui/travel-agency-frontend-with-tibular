@@ -24,4 +24,6 @@ export const SINGLE_PACKAGE_DETAILS = "packages";
 export const REFUND_API_ENDPOINT = "admin/refund";
 export const VEHICLE_API_ENDPOINT = "admin/useageOfVehicle";
 export const GUIDE_API_ENDPOINT = "admin/guide";
-
+export const TRIP_PERFORMANCE = "/admin/tripPerformance";
+export const PACKAGE_PERFORMANCE = "/admin/packagePerformance";
+export const CUSTOMER_VALUE_REPORT = "admin/customerValue";

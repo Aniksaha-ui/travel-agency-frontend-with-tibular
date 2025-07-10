@@ -4,14 +4,17 @@ import {
   ADD_VEHICLE_BOOKING_FOR_TRIP_API_ENDPOINT,
   ADMIN_BOOKING_API_ENDPOINT,
   ADMIN_BOOKING_INVOICE_API_ENDPOINT,
+  CUSTOMER_VALUE_REPORT,
   GUIDE_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
   PACKAGE_API_ENDPOINT,
+  PACKAGE_PERFORMANCE,
   REFUND_API_ENDPOINT,
   ROUTES_API_ENDPOINT,
   ROUTES_DROPDOWN_API_ENDPOINT,
   SEATS_API_ENDPOINT,
   SINGLE_PACKAGE_DETAILS,
+  TRIP_PERFORMANCE,
   TRIP_SINGLE_API_ENDPOINT,
   TRIP_SUMMERY_API_ENDPOINT,
   TRIPS_API_ENDPOINT,
@@ -582,6 +585,43 @@ const useApi = () => {
     }
   };
 
+  const tripPerformanceReport = async () => {
+    try {
+      const response = await axiosClient.apiClient("GET", TRIP_PERFORMANCE);
+
+      if (response.data.status === true) {
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const packagePerformanceReport = async () => {
+    try {
+      const response = await axiosClient.apiClient("GET", PACKAGE_PERFORMANCE);
+
+      if (response.data.status === true) {
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+   const customerValueReport = async () => {
+    try {
+      const response = await axiosClient.apiClient("GET", CUSTOMER_VALUE_REPORT);
+
+      if (response.data.status === true) {
+        return response.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -621,6 +661,9 @@ const useApi = () => {
     addGuide,
     getGuideById,
     updateGuide,
+    tripPerformanceReport,
+    packagePerformanceReport,
+    customerValueReport
   };
 };
 

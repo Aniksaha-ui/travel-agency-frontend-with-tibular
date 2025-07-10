@@ -737,12 +737,26 @@ const Header = () => {
                         </Link>
                       </div>
                       <div className="dropdown-menu-column">
-                        <a className="dropdown-item" href="./logs.html">
-                          Logs
-                          <span className="badge badge-sm bg-green-lt text-uppercase ms-auto">
-                            New
-                          </span>
-                        </a>
+                        <Link
+                          className="dropdown-item"
+                          to="/admin/tripPerformance"
+                        >
+                          Trip Performance Report
+                        </Link>
+
+                        <Link
+                          className="dropdown-item"
+                          to="/admin/packagePerformance"
+                        >
+                          Package Performance Report
+                        </Link>
+
+                        <Link
+                          className="dropdown-item"
+                          to="/admin/customerValueReport"
+                        >
+                          Customer Value Report
+                        </Link>
                       </div>
                     </div>
                   </div>

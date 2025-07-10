@@ -30,6 +30,9 @@ import Refunds from "./Views/Refunds/Refunds.jsx";
 import BookingInvoice from "./Views/Bookings/BookingInvoice.jsx";
 import GuideInformation from "./Views/Guides/Guides.jsx";
 import GuideForm from "./Views/Guides/GuideForm.jsx";
+import TripPerformance from "./Views/Reports/TripPerformance/TripPerformance.jsx";
+import PackagePerformance from "./Views/Reports/PackagePerformance/PackagePerformance.jsx";
+import CustomerValueReport from "./Views/Reports/CustomerValueReport/CustomerValueReport.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -108,6 +111,21 @@ createRoot(document.getElementById("root")).render(
           <Route
             path="admin/vehicletrackingreport"
             element={<VehicleTrackingReport />}
+          ></Route>
+
+          <Route
+            path="admin/tripPerformance"
+            element={<TripPerformance />}
+          ></Route>
+
+          <Route
+            path="admin/packagePerformance"
+            element={<PackagePerformance />}
+          ></Route>
+
+          <Route
+            path="admin/customerValueReport"
+            element={<CustomerValueReport />}
           ></Route>
 
           {/* reports */}
