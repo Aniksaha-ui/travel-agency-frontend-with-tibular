@@ -541,6 +541,35 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/admin/packages">
+                    <span className="nav-link-icon d-md-none d-lg-inline-block">
+                      {/* Download SVG icon from http://tabler-icons.io/i/home */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="icon"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <polyline points="12 3 20 7 20 17 12 21 4 17 4 7 12 3" />
+                        <line x1="12" y1="12" x2="20" y2="7" />
+                        <line x1="12" y1="12" x2="12" y2="21" />
+                        <line x1="12" y1="12" x2="4" y2="7" />
+                      </svg>
+                    </span>
+                    <span className="nav-link-title">Package Management</span>
+                  </Link>
+                </li>
+              </ul>
+
+              <ul className="navbar-nav">
+                <li className="nav-item">
                   <Link className="nav-link" to="/admin/guide">
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       {/* Download SVG icon from http://tabler-icons.io/i/home */}
@@ -567,9 +596,6 @@ const Header = () => {
                     <span className="nav-link-title">Guide Management</span>
                   </Link>
                 </li>
-              </ul>
-
-              <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link className="nav-link" to="/admin/bookings">
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
