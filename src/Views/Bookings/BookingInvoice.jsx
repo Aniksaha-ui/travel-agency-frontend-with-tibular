@@ -5,6 +5,7 @@ import useApi from "../../Hooks/useApi";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import moment from "moment";
+import "./invoice.css";
 
 const BookingInvoice = () => {
   const params = useParams();
@@ -13,17 +14,48 @@ const BookingInvoice = () => {
   const [bookingInvoiceInfo, setBookingInvoiceInfo] = useState([]);
   const invoiceRef = useRef(null);
 
-  const downloadPDF = () => {
-    const input = invoiceRef.current;
-    html2canvas(input, { scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save(`invoice_${bookingInvoiceInfo.booking_id}.pdf`);
+  // const downloadPDF = async () => {
+  //   const canvas = await html2canvas(invoiceRef.current, { scale: 2 });
+  //   const imgData = canvas.toDataURL("image/png");
+  //   const pdf = new jsPDF("p", "mm", "a4");
+  //   const pdfWidth = pdf.internal.pageSize.getWidth();
+  //   const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+  //   pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+  //   pdf.save(`invoice_${bookingInvoiceInfo.booking_id}.pdf`);
+  // };
+
+  const downloadPDF = async () => {
+    const element = invoiceRef.current;
+
+    if (!element) return;
+
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      windowWidth: document.body.scrollWidth,
+      scrollY: -window.scrollY,
     });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    let heightLeft = pdfHeight;
+    let position = 0;
+
+    pdf.addImage(imgData, "PNG", 0, position, pdfWidth, pdfHeight);
+    heightLeft -= pdf.internal.pageSize.getHeight();
+
+    while (heightLeft > 0) {
+      position -= pdf.internal.pageSize.getHeight();
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, pdfHeight);
+      heightLeft -= pdf.internal.pageSize.getHeight();
+    }
+
+    pdf.save(`invoice_${bookingInvoiceInfo.booking_id}.pdf`);
   };
 
   useEffect(() => {
@@ -46,9 +78,9 @@ const BookingInvoice = () => {
           </button>
         </div>
 
-        <div ref={invoiceRef}>
-          <div className="card shadow border-0">
-            <div className="card-header bg-primary text-white text-center py-4">
+        <div id="invoice" ref={invoiceRef}>
+          <div className="card">
+            <div className="card-header">
               <h2 className="mb-0">INVOICE</h2>
               <small>Travel Booking Confirmation</small>
             </div>
