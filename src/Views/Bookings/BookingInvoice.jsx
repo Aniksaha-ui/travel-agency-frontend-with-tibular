@@ -72,7 +72,7 @@ const BookingInvoice = () => {
   return (
     <AdminLayout>
       <div className="container my-5">
-        <div className="d-flex justify-content-end mb-3">
+        <div className="d-flex justify-content-center mb-3">
           <button className="btn btn-success" onClick={downloadPDF}>
             Download PDF
           </button>
@@ -80,7 +80,7 @@ const BookingInvoice = () => {
 
         <div id="invoice" ref={invoiceRef}>
           <div className="card">
-            <div className="card-header">
+            <div className="card-header-primary">
               <h2 className="mb-0">INVOICE</h2>
               <small>Travel Booking Confirmation</small>
             </div>
