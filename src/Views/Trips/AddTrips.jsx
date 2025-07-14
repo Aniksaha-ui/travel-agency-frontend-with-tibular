@@ -21,12 +21,15 @@ const FormTrips = ({ action }) => {
     price: 0,
     is_active: 1,
     image: "",
+    departure_at: "00:00",
+    arrival_at: "00:00",
   });
 
   useEffect(() => {
     if (action === "update") {
       const fetchTripData = async () => {
         const tripData = await api.getTripById(id);
+
         console.log(tripData, "trip data");
         setFormData(tripData.data);
       };
@@ -42,8 +45,60 @@ const FormTrips = ({ action }) => {
     });
   };
 
+  function formatTo12Hour(time) {
+    // Check if input is already in 12-hour format with AM/PM
+    const is12HourFormat = /AM|PM/i.test(time);
+
+    if (is12HourFormat) {
+      // Normalize and format to proper 12-hour (e.g., leading zero)
+      const date = new Date(`1970-01-01T${convertTo24HourFormat(time)}:00`);
+      return date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+    } else {
+      // Assume 24-hour format
+      const [hourStr, minuteStr] = time.split(":");
+      const hour = parseInt(hourStr, 10);
+      const minute = parseInt(minuteStr, 10);
+      const date = new Date();
+      date.setHours(hour);
+      date.setMinutes(minute);
+      date.setSeconds(0);
+      date.setMilliseconds(0);
+
+      return date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+    }
+  }
+
+  function convertTo24HourFormat(time12h) {
+    const [time, modifier] = time12h.trim().toUpperCase().split(" ");
+    let [hours, minutes] = time.split(":").map(Number);
+
+    if (modifier === "AM" && hours === 12) {
+      hours = 0;
+    } else if (modifier === "PM" && hours !== 12) {
+      hours += 12;
+    }
+
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+      2,
+      "0"
+    )}`;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    formData.departure_at = formatTo12Hour(formData.departure_at);
+    formData.arrival_at = formatTo12Hour(formData.arrival_at);
+    console.log(formData, "data");
+
     const form_data = new FormData();
     Object.keys(formData).forEach((key) =>
       form_data.append(key, formData[key])
@@ -193,15 +248,15 @@ const FormTrips = ({ action }) => {
                           type="date"
                           value={
                             formData.departure_time
-                              ? new Date(formData.departure_time)
-                                  .toISOString()
-                                  .split("T")[0]
+                              ? new Date(
+                                  formData.departure_time
+                                ).toLocaleDateString("en-CA")
                               : ""
                           }
                           onChange={handleChange}
                           className="form-control"
                           aria-describedby="emailHelp"
-                          placeholder="Enter email"
+                          placeholder="Enter Departure Date"
                         />
                         <small className="form-hint">
                           Enter the Departure Date
@@ -218,9 +273,9 @@ const FormTrips = ({ action }) => {
                           type="date"
                           value={
                             formData.arrival_time
-                              ? new Date(formData.arrival_time)
-                                  .toISOString()
-                                  .split("T")[0]
+                              ? new Date(
+                                  formData.arrival_time
+                                ).toLocaleDateString("en-CA")
                               : ""
                           }
                           onChange={handleChange}
@@ -230,6 +285,43 @@ const FormTrips = ({ action }) => {
                         />
                         <small className="form-hint">
                           Enter the Departure Date(Ex - Dhaka Region)
+                        </small>
+                      </div>
+                    </div>
+
+                    <div className="mb-3 row">
+                      <label className="col-3 col-form-label required">
+                        Departure Time
+                      </label>
+                      <div className="col">
+                        <input
+                          name="departure_at"
+                          type="text"
+                          value={formData.departure_at}
+                          onChange={handleChange}
+                          className="form-control"
+                          placeholder="Enter time in 12 hour format (e.g. 12:00 PM)"
+                        />
+                        <small className="form-hint">
+                          Enter the Departure Time
+                        </small>
+                      </div>
+                    </div>
+                    <div className="mb-3 row">
+                      <label className="col-3 col-form-label required">
+                        Arrival Time
+                      </label>
+                      <div className="col">
+                        <input
+                          name="arrival_at"
+                          type="text"
+                          value={formData.arrival_at || ""}
+                          onChange={handleChange}
+                          className="form-control"
+                          placeholder="Enter time in 12 hour format (e.g. 12:00 PM)"
+                        />
+                        <small className="form-hint">
+                          Enter the Arrival Time
                         </small>
                       </div>
                     </div>
