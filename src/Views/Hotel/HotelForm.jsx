@@ -3,12 +3,13 @@ import AdminLayout from "../../Layout/AdminLayout";
 import useApi from "../../Hooks/useApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import useGoBack from "../../Hooks/useGoBack";
 
 const HotelForm = ({ action }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const api = useApi();
-
+  const goBack = useGoBack();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -148,158 +149,192 @@ const HotelForm = ({ action }) => {
 
   return (
     <AdminLayout>
-      <div className="container-xl py-4">
-        <h2>{action === "add" ? "Add Hotel" : "Edit Hotel"}</h2>
-        <form onSubmit={handleSubmit} className="card p-4">
-          {[
-            { label: "Hotel Name", name: "name" },
-            { label: "Email", name: "email" },
-            { label: "City", name: "city" },
-            { label: "Country", name: "country" },
-            { label: "Website", name: "website" },
-            { label: "Description", name: "description" },
-            { label: "Location", name: "location" },
-            { label: "Star Rating", name: "star_rating", type: "number" },
-            { label: "Facilities", name: "facilities" },
-            { label: "Photos (comma-separated URLs)", name: "photos" },
-          ].map(({ label, name, type = "text" }) => (
-            <div className="mb-3" key={name}>
-              <label className="form-label">{label}</label>
-              <input
-                name={name}
-                type={type}
-                className="form-control"
-                value={
-                  name === "photos"
-                    ? formData.photos.join(", ")
-                    : formData[name]
-                }
-                onChange={handleChange}
-              />
-            </div>
-          ))}
-
-          <hr />
-          <h4>Rooms</h4>
-          {formData.rooms.map((room, index) => (
-            <div key={index} className="border p-3 mb-3 rounded">
-              {[
-                { label: "Room Type", name: "type_name" },
-                { label: "Room Size", name: "room_size" },
-                {
-                  label: "Max Occupancy",
-                  name: "max_occupancy",
-                  type: "number",
-                },
-                { label: "Total Rooms", name: "total_rooms", type: "number" },
-                { label: "Amenities", name: "amenities" },
-              ].map(({ label, name, type = "text" }) => (
-                <div className="mb-2" key={name}>
-                  <label className="form-label">{label}</label>
-                  <input
-                    type={type}
-                    className="form-control"
-                    value={room[name]}
-                    onChange={(e) =>
-                      handleRoomChange(index, name, e.target.value)
-                    }
-                  />
-                </div>
-              ))}
-              <div>
-                <h6>Prices</h6>
-                {room.prices.map((price, priceIndex) => (
-                  <div key={priceIndex} className="row mb-2">
-                    <div className="col">
-                      <input
-                        type="date"
-                        className="form-control"
-                        value={price.season_start}
-                        onChange={(e) =>
-                          handleSeasonPriceChange(
-                            index,
-                            priceIndex,
-                            "season_start",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Season Start"
-                      />
-                    </div>
-                    <div className="col">
-                      <input
-                        type="date"
-                        className="form-control"
-                        value={price.season_end}
-                        onChange={(e) =>
-                          handleSeasonPriceChange(
-                            index,
-                            priceIndex,
-                            "season_end",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Season End"
-                      />
-                    </div>
-                    <div className="col">
-                      <input
-                        type="number"
-                        className="form-control"
-                        value={price.price_per_night}
-                        onChange={(e) =>
-                          handleSeasonPriceChange(
-                            index,
-                            priceIndex,
-                            "price_per_night",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Price/Night"
-                      />
-                    </div>
-                    <div className="col-auto">
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-danger"
-                        onClick={() => removePriceFromRoom(index, priceIndex)}
-                      >
-                        ✕
-                      </button>
-                    </div>
+      <div className="page-wrapper">
+        <div className="page-body">
+          <div className="container-xl">
+            <div className="row row-cards">
+              <div className="col-12">
+                <div className="card">
+                  <div className="card-header d-flex align-items-center justify-content-between">
+                    <h3>{action === "add" ? "Add Hotel" : "Edit Hotel"}</h3>
+                    <button
+                      onClick={goBack}
+                      className="btn btn-primary d-flex align-items-center"
+                    >
+                      Back
+                    </button>
                   </div>
-                ))}
-                <button
-                  type="button"
-                  className="btn btn-sm btn-secondary"
-                  onClick={() => addPriceToRoom(index)}
-                >
-                  + Add Price
-                </button>
-              </div>
-              <div className="text-end mt-2">
-                <button
-                  type="button"
-                  className="btn btn-sm btn-danger"
-                  onClick={() => removeRoom(index)}
-                >
-                  Remove Room
-                </button>
+
+                  <div className=" d-flex justify-content-between"></div>
+
+                  <form onSubmit={handleSubmit} className="card p-4">
+                    {[
+                      { label: "Hotel Name", name: "name" },
+                      { label: "Email", name: "email" },
+                      { label: "City", name: "city" },
+                      { label: "Country", name: "country" },
+                      { label: "Website", name: "website" },
+                      { label: "Description", name: "description" },
+                      { label: "Location", name: "location" },
+                      {
+                        label: "Star Rating",
+                        name: "star_rating",
+                        type: "number",
+                      },
+                      { label: "Facilities", name: "facilities" },
+                      {
+                        label: "Photos (comma-separated URLs)",
+                        name: "photos",
+                      },
+                    ].map(({ label, name, type = "text" }) => (
+                      <div className="mb-3" key={name}>
+                        <label className="form-label">{label}</label>
+                        <input
+                          name={name}
+                          type={type}
+                          className="form-control"
+                          value={
+                            name === "photos"
+                              ? formData.photos.join(", ")
+                              : formData[name]
+                          }
+                          onChange={handleChange}
+                        />
+                      </div>
+                    ))}
+
+                    <hr />
+                    <h4>Rooms</h4>
+                    {formData.rooms.map((room, index) => (
+                      <div key={index} className="border p-3 mb-3 rounded">
+                        {[
+                          { label: "Room Type", name: "type_name" },
+                          { label: "Room Size", name: "room_size" },
+                          {
+                            label: "Max Occupancy",
+                            name: "max_occupancy",
+                            type: "number",
+                          },
+                          {
+                            label: "Total Rooms",
+                            name: "total_rooms",
+                            type: "number",
+                          },
+                          { label: "Amenities", name: "amenities" },
+                        ].map(({ label, name, type = "text" }) => (
+                          <div className="mb-2" key={name}>
+                            <label className="form-label">{label}</label>
+                            <input
+                              type={type}
+                              className="form-control"
+                              value={room[name]}
+                              onChange={(e) =>
+                                handleRoomChange(index, name, e.target.value)
+                              }
+                            />
+                          </div>
+                        ))}
+                        <div>
+                          <h6>Prices</h6>
+                          {room.prices.map((price, priceIndex) => (
+                            <div key={priceIndex} className="row mb-2">
+                              <div className="col">
+                                <input
+                                  type="date"
+                                  className="form-control"
+                                  value={price.season_start}
+                                  onChange={(e) =>
+                                    handleSeasonPriceChange(
+                                      index,
+                                      priceIndex,
+                                      "season_start",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="Season Start"
+                                />
+                              </div>
+                              <div className="col">
+                                <input
+                                  type="date"
+                                  className="form-control"
+                                  value={price.season_end}
+                                  onChange={(e) =>
+                                    handleSeasonPriceChange(
+                                      index,
+                                      priceIndex,
+                                      "season_end",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="Season End"
+                                />
+                              </div>
+                              <div className="col">
+                                <input
+                                  type="number"
+                                  className="form-control"
+                                  value={price.price_per_night}
+                                  onChange={(e) =>
+                                    handleSeasonPriceChange(
+                                      index,
+                                      priceIndex,
+                                      "price_per_night",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="Price/Night"
+                                />
+                              </div>
+                              <div className="col-auto">
+                                <button
+                                  type="button"
+                                  className="btn btn-sm btn-danger"
+                                  onClick={() =>
+                                    removePriceFromRoom(index, priceIndex)
+                                  }
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                          <button
+                            type="button"
+                            className="btn btn-sm btn-secondary"
+                            onClick={() => addPriceToRoom(index)}
+                          >
+                            + Add Price
+                          </button>
+                        </div>
+                        <div className="text-end mt-2">
+                          <button
+                            type="button"
+                            className="btn btn-sm btn-danger"
+                            onClick={() => removeRoom(index)}
+                          >
+                            Remove Room
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary"
+                      onClick={addRoom}
+                    >
+                      + Add Room
+                    </button>
+                    <hr />
+                    <button type="submit" className="btn btn-primary">
+                      {action === "add" ? "Submit" : "Update"}
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
-          ))}
-          <button
-            type="button"
-            className="btn btn-outline-primary"
-            onClick={addRoom}
-          >
-            + Add Room
-          </button>
-          <hr />
-          <button type="submit" className="btn btn-primary">
-            {action === "add" ? "Submit" : "Update"}
-          </button>
-        </form>
+          </div>
+        </div>
       </div>
     </AdminLayout>
   );

@@ -570,6 +570,39 @@ const Header = () => {
 
               <ul className="navbar-nav">
                 <li className="nav-item">
+                  <Link className="nav-link" to="/admin/hotel">
+                    <span className="nav-link-icon d-md-none d-lg-inline-block">
+                      {/* Download SVG icon from http://tabler-icons.io/i/home */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="icon"
+                        width={24}
+                        height={24}
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <rect x="3" y="7" width="18" height="13" rx="2" />
+                        <path d="M7 7v-2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v2" />
+                        <path d="M10 11h1v1h-1z" />
+                        <path d="M13 11h1v1h-1z" />
+                        <path d="M16 11h1v1h-1z" />
+                        <path d="M7 11h1v1h-1z" />
+                        <path d="M10 14h1v1h-1z" />
+                        <path d="M13 14h1v1h-1z" />
+                        <path d="M16 14h1v1h-1z" />
+                        <path d="M7 14h1v1h-1z" />
+                        <path d="M10 17h4v3h-4z" />
+                      </svg>
+                    </span>
+                    <span className="nav-link-title">hotel Management</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to="/admin/guide">
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       {/* Download SVG icon from http://tabler-icons.io/i/home */}

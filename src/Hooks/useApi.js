@@ -672,11 +672,11 @@ const useApi = () => {
     return null;
   };
 
-  const updateHotel = async (guide) => {
+  const updateHotel = async (id, data) => {
     const response = await axiosClient.apiClient(
       "POST",
-      `/${HOTEL_API_ENDPOINT}/update`,
-      guide
+      `/${HOTEL_API_ENDPOINT}/update/${id}`,
+      data
     );
     if (response?.data.data === true) {
       return response.data.isExecute;
