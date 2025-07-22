@@ -27,3 +27,6 @@ export const GUIDE_API_ENDPOINT = "admin/guide";
 export const TRIP_PERFORMANCE = "/admin/tripPerformance";
 export const PACKAGE_PERFORMANCE = "/admin/packagePerformance";
 export const CUSTOMER_VALUE_REPORT = "admin/customerValue";
+export const HOTEL_API_ENDPOINT = "admin/hotel";
+
+

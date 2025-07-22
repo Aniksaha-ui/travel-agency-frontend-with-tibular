@@ -6,6 +6,7 @@ import {
   ADMIN_BOOKING_INVOICE_API_ENDPOINT,
   CUSTOMER_VALUE_REPORT,
   GUIDE_API_ENDPOINT,
+  HOTEL_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
   PACKAGE_API_ENDPOINT,
   PACKAGE_PERFORMANCE,
@@ -609,16 +610,76 @@ const useApi = () => {
     }
   };
 
-
-   const customerValueReport = async () => {
+  const customerValueReport = async () => {
     try {
-      const response = await axiosClient.apiClient("GET", CUSTOMER_VALUE_REPORT);
+      const response = await axiosClient.apiClient(
+        "GET",
+        CUSTOMER_VALUE_REPORT
+      );
 
       if (response.data.status === true) {
         return response.data;
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const fetchHotelInformation = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${HOTEL_API_ENDPOINT}?page=${page}${query}`
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addHotel = async (guide) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      HOTEL_API_ENDPOINT,
+      guide
+    );
+    if (response.data.status === true) {
+      return response.data.status;
+    }
+  };
+
+  const getHotelById = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${HOTEL_API_ENDPOINT}/${id}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const updateHotel = async (guide) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `/${HOTEL_API_ENDPOINT}/update`,
+      guide
+    );
+    if (response?.data.data === true) {
+      return response.data.isExecute;
     }
   };
 
@@ -663,7 +724,11 @@ const useApi = () => {
     updateGuide,
     tripPerformanceReport,
     packagePerformanceReport,
-    customerValueReport
+    customerValueReport,
+    fetchHotelInformation,
+    addHotel,
+    getHotelById,
+    updateHotel,
   };
 };
 

@@ -33,6 +33,8 @@ import GuideForm from "./Views/Guides/GuideForm.jsx";
 import TripPerformance from "./Views/Reports/TripPerformance/TripPerformance.jsx";
 import PackagePerformance from "./Views/Reports/PackagePerformance/PackagePerformance.jsx";
 import CustomerValueReport from "./Views/Reports/CustomerValueReport/CustomerValueReport.jsx";
+import HotelInformation from "./Views/Hotel/Hotel.jsx";
+import HotelForm from "./Views/Hotel/HotelForm.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -95,6 +97,17 @@ createRoot(document.getElementById("root")).render(
           <Route
             path="admin/guide/update/:id"
             element={<GuideForm action="update" />}
+          ></Route>
+
+          <Route path="admin/hotel" element={<HotelInformation />}></Route>
+          <Route
+            path="admin/hotel/add"
+            element={<HotelForm action="add" />}
+          ></Route>
+
+          <Route
+            path="admin/hotel/update/:id"
+            element={<HotelForm action="update" />}
           ></Route>
 
           {/* reports */}
