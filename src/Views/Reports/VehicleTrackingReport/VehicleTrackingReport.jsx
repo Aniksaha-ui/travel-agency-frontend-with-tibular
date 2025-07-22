@@ -50,8 +50,13 @@ const VehicleTrackingReport = () => {
                             <td>{vehicle.id}</td>
                             <td>{vehicle.trip_name}</td>
                             <td>{vehicle.vehicle_name}</td>
-                            <td>{vehicle.travel_start_date}</td>
-                            <td>{vehicle.travel_end_date}</td>
+                            <td>
+                              {vehicle.travel_start_date} -{" "}
+                              {vehicle.departure_at}
+                            </td>
+                            <td>
+                              {vehicle.travel_end_date} - {vehicle.arrival_at}
+                            </td>
                           </tr>
                         ))}
                       </tbody>

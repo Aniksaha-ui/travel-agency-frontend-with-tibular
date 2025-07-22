@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AdminLayout from "../../Layout/AdminLayout";
 import useApi from "../../Hooks/useApi";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 
 const PackageDetails = () => {
   const [packageDetail, setPackageDetail] = useState({});
@@ -154,20 +155,28 @@ const PackageDetails = () => {
                           <td>{packageDetail.trip?.route_name}</td>
                         </tr>
                         <tr>
-                          <th scope="row">Departure Time:</th>
+                          <th scope="row">Departure Date:</th>
                           <td>
-                            {new Date(
-                              packageDetail.trip?.departure_time
-                            ).toLocaleString()}
+                            {moment(packageDetail.trip?.departure_time).format(
+                              "ll"
+                            )}
                           </td>
                         </tr>
                         <tr>
-                          <th scope="row">Arrival Time:</th>
+                          <th scope="row">Arrival Date:</th>
                           <td>
-                            {new Date(
-                              packageDetail.trip?.arrival_time
-                            ).toLocaleString()}
+                            {moment(packageDetail.trip?.arrival_time).format(
+                              "ll"
+                            )}
                           </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Departure at:</th>
+                          <td>{packageDetail.trip?.departure_at}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Arrival at:</th>
+                          <td>{packageDetail.trip?.arrival_at}</td>
                         </tr>
                       </tbody>
                     </table>
