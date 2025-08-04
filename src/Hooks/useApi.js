@@ -587,25 +587,45 @@ const useApi = () => {
     }
   };
 
-  const tripPerformanceReport = async () => {
+  const tripPerformanceReport = async (page, search) => {
     try {
-      const response = await axiosClient.apiClient("GET", TRIP_PERFORMANCE);
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
 
-      if (response.data.status === true) {
-        return response.data;
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${TRIP_PERFORMANCE}?page=${page}${query}`
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
       }
+      return null;
     } catch (error) {
       console.log(error);
     }
   };
 
-  const packagePerformanceReport = async () => {
+  const packagePerformanceReport = async (page, search) => {
     try {
-      const response = await axiosClient.apiClient("GET", PACKAGE_PERFORMANCE);
+      console.log("hitted");
 
-      if (response.data.status === true) {
-        return response.data;
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${PACKAGE_PERFORMANCE}?page=${page}${query}`
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
       }
+      return null;
     } catch (error) {
       console.log(error);
     }
@@ -613,14 +633,20 @@ const useApi = () => {
 
   const customerValueReport = async () => {
     try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
       const response = await axiosClient.apiClient(
         "GET",
-        CUSTOMER_VALUE_REPORT
+        `${CUSTOMER_VALUE_REPORT}?page=${page}${query}`
       );
-
-      if (response.data.status === true) {
-        return response.data;
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
       }
+      return null;
     } catch (error) {
       console.log(error);
     }

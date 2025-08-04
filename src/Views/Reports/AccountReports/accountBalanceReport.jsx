@@ -13,7 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Modal, Button } from "react-bootstrap"; // ✅ Import Modal from React Bootstrap
-import './style.css';
+import "./style.css";
 const AccountBalanceReport = () => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
   const api = useApi();
@@ -28,7 +28,7 @@ const AccountBalanceReport = () => {
   const fetchAccountBalance = async () => {
     const response = await api.fetchAccountBalanceReport();
     console.log(response, "res");
-    
+
     if (response && response.data) {
       setAccountBalance(response.data);
     }
@@ -55,25 +55,16 @@ const AccountBalanceReport = () => {
                   <h1 className="text-center text-primary mt-3">
                     Account Balance Report
                   </h1>
-                  <PieChart width={400} height={400}>
-                    <Pie
-                      data={accountBalance}
-                      dataKey="amount"
-                      nameKey="account_number"
-                      outerRadius={150}
-                      fill="#8884d8"
-                      label
-                    >
-                      {accountBalance.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={COLORS[index % COLORS.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend />
-                  </PieChart>
+                  <ResponsiveContainer width="100%" height={400}>
+                    <BarChart data={accountBalance}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="account_name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="amount" fill="#8884d8" />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
 
@@ -184,16 +175,12 @@ const AccountBalanceReport = () => {
             </table>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => setIsModalOpen(false)}
-            >
+            <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
               Close
             </Button>
           </Modal.Footer>
         </Modal>
       )}
-
     </AdminLayout>
   );
 };
