@@ -129,59 +129,113 @@ const BookingInvoice = () => {
               <div className="table-responsive">
                 <table className="table table-bordered">
                   <tbody>
-                    <tr>
-                      <th scope="row">Trip Name</th>
-                      <td>
-                        {bookingInvoiceInfo.trip_name}(#
-                        {bookingInvoiceInfo.trip_id})
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Departure Time</th>
-                      <td>
-                        {moment(bookingInvoiceInfo.departure_time).format(
-                          "lll"
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Arrival Time</th>
-                      <td>
-                        {moment(bookingInvoiceInfo.arrival_time).format("lll")}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Booking Type</th>
-                      <td>{bookingInvoiceInfo.booking_type}</td>
-                    </tr>
-                    {bookingInvoiceInfo.package_name && (
-                      <tr>
-                        <th scope="row">Package</th>
-                        <td>{bookingInvoiceInfo.package_name}</td>
-                      </tr>
+                    {bookingInvoiceInfo.trip_name && (
+                      <>
+                        <tr>
+                          <th scope="row">Trip Name</th>
+                          <td>
+                            {bookingInvoiceInfo.trip_name}(#
+                            {bookingInvoiceInfo.trip_id})
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Departure Time</th>
+                          <td>
+                            {moment(bookingInvoiceInfo.departure_time).format(
+                              "lll"
+                            )}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Arrival Time</th>
+                          <td>
+                            {moment(bookingInvoiceInfo.arrival_time).format(
+                              "lll"
+                            )}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Booking Type</th>
+                          <td>{bookingInvoiceInfo.booking_type}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Booked Seats</th>
+                          <td>
+                            {bookingInvoiceInfo.seat_numbers ??
+                              "Since the booking is cancelled, no seat number is available"}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Price per Seat</th>
+                          <td>
+                            ৳{parseFloat(bookingInvoiceInfo.price).toFixed(2)}
+                          </td>
+                        </tr>
+                        <tr className="table-light fw-bold">
+                          <th scope="row">Total Amount</th>
+                          <td className="text-primary">
+                            ৳
+                            {parseFloat(
+                              bookingInvoiceInfo.total_payment_amount
+                            ).toFixed(2)}
+                          </td>
+                        </tr>
+                      </>
                     )}
-                    <tr>
-                      <th scope="row">Booked Seats</th>
-                      <td>
-                        {bookingInvoiceInfo.seat_numbers ??
-                          "Since the booking is cancelled, no seat number is available"}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Price per Seat</th>
-                      <td>
-                        ৳{parseFloat(bookingInvoiceInfo.price).toFixed(2)}
-                      </td>
-                    </tr>
-                    <tr className="table-light fw-bold">
-                      <th scope="row">Total Amount</th>
-                      <td className="text-primary">
-                        ৳
-                        {parseFloat(
-                          bookingInvoiceInfo.total_payment_amount
-                        ).toFixed(2)}
-                      </td>
-                    </tr>
+
+                    {bookingInvoiceInfo.package_name && (
+                      <>
+                        <tr>
+                          <th scope="row">Package</th>
+                          <td>{bookingInvoiceInfo.package_name}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Booked Seats</th>
+                          <td>
+                            {bookingInvoiceInfo.seat_numbers ??
+                              "Since the booking is cancelled, no seat number is available"}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Price per Seat</th>
+                          <td>
+                            ৳{parseFloat(bookingInvoiceInfo.price).toFixed(2)}
+                          </td>
+                        </tr>
+                        <tr className="table-light fw-bold">
+                          <th scope="row">Total Amount</th>
+                          <td className="text-primary">
+                            ৳
+                            {parseFloat(
+                              bookingInvoiceInfo.total_payment_amount
+                            ).toFixed(2)}
+                          </td>
+                        </tr>
+                      </>
+                    )}
+
+                    {bookingInvoiceInfo.hotel_name && (
+                      <>
+                        <tr>
+                          <th scope="row">Hotel Name</th>
+                          <td>
+                            {bookingInvoiceInfo.hotel_name},{" "}
+                            {bookingInvoiceInfo.hotel_city},{" "}
+                            {bookingInvoiceInfo.hotel_country}
+                          </td>
+                        </tr>
+
+                        <tr className="table-light fw-bold">
+                          <th scope="row">Total Amount</th>
+                          <td className="text-primary">
+                            ৳
+                            {parseFloat(
+                              bookingInvoiceInfo.total_payment_amount
+                            ).toFixed(2)}
+                          </td>
+                        </tr>
+                      </>
+                    )}
                   </tbody>
                 </table>
               </div>

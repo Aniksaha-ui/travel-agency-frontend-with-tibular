@@ -20,6 +20,7 @@ import {
   TRIP_SUMMERY_API_ENDPOINT,
   TRIPS_API_ENDPOINT,
   USER_API_ENDPOINT,
+  USER_HOTEL_API_ENDPOINT,
   VEHICLE_API_ENDPOINT,
   VEHICLE_WISE_SEAT_API_ENDPOINT,
   VEHICLE_WISE_TOTAL_SEAT_REPORT_API_ENDPOINT,
@@ -660,7 +661,7 @@ const useApi = () => {
   const getHotelById = async (id) => {
     const response = await axiosClient.apiClient(
       "GET",
-      `${HOTEL_API_ENDPOINT}/${id}`
+      `${USER_HOTEL_API_ENDPOINT}/${id}`
     );
     if (response) {
       if (response?.data) {
