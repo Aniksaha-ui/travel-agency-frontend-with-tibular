@@ -5,3 +5,4 @@ export const USER_TITLE = "User List";
 
 export const TRIP_PERFORMANCE = "Trip Performance";
 export const PACKAGE_PERFORMANCE = "Package Performance";
+export const HOTEL_CHECKIN = "Hotel Checkin";

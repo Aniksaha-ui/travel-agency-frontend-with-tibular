@@ -35,6 +35,7 @@ import PackagePerformance from "./Views/Reports/PackagePerformance/PackagePerfor
 import CustomerValueReport from "./Views/Reports/CustomerValueReport/CustomerValueReport.jsx";
 import HotelInformation from "./Views/Hotel/Hotel.jsx";
 import HotelForm from "./Views/Hotel/HotelForm.jsx";
+import HotelCheckIn from "./Views/HotelCheckIn/HotelCheckin.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -109,6 +110,9 @@ createRoot(document.getElementById("root")).render(
             path="admin/hotel/update/:id"
             element={<HotelForm action="update" />}
           ></Route>
+
+
+          <Route path="admin/hotel/checkin" element={<HotelCheckIn />}></Route>
 
           {/* reports */}
           <Route

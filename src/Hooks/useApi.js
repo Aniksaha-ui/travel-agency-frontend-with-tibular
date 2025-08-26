@@ -673,6 +673,41 @@ const useApi = () => {
     }
   };
 
+
+
+    const fetchHotelCheckIn = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${HOTEL_API_ENDPOINT}/checkin?page=${page}${query}`
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+    const markAsCheckInOrOut = async (hotel_booking_id,status) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `hotel/update/checkin`,
+      {hotel_booking_id:hotel_booking_id,status:status}
+    );
+    if (response?.data.data === true) {
+      return response.data.isExecute;
+    }
+  };
+
   const addHotel = async (guide) => {
     const response = await axiosClient.apiClient(
       "POST",
@@ -753,6 +788,8 @@ const useApi = () => {
     packagePerformanceReport,
     customerValueReport,
     fetchHotelInformation,
+    fetchHotelCheckIn,
+    markAsCheckInOrOut,
     addHotel,
     getHotelById,
     updateHotel,
