@@ -5,6 +5,7 @@ import {
   ADMIN_BOOKING_API_ENDPOINT,
   ADMIN_BOOKING_INVOICE_API_ENDPOINT,
   CUSTOMER_VALUE_REPORT,
+  DASHBOARD,
   GUIDE_API_ENDPOINT,
   HOTEL_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
@@ -46,6 +47,27 @@ const useApi = () => {
   };
 
   /** calling login api */
+
+  const dashboardInformation = async () =>{
+    try{
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${DASHBOARD}`
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    }catch(Error){
+      console.log(Error)
+    }
+
+  }
+
 
   const login = async (data) => {
     const response = await axiosClient.apiClient(
@@ -748,6 +770,7 @@ const useApi = () => {
   return {
     getLocalStorageValue,
     login,
+    dashboardInformation,
     fetchRoutes,
     fetchRouteDropDownList,
     fetchUsers,

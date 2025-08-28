@@ -36,15 +36,23 @@ import CustomerValueReport from "./Views/Reports/CustomerValueReport/CustomerVal
 import HotelInformation from "./Views/Hotel/Hotel.jsx";
 import HotelForm from "./Views/Hotel/HotelForm.jsx";
 import HotelCheckIn from "./Views/HotelCheckIn/HotelCheckin.jsx";
+import Dashboard from "./Views/Dashboard/Dashboard.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <ToastContainer></ToastContainer>
-      <RecoilRoot>
+
+                 <RecoilRoot>
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="admin/dashboard" element={<Dashboard />}></Route>
           <Route path="admin/routes" element={<RouteInformation />}></Route>
           <Route path="admin/routes/add" element={<AddRoutes />}></Route>
           <Route path="/admin/users" element={<Users />}></Route>
@@ -148,6 +156,10 @@ createRoot(document.getElementById("root")).render(
           {/* reports */}
         </Routes>
       </RecoilRoot>
+
+
+ 
     </BrowserRouter>
+          </QueryClientProvider>
   </StrictMode>
 );
