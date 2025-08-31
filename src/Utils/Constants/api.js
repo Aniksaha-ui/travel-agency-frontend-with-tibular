@@ -29,6 +29,5 @@ export const PACKAGE_PERFORMANCE = "/admin/packagePerformance";
 export const CUSTOMER_VALUE_REPORT = "admin/customerValue";
 export const HOTEL_API_ENDPOINT = "admin/hotel";
 export const USER_HOTEL_API_ENDPOINT = "/hotel";
-export const DASHBOARD = "admin/dashboard"
-
-
+export const DASHBOARD = "admin/dashboard";
+export const DASHBOARD_TABLE_VIEW = "admin/dashboard/databaseList";
