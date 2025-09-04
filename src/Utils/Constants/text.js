@@ -6,6 +6,9 @@ export const USER_TITLE = "User List";
 export const TRIP_PERFORMANCE = "Trip Performance";
 export const PACKAGE_PERFORMANCE = "Package Performance";
 export const HOTEL_CHECKIN = "Hotel Checkin";
+export const MONTH_RUNNING_BALANCE = "Monthly Running Balance"
+
+
 
 //charts
 export const CHART_TITLE_FOR_PAYMENT_TOTAL_AMOUNT =

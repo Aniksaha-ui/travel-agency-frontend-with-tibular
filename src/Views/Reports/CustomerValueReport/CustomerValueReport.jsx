@@ -20,7 +20,7 @@ function CustomerValueReport() {
     total: 0,
   });
   const [lastPage, setLastPage] = useState([]);
-  const [trips, setTrips] = useState([]);
+  const [customerReports, setCustomerReports] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState("");
   const api = useApi();
@@ -30,7 +30,7 @@ function CustomerValueReport() {
       api.customerValueReport,
       page,
       setLastPage,
-      setTrips,
+      setCustomerReports,
       search,
       setPaginationInformation,
       setLoading

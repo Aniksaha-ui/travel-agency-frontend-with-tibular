@@ -9,6 +9,7 @@ import {
   GUIDE_API_ENDPOINT,
   HOTEL_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
+  MONTH_RUNNING_BALANCE,
   PACKAGE_API_ENDPOINT,
   PACKAGE_PERFORMANCE,
   REFUND_API_ENDPOINT,
@@ -48,12 +49,9 @@ const useApi = () => {
 
   /** calling login api */
 
-  const dashboardInformation = async () =>{
-    try{
-      const response = await axiosClient.apiClient(
-        "GET",
-        `${DASHBOARD}`
-      );
+  const dashboardInformation = async () => {
+    try {
+      const response = await axiosClient.apiClient("GET", `${DASHBOARD}`);
       if (response) {
         if (response?.data) {
           return response.data;
@@ -62,12 +60,10 @@ const useApi = () => {
         return { message: response.message, data: [] };
       }
       return null;
-    }catch(Error){
-      console.log(Error)
+    } catch (Error) {
+      console.log(Error);
     }
-
-  }
-
+  };
 
   const login = async (data) => {
     const response = await axiosClient.apiClient(
@@ -653,13 +649,34 @@ const useApi = () => {
     }
   };
 
-  const customerValueReport = async () => {
+  const customerValueReport = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
 
       const response = await axiosClient.apiClient(
         "GET",
         `${CUSTOMER_VALUE_REPORT}?page=${page}${query}`
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const monthlyRunningBalance = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${MONTH_RUNNING_BALANCE}?page=${page}${query}`
       );
       if (response) {
         if (response?.data) {
@@ -695,9 +712,7 @@ const useApi = () => {
     }
   };
 
-
-
-    const fetchHotelCheckIn = async (page, search) => {
+  const fetchHotelCheckIn = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
 
@@ -718,12 +733,11 @@ const useApi = () => {
     }
   };
 
-
-    const markAsCheckInOrOut = async (hotel_booking_id,status) => {
+  const markAsCheckInOrOut = async (hotel_booking_id, status) => {
     const response = await axiosClient.apiClient(
       "POST",
       `hotel/update/checkin`,
-      {hotel_booking_id:hotel_booking_id,status:status}
+      { hotel_booking_id: hotel_booking_id, status: status }
     );
     if (response?.data.data === true) {
       return response.data.isExecute;
@@ -794,6 +808,7 @@ const useApi = () => {
     fetchTourDetailsInformation,
     fetchAccountBalanceReport,
     fetchAccountBalanceHistoryReport,
+    monthlyRunningBalance,
     fetchBookings,
     markAsCompleted,
     fetchPackages,

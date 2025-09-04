@@ -22,3 +22,14 @@ export const borderColors = [
   "rgba(54, 162, 235, 1)",
   "rgba(255, 206, 86, 1)",
 ];
+
+export const barchartOption = (text) => ({
+  responsive: true,
+  plugins: {
+    legend: { position: "top" },
+    title: {
+      display: true,
+      text: "Credit vs Debit vs Closing Balance",
+    },
+  },
+});

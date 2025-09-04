@@ -38,128 +38,141 @@ import HotelForm from "./Views/Hotel/HotelForm.jsx";
 import HotelCheckIn from "./Views/HotelCheckIn/HotelCheckin.jsx";
 import Dashboard from "./Views/Dashboard/Dashboard.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import MonthlyRunningBalance from "./Views/Reports/MonthlyRunningBalance/MonthlyRunningBalance.jsx";
 
 const queryClient = new QueryClient();
-
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <ToastContainer></ToastContainer>
+      <BrowserRouter>
+        <ToastContainer></ToastContainer>
 
-                 <RecoilRoot>
-        <Routes>
-          <Route path="/" element={<Login />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="admin/dashboard" element={<Dashboard />}></Route>
-          <Route path="admin/routes" element={<RouteInformation />}></Route>
-          <Route path="admin/routes/add" element={<AddRoutes />}></Route>
-          <Route path="/admin/users" element={<Users />}></Route>
-          <Route path="admin/vehicles" element={<VehicleInformation />}></Route>
-          <Route path="admin/vehicles/add" element={<AddVehicles />}></Route>
-          <Route
-            path="admin/vehicles/bookfortrip/:id"
-            element={<VehicleBookingForTrip />}
-          ></Route>
-          <Route path="admin/seat" element={<SeatsInformation />}></Route>
-          <Route path="admin/seat/add" element={<AddSeats />}></Route>
+        <RecoilRoot>
+          <Routes>
+            <Route path="/" element={<Login />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="admin/dashboard" element={<Dashboard />}></Route>
+            <Route path="admin/routes" element={<RouteInformation />}></Route>
+            <Route path="admin/routes/add" element={<AddRoutes />}></Route>
+            <Route path="/admin/users" element={<Users />}></Route>
+            <Route
+              path="admin/vehicles"
+              element={<VehicleInformation />}
+            ></Route>
+            <Route path="admin/vehicles/add" element={<AddVehicles />}></Route>
+            <Route
+              path="admin/vehicles/bookfortrip/:id"
+              element={<VehicleBookingForTrip />}
+            ></Route>
+            <Route path="admin/seat" element={<SeatsInformation />}></Route>
+            <Route path="admin/seat/add" element={<AddSeats />}></Route>
 
-          <Route
-            path="admin/vehicleSeatLayout/:id"
-            element={<VehicleSeatLayout />}
-          ></Route>
-          <Route path="admin/trips" element={<Trips />}></Route>
-          <Route path="admin/trips/:tourId" element={<TripsDetails />}></Route>
-          <Route
-            path="admin/trips/add"
-            element={<FormTrips action="add" />}
-          ></Route>
-          <Route
-            path="/admin/trips/update/:id"
-            element={<FormTrips action="update" />}
-          ></Route>
+            <Route
+              path="admin/vehicleSeatLayout/:id"
+              element={<VehicleSeatLayout />}
+            ></Route>
+            <Route path="admin/trips" element={<Trips />}></Route>
+            <Route
+              path="admin/trips/:tourId"
+              element={<TripsDetails />}
+            ></Route>
+            <Route
+              path="admin/trips/add"
+              element={<FormTrips action="add" />}
+            ></Route>
+            <Route
+              path="/admin/trips/update/:id"
+              element={<FormTrips action="update" />}
+            ></Route>
 
-          <Route path="admin/bookings" element={<Bookings />}></Route>
-          <Route
-            path="admin/bookinginvoice/:id"
-            element={<BookingInvoice />}
-          ></Route>
+            <Route path="admin/bookings" element={<Bookings />}></Route>
+            <Route
+              path="admin/bookinginvoice/:id"
+              element={<BookingInvoice />}
+            ></Route>
 
-          <Route path="admin/packages" element={<Packages />}></Route>
-          <Route path="admin/packages/:id" element={<PackageDetails />}></Route>
+            <Route path="admin/packages" element={<Packages />}></Route>
+            <Route
+              path="admin/packages/:id"
+              element={<PackageDetails />}
+            ></Route>
 
-          <Route path="/admin/packages/add" element={<PackageAdd />}></Route>
-          <Route
-            path="/admin/packages/update/:id"
-            element={<PackageAdd action="update" />}
-          ></Route>
+            <Route path="/admin/packages/add" element={<PackageAdd />}></Route>
+            <Route
+              path="/admin/packages/update/:id"
+              element={<PackageAdd action="update" />}
+            ></Route>
 
-          <Route path="/admin/refunds" element={<Refunds />}></Route>
+            <Route path="/admin/refunds" element={<Refunds />}></Route>
 
-          <Route path="admin/guide" element={<GuideInformation />}></Route>
-          <Route
-            path="admin/guide/add"
-            element={<GuideForm action="add" />}
-          ></Route>
+            <Route path="admin/guide" element={<GuideInformation />}></Route>
+            <Route
+              path="admin/guide/add"
+              element={<GuideForm action="add" />}
+            ></Route>
 
-          <Route
-            path="admin/guide/update/:id"
-            element={<GuideForm action="update" />}
-          ></Route>
+            <Route
+              path="admin/guide/update/:id"
+              element={<GuideForm action="update" />}
+            ></Route>
 
-          <Route path="admin/hotel" element={<HotelInformation />}></Route>
-          <Route
-            path="admin/hotel/add"
-            element={<HotelForm action="add" />}
-          ></Route>
+            <Route path="admin/hotel" element={<HotelInformation />}></Route>
+            <Route
+              path="admin/hotel/add"
+              element={<HotelForm action="add" />}
+            ></Route>
 
-          <Route
-            path="admin/hotel/update/:id"
-            element={<HotelForm action="update" />}
-          ></Route>
+            <Route
+              path="admin/hotel/update/:id"
+              element={<HotelForm action="update" />}
+            ></Route>
 
+            <Route
+              path="admin/hotel/checkin"
+              element={<HotelCheckIn />}
+            ></Route>
 
-          <Route path="admin/hotel/checkin" element={<HotelCheckIn />}></Route>
+            {/* reports */}
+            <Route
+              path="admin/vehiclewiseseatreport"
+              element={<VehicleWiseSeatReport />}
+            ></Route>
 
-          {/* reports */}
-          <Route
-            path="admin/vehiclewiseseatreport"
-            element={<VehicleWiseSeatReport />}
-          ></Route>
+            <Route
+              path="admin/account/balance"
+              element={<AccountBalanceReport />}
+            ></Route>
 
-          <Route
-            path="admin/account/balance"
-            element={<AccountBalanceReport />}
-          ></Route>
+            <Route
+              path="admin/vehicletrackingreport"
+              element={<VehicleTrackingReport />}
+            ></Route>
 
-          <Route
-            path="admin/vehicletrackingreport"
-            element={<VehicleTrackingReport />}
-          ></Route>
+            <Route
+              path="admin/tripPerformance"
+              element={<TripPerformance />}
+            ></Route>
 
-          <Route
-            path="admin/tripPerformance"
-            element={<TripPerformance />}
-          ></Route>
+            <Route
+              path="admin/packagePerformance"
+              element={<PackagePerformance />}
+            ></Route>
 
-          <Route
-            path="admin/packagePerformance"
-            element={<PackagePerformance />}
-          ></Route>
+            <Route
+              path="admin/customerValueReport"
+              element={<CustomerValueReport />}
+            ></Route>
 
-          <Route
-            path="admin/customerValueReport"
-            element={<CustomerValueReport />}
-          ></Route>
+            <Route
+              path="admin/monthRunningBalance"
+              element={<MonthlyRunningBalance />}
+            ></Route>
 
-          {/* reports */}
-        </Routes>
-      </RecoilRoot>
-
-
- 
-    </BrowserRouter>
-          </QueryClientProvider>
+            {/* reports */}
+          </Routes>
+        </RecoilRoot>
+      </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>
 );
