@@ -45,7 +45,7 @@ const Dashboard = () => {
 
   if (data && data?.data && data.data.paymentData) {
     var paymentData = data?.data?.paymentData;
-    var labels = paymentData.map((item) => item.payment_method);
+    var paymentLabels = paymentData.map((item) => item.payment_method);
     var totalPaymentAmountValues = paymentData.map((item) =>
       parseFloat(item.total_amount)
     );
@@ -63,7 +63,7 @@ const Dashboard = () => {
   }
 
   const ChannelWiseTotalAmountInfo = {
-    labels: labels,
+    labels: paymentLabels,
     datasets: [
       {
         label: "Total Amount",
@@ -93,7 +93,7 @@ const Dashboard = () => {
   };
 
   const ChannelWiseTotalTransactionInfo = {
-    labels: labels,
+    labels: paymentLabels,
     datasets: [
       {
         label: "Total Amount",
