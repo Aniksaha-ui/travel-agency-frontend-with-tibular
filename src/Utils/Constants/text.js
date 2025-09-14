@@ -6,13 +6,30 @@ export const USER_TITLE = "User List";
 export const TRIP_PERFORMANCE = "Trip Performance";
 export const PACKAGE_PERFORMANCE = "Package Performance";
 export const HOTEL_CHECKIN = "Hotel Checkin";
-export const MONTH_RUNNING_BALANCE = "Monthly Running Balance"
+export const MONTH_RUNNING_BALANCE = "Monthly Running Balance";
 
-
+// NAVBAR
+export const DASHBOARD = "Dashboard";
+export const USER_MANAGEMENT = "User Management";
+export const ROUTE_MANAGEMENT = "Route Management";
+export const VEHICLE_MANAGEMENT = "Vehicle Management";
+export const SEAT_MANAGEMENT = "Seat Management";
+export const TRIP_MANAGEMENT = " Trip Management";
+export const PACKAGE_MANAGEMENT = "Package Management";
+export const HOTEL_MANAGEMENT = "Hotel Management";
+export const HOTEL_CHECKIN_MANAGEMENT = "Hotel Checkin";
+export const GUIDE_MANAGEMENT = "Guide Management";
+export const BOOKING_MANAGEMENT = "Bookings ";
+export const REFUND_MANAGEMENT = "Refund ";
+export const REPORTS_MANAGEMENT = "Reports ";
+export const SOURCE_CODE = " Source code";
+export const LOGOUT = "Logout";
+export const SPONSOR = "Sponsor";
 
 //charts
 export const CHART_TITLE_FOR_PAYMENT_TOTAL_AMOUNT =
   "Payment Methods - Total Amount";
 
-export const   CHART_TITLE_FOR_PAYMENT_TOTAL_TRANSACTION =   "Payment Methods - total transactions"
-export const CHART_TITLE_FOR_ORIGIN_WISE_TRIP_COUNT  = "Origin Wise Trip Count"
+export const CHART_TITLE_FOR_PAYMENT_TOTAL_TRANSACTION =
+  "Payment Methods - total transactions";
+export const CHART_TITLE_FOR_ORIGIN_WISE_TRIP_COUNT = "Origin Wise Trip Count";
