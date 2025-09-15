@@ -25,19 +25,34 @@ const GuidePackageFeedBackList = () => {
   const { id } = params;
 
   useEffect(() => {
-    setPayload({ package_id: id });
+    if (id) {
+      setPayload({ package_id: id });
+    }
   }, [id]);
 
-  const fetchGuideAssignInformation = async (id) => {
-    await fetchData(
-      api.fetchGuideFeedBack,
-      page,
-      setLastPage,
-      setReviews,
-      search,
-      setPaginationInformation,
-      setLoading
-    );
+  const fetchGuideAssignInformation = async (payload) => {
+    const response = await api.fetchGuideFeedBack(page, search, payload);
+
+    if (response.data.length === 0) {
+      setLastPage(1);
+      setReviews([]);
+      setPaginationInformation({
+        to: 0,
+        from: 0,
+        total: 0,
+      });
+      setLoading(false);
+    }
+    if (response.data && response.data.data) {
+      setLastPage(response.data.last_page);
+      setReviews(response.data.data ?? []);
+      setPaginationInformation({
+        to: response.data.to,
+        from: response.data.from,
+        total: response.data.total,
+      });
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -76,29 +91,16 @@ const GuidePackageFeedBackList = () => {
                       <thead>
                         <tr>
                           <th>SL</th>
-                          <th>Trip Name</th>
-                          <th>Package Name</th>
-                          <th>Action</th>
+                          <th>Comment</th>
+                          <th>Rating</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {reviews.map((pack, index) => (
+                        {reviews.map((review, index) => (
                           <tr key={index}>
                             <td>{index + 1}</td>
-                            <td>{pack.trip_name}</td>
-                            <td>{pack.package_name}</td>
-                            <td>
-                              <button
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                updateTrip
-                                title="Edit"
-                                className="btn btn-sm btn-success me-2"
-                                onClick={() => handlePackageReview(pack.id)}
-                              >
-                                <i className="fas fa-edit"></i>
-                              </button>
-                            </td>
+                            <td>{review.feedback}</td>
+                            <td>{review.rating}</td>
                           </tr>
                         ))}
                       </tbody>

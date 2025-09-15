@@ -805,11 +805,12 @@ const useApi = () => {
   const fetchGuideFeedBack = async (page, search, payload) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
+      console.log(payload, "payload");
 
       const response = await axiosClient.apiClient(
         "POST",
         `guide/myFeedBackByPackage?page=${page}${query}`,
-        payload
+        { package_id: payload }
       );
       if (response) {
         if (response?.data) {

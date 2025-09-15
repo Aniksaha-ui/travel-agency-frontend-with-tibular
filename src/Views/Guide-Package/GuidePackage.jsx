@@ -40,7 +40,7 @@ const GuidePackage = () => {
   }, [page, search]);
 
   const handlePackageReview = (package_id) => {
-    navigation(`/guide/package/${package_id}`);
+    navigation(`/guide/my-feedback/${package_id}`);
   };
 
   return (
@@ -88,7 +88,7 @@ const GuidePackage = () => {
                                 className="btn btn-sm btn-success me-2"
                                 onClick={() => handlePackageReview(pack.id)}
                               >
-                                <i className="fas fa-edit"></i>
+                                <i className="fas fa-comment"></i>
                               </button>
                             </td>
                           </tr>
