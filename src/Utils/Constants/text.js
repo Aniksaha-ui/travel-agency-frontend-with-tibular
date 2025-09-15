@@ -25,7 +25,8 @@ export const REPORTS_MANAGEMENT = "Reports ";
 export const SOURCE_CODE = " Source code";
 export const LOGOUT = "Logout";
 export const SPONSOR = "Sponsor";
-
+export const PROFILE = "Profile";
+export const SETTINGS = "Settings";
 //charts
 export const CHART_TITLE_FOR_PAYMENT_TOTAL_AMOUNT =
   "Payment Methods - Total Amount";
