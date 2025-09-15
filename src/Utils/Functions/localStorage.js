@@ -7,3 +7,6 @@ export const removeLocalStorage = (key) => {
   localStorage.removeItem(key);
 };
 
+export const userInformation = () => {
+  return getLocalStorage("user") ?? "";
+};

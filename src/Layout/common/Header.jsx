@@ -41,10 +41,11 @@ import {
   VEHICLE_MANAGEMENT,
 } from "../../Utils/Constants/text.js";
 import Notification from "./Notification.jsx";
+import { ROLES } from "../../Utils/Constants/common.js";
 
 const Header = () => {
   const userInformation = getLocalStorage("user") ?? "";
-  // console.log(userInformation);
+  console.log(userInformation);
   const navigate = useNavigate();
   const handleLogout = () => {
     Logout();
@@ -142,6 +143,14 @@ const Header = () => {
     },
   ]);
 
+  const [guideMenuItems, setGuideMenuItems] = useState([
+    {
+      title: DASHBOARD,
+      path: "/guide/myAssignPackages",
+      icon: <DashboardIcon />,
+    },
+  ]);
+
   const SidebarMenu = () => (
     <ul className="navbar-nav">
       {menuItems.map((item, index) => (
@@ -223,6 +232,21 @@ const Header = () => {
     </ul>
   );
 
+  const GuideSideBarMenu = () => (
+    <ul className="navbar-nav">
+      {guideMenuItems.map((item, index) => (
+        <li className="nav-item" key={index}>
+          <Link className="nav-link" to={item.path}>
+            <span className="nav-link-icon d-md-none d-lg-inline-block">
+              {item.icon}
+            </span>
+            <span className="nav-link-title">{item.title}</span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
     <Fragment>
       <header className="navbar navbar-expand-md d-print-none">
@@ -235,8 +259,15 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbar-menu">
           <div className="navbar">
             <div className="container-xl">
-              {SidebarMenu()}
-              {SidebarBottomMenu()}
+              {userInformation &&
+                userInformation.role === ROLES[0] &&
+                SidebarMenu()}
+              {userInformation &&
+                userInformation.role === ROLES[0] &&
+                SidebarBottomMenu()}
+              {userInformation &&
+                userInformation.role === ROLES[1] &&
+                GuideSideBarMenu()}
             </div>
           </div>
         </div>

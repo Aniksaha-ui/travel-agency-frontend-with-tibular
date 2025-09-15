@@ -7,6 +7,7 @@ import { userInformationAtom } from "../../State/atoms";
 import { jwtDecode } from "jwt-decode";
 import { LOGIN_PAGE_LOGO } from "../../Utils/Constants/images";
 import { LOGIN_TITLE, SIGN_IN_BUTTON_TEXT } from "../../Utils/Constants/text";
+import { ROLES } from "../../Utils/Constants/common";
 // import isTokenExpired from "../../Utils/Functions/tokenVerification";
 
 const Login = () => {
@@ -47,7 +48,12 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(response?.user));
       await setUserInfo(response?.user);
     }
-    navigate("/admin/routes");
+
+    if (response && response?.user && response?.user?.role === ROLES[0]) {
+      navigate("/admin/routes");
+    } else {
+      navigate("/guide/myAssignPackages");
+    }
   };
 
   return (

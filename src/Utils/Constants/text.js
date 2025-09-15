@@ -27,6 +27,23 @@ export const LOGOUT = "Logout";
 export const SPONSOR = "Sponsor";
 export const PROFILE = "Profile";
 export const SETTINGS = "Settings";
+
+
+//guide panel
+export const GUIDE_PACKAGE_ASSIGN_INFORMATION = "Package Assign Information";
+export const GUIDE_PACKAGE_FEEDBACK_INFORMATION = "Package Feedback Information";
+
+
+
+
+
+
+
+
+
+
+
+
 //charts
 export const CHART_TITLE_FOR_PAYMENT_TOTAL_AMOUNT =
   "Payment Methods - Total Amount";

@@ -6,6 +6,7 @@ import Search from "../../Utils/Components/Search";
 import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
 import fetchData from "../../Utils/Functions/fetchInformation";
 import Loading from "../../Utils/Components/Loading";
+import { GUIDE_PACKAGE_ASSIGN_INFORMATION } from "../../Utils/Constants/text";
 
 const GuidePackage = () => {
   const [page, setPage] = useState(1);
@@ -59,7 +60,9 @@ const GuidePackage = () => {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">Package Assign Information</h3>
+                    <h3 className="card-title">
+                      {GUIDE_PACKAGE_ASSIGN_INFORMATION}
+                    </h3>
                   </div>
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}
