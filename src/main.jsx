@@ -39,6 +39,8 @@ import HotelCheckIn from "./Views/HotelCheckIn/HotelCheckin.jsx";
 import Dashboard from "./Views/Dashboard/Dashboard.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MonthlyRunningBalance from "./Views/Reports/MonthlyRunningBalance/MonthlyRunningBalance.jsx";
+import GuidePackage from "./Views/Guide-Package/GuidePackage.jsx";
+import GuidePackageFeedBackList from "./Views/Guide-Package/GuidePackageFeedBackList.jsx";
 
 const queryClient = new QueryClient();
 
@@ -167,6 +169,16 @@ createRoot(document.getElementById("root")).render(
             <Route
               path="admin/monthRunningBalance"
               element={<MonthlyRunningBalance />}
+            ></Route>
+
+            <Route
+              path="guide/myAssignPackages"
+              element={<GuidePackage />}
+            ></Route>
+
+            <Route
+              path="guide/my-feedback/:id"
+              element={<GuidePackageFeedBackList />}
             ></Route>
 
             {/* reports */}

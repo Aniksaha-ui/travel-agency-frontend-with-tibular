@@ -781,6 +781,49 @@ const useApi = () => {
     }
   };
 
+  const fetchGuidePackages = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "POST",
+        `guide/myAssignPackage?page=${page}${query}`
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchGuideFeedBack = async (page, search, payload) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "POST",
+        `guide/myFeedBackByPackage?page=${page}${query}`,
+        payload
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -831,6 +874,8 @@ const useApi = () => {
     addHotel,
     getHotelById,
     updateHotel,
+    fetchGuidePackages,
+    fetchGuideFeedBack,
   };
 };
 
