@@ -50,7 +50,7 @@ const Login = () => {
     }
 
     if (response && response?.user && response?.user?.role === ROLES[0]) {
-      navigate("/admin/routes");
+      navigate("/admin/dashboard");
     } else {
       navigate("/guide/myAssignPackages");
     }

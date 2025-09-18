@@ -190,17 +190,17 @@ export const HotelCheckInIcon = () => (
     strokeLinejoin="round"
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <rect x="3" y="7" width="18" height="13" rx="2" />
-    <path d="M7 7v-2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v2" />
-    <path d="M10 11h1v1h-1z" />
-    <path d="M13 11h1v1h-1z" />
-    <path d="M16 11h1v1h-1z" />
-    <path d="M7 11h1v1h-1z" />
-    <path d="M10 14h1v1h-1z" />
-    <path d="M13 14h1v1h-1z" />
-    <path d="M16 14h1v1h-1z" />
-    <path d="M7 14h1v1h-1z" />
-    <path d="M10 17h4v3h-4z" />
+    <g transform="translate(2,2)">
+      <rect x="1" y="5" width="20" height="15" rx="2" />
+      <path d="M1 5v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" />
+      <path d="M3 5h1v1h-1z" />
+      <path d="M6 5h1v1h-1z" />
+      <path d="M9 5h1v1h-1z" />
+      <path d="M3 8h1v1h-1z" />
+      <path d="M6 8h1v1h-1z" />
+      <path d="M9 8h1v1h-1z" />
+      <path d="M3 11h4v3h-4z" />
+    </g>
   </svg>
 );
 
