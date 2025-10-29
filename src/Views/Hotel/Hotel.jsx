@@ -117,7 +117,7 @@ const HotelInformation = () => {
                             <td>{guide.id}</td>
                             <td>{guide.name}</td>
                             <td>{guide.email}</td>
-                            <td>{guide.Website}</td>
+                            <td>{guide.website}</td>
                             <td>{guide.location}</td>
                             <td>{guide.city}</td>
                             <td>{guide.country}</td>

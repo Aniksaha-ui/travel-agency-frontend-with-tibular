@@ -739,7 +739,8 @@ const useApi = () => {
       `hotel/update/checkin`,
       { hotel_booking_id: hotel_booking_id, status: status }
     );
-    if (response?.data.data === true) {
+
+    if (response && response.data && response?.data.isExecute === true) {
       return response.data.isExecute;
     }
   };

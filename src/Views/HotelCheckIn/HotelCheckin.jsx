@@ -9,7 +9,8 @@ import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
 import { HOTEL_CHECKIN, TRIP_PERFORMANCE } from "../../Utils/Constants/text";
 import fetchData from "../../Utils/Functions/fetchInformation";
 import moment from "moment";
-
+import { toast } from "react-toastify";
+import { hotelCheckinStatus } from "../../Utils/Constants/status";
 
 function HotelCheckIn() {
   const goBack = useGoBack();
@@ -25,7 +26,6 @@ function HotelCheckIn() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState("");
   const api = useApi();
-  const navigation = useNavigate();
   const fetchPackagePerformance = async () => {
     await fetchData(
       api.fetchHotelCheckIn,
@@ -49,19 +49,19 @@ function HotelCheckIn() {
     return <Loading />;
   }
 
-
-  const handleCheckin = async(id,status)=>{
-    const response = await api.markAsCheckInOrOut(id,status);
-        if (response) {
-          setCheckIn((prevCheckIn) =>
-            prevCheckIn.map((checkIn) =>
-              checkIn.hotel_booking_id === id ? { ...checkIn, status: status } : checkIn
-            )
-          );
-          toast("Customer Checked In Successfully");
-          
-        }
-  }
+  const handleCheckin = async (id, status) => {
+    const response = await api.markAsCheckInOrOut(id, status);
+    if (response) {
+      setCheckIn((prevCheckIn) =>
+        prevCheckIn.map((checkIn) =>
+          parseInt(checkIn.hotel_booking_id) == id
+            ? { ...checkIn, status: status }
+            : checkIn
+        )
+      );
+      toast("Customer Checked In Successfully");
+    }
+  };
 
   return (
     <AdminLayout>
@@ -107,28 +107,38 @@ function HotelCheckIn() {
                             <td>{check.hotel_booking_id}</td>
                             <td>{moment(check.check_in_time).format("ll")}</td>
                             <td>{moment(check.check_out_time).format("ll")}</td>
-                            <td>{check.status}</td>
-                            <td><button
-                                  onClick={() => handleCheckin(check.hotel_booking_id,"checked_in")}
-                                  data-bs-toggle="tooltip"
-                                  data-bs-placement="top"
-                                  title="Checked In"
-                                  className="btn btn-sm btn-success ms-2"
-                                >
-                                  <i className="fas fa-check"></i>
-                                </button>
-                                
-                                <button
-                                  onClick={() => handleCheckin(check.hotel_booking_id,"checked_out")}
-                                  data-bs-toggle="tooltip"
-                                  data-bs-placement="top"
-                                  title="Checked Out"
-                                  className="btn btn-sm btn-success ms-2"
-                                >
-                                  <i className="fas fa-times"></i>
-                                </button>
-                                
-                                </td>
+                            <td>{hotelCheckinStatus[check.status]}</td>
+                            <td>
+                              <button
+                                onClick={() =>
+                                  handleCheckin(
+                                    check.hotel_booking_id,
+                                    "checked_in"
+                                  )
+                                }
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Checked In"
+                                className="btn btn-sm btn-success ms-2"
+                              >
+                                <i className="fas fa-check"></i>
+                              </button>
+
+                              <button
+                                onClick={() =>
+                                  handleCheckin(
+                                    check.hotel_booking_id,
+                                    "checked_out"
+                                  )
+                                }
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Checked Out"
+                                className="btn btn-sm btn-success ms-2"
+                              >
+                                <i className="fas fa-times"></i>
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>

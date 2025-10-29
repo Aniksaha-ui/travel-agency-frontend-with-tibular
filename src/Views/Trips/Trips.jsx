@@ -8,6 +8,7 @@ import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { status } from "../../Utils/Constants/common";
+import moment from "moment";
 
 function Trips() {
   const [page, setPage] = useState(1);
@@ -136,9 +137,13 @@ function Trips() {
                             <td>{trip.vehicle_name}</td>
                             <td>
                               <span className="badge bg-success me-1" />
-                              {trip.departure_time}
+                              {moment(trip.departure_time).format(
+                                "DD MMMM YYYY"
+                              )}
                             </td>
-                            <td>{trip.arrival_time}</td>
+                            <td>
+                              {moment(trip.arrival_time).format("DD MMMM YYYY")}{" "}
+                            </td>
                             <td>{trip.price}</td>
                             <td>{status[trip.is_active]}</td>
                             <td>
