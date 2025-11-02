@@ -507,8 +507,8 @@ const useApi = () => {
         REFUND_DISBURSED_API_ENDPOINT,
         { refund_id: refundId }
       );
-      
-      if (response?.data) {
+
+      if (response && response?.data) {
         return response.data;
       }
       return { message: response.message, data: [] };
@@ -516,9 +516,7 @@ const useApi = () => {
       console.log(error);
       return null;
     }
-  }
-
-
+  };
 
   const vehicleTrackingReport = async () => {
     try {

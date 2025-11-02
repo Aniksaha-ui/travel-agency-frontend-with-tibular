@@ -3,3 +3,8 @@ export const hotelCheckinStatus = {
   checked_in: "Check In",
   checked_out: "Check Out",
 };
+
+export const refundDisbrusedStatus = {
+  pending: "Pending",
+  disbursed: "Disbursed",
+};

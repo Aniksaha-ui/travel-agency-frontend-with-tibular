@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Search from "../../Utils/Components/Search";
 import moment from "moment";
+import { refundDisbrusedStatus } from "../../Utils/Constants/status";
+import RefundList from "./_partial/RefundList";
 
 function Refunds() {
   const [page, setPage] = useState(1);
@@ -45,8 +47,9 @@ function Refunds() {
     return <Loading />;
   }
 
-  const disbrused = async (refundId) =>{
+  const disbrused = async (refundId) => {
     const response = await api.refundDisbursed(refundId);
+    if (response && response.status === true) {
       setRefunds((prevCheckIn) =>
         prevCheckIn.map((refunds) =>
           parseInt(refunds.id) == refundId
@@ -55,8 +58,10 @@ function Refunds() {
         )
       );
       toast("Customer Checked In Successfully");
-  }
-
+    } else {
+      toast(response.message);
+    }
+  };
 
   return (
     <AdminLayout>
@@ -90,29 +95,11 @@ function Refunds() {
                       </thead>
                       <tbody>
                         {refunds.map((refund, index) => (
-                          <tr key={index}>
-                            <td>{refund.id}</td>
-                            <td>{moment(refund.booking_date).format("DD MMMM YYYY")}</td>
-                            <td>{refund.trip_name}</td>
-                            <td>{refund.seat_ids}</td>
-                            <td>{refund.reason}</td>
-                            <td>{refund.status}</td>
-                            <td>
-                              <button
-                                onClick={() =>
-                                  disbrused(
-                                    refund.id,
-                                  )
-                                }
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Checked In"
-                                className="btn btn-sm btn-success ms-2"
-                              >
-                                <i className="fas fa-check"></i>
-                              </button>
-                            </td>
-                          </tr>
+                          <RefundList
+                            key={index}
+                            refund={refund}
+                            disbrused={disbrused}
+                          />
                         ))}
                       </tbody>
                     </table>
