@@ -41,6 +41,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MonthlyRunningBalance from "./Views/Reports/MonthlyRunningBalance/MonthlyRunningBalance.jsx";
 import GuidePackage from "./Views/Guide-Package/GuidePackage.jsx";
 import GuidePackageFeedBackList from "./Views/Guide-Package/GuidePackageFeedBackList.jsx";
+import GuidePackageCosting from "./Views/Guide-Package-costing/GuidePackageCosting.jsx";
 
 const queryClient = new QueryClient();
 
@@ -174,6 +175,11 @@ createRoot(document.getElementById("root")).render(
             <Route
               path="guide/myAssignPackages"
               element={<GuidePackage />}
+            ></Route>
+
+            <Route
+              path="guide/my-packageCosting/:id"
+              element={<GuidePackageCosting />}
             ></Route>
 
             <Route
