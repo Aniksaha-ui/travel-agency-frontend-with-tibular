@@ -7,9 +7,8 @@ import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Search from "../../Utils/Components/Search";
-import moment from "moment";
-import { refundDisbrusedStatus } from "../../Utils/Constants/status";
 import RefundList from "./_partial/RefundList";
+import { refundDisbrusedStatus } from "../../Utils/Constants/status";
 
 function Refunds() {
   const [page, setPage] = useState(1);
@@ -53,7 +52,7 @@ function Refunds() {
       setRefunds((prevCheckIn) =>
         prevCheckIn.map((refunds) =>
           parseInt(refunds.id) == refundId
-            ? { ...refunds, status: "disbrused" }
+            ? { ...refunds, status: "disbursed" }
             : refunds
         )
       );

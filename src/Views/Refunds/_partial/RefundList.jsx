@@ -11,15 +11,18 @@ const RefundList = ({ index, refund, disbrused }) => {
       <td>{refund.reason}</td>
       <td>{refundDisbrusedStatus[refund.status]}</td>
       <td>
-        <button
-          onClick={() => disbrused(refund.id)}
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Checked In"
-          className="btn btn-sm btn-success ms-2"
-        >
-          <i className="fas fa-check"></i>
-        </button>
+        {refundDisbrusedStatus[refund.status] ===
+          refundDisbrusedStatus.pending && (
+          <button
+            onClick={() => disbrused(refund.id)}
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="Checked In"
+            className="btn btn-sm btn-success ms-2"
+          >
+            <i className="fas fa-check"></i>
+          </button>
+        )}
       </td>
     </tr>
   );
