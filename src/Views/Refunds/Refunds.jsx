@@ -7,6 +7,7 @@ import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Search from "../../Utils/Components/Search";
+import moment from "moment";
 
 function Refunds() {
   const [page, setPage] = useState(1);
@@ -44,6 +45,19 @@ function Refunds() {
     return <Loading />;
   }
 
+  const disbrused = async (refundId) =>{
+    const response = await api.refundDisbursed(refundId);
+      setRefunds((prevCheckIn) =>
+        prevCheckIn.map((refunds) =>
+          parseInt(refunds.id) == refundId
+            ? { ...refunds, status: "disbrused" }
+            : refunds
+        )
+      );
+      toast("Customer Checked In Successfully");
+  }
+
+
   return (
     <AdminLayout>
       <div className="page-wrapper">
@@ -66,22 +80,38 @@ function Refunds() {
                       <thead>
                         <tr>
                           <th>SL</th>
+                          <th>Booking Date</th>
                           <th>Trip Name</th>
+                          <th>Seats</th>
                           <th>Reason For Refund</th>
                           <th>Disbursement Status</th>
-                          <th>Seats</th>
-                          <th>Booking Date</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {refunds.map((refund, index) => (
                           <tr key={index}>
                             <td>{refund.id}</td>
+                            <td>{moment(refund.booking_date).format("DD MMMM YYYY")}</td>
                             <td>{refund.trip_name}</td>
+                            <td>{refund.seat_ids}</td>
                             <td>{refund.reason}</td>
                             <td>{refund.status}</td>
-                            <td>{refund.seat_ids}</td>
-                            <td>{refund.booking_date}</td>
+                            <td>
+                              <button
+                                onClick={() =>
+                                  disbrused(
+                                    refund.id,
+                                  )
+                                }
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Checked In"
+                                className="btn btn-sm btn-success ms-2"
+                              >
+                                <i className="fas fa-check"></i>
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>

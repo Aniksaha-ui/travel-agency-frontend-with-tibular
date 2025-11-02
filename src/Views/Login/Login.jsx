@@ -8,7 +8,6 @@ import { jwtDecode } from "jwt-decode";
 import { LOGIN_PAGE_LOGO } from "../../Utils/Constants/images";
 import { LOGIN_TITLE, SIGN_IN_BUTTON_TEXT } from "../../Utils/Constants/text";
 import { ROLES } from "../../Utils/Constants/common";
-// import isTokenExpired from "../../Utils/Functions/tokenVerification";
 
 const Login = () => {
   const navigate = useNavigate();

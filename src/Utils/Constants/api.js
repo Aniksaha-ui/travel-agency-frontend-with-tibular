@@ -22,6 +22,7 @@ export const ADMIN_BOOKING_INVOICE_API_ENDPOINT = "admin/booking-invoice";
 export const PACKAGE_API_ENDPOINT = "admin/packages";
 export const SINGLE_PACKAGE_DETAILS = "packages";
 export const REFUND_API_ENDPOINT = "admin/refund";
+export const REFUND_DISBURSED_API_ENDPOINT = "admin/refund/disburse";
 export const VEHICLE_API_ENDPOINT = "admin/useageOfVehicle";
 export const GUIDE_API_ENDPOINT = "admin/guide";
 export const TRIP_PERFORMANCE = "/admin/tripPerformance";

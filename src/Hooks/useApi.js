@@ -13,6 +13,7 @@ import {
   PACKAGE_API_ENDPOINT,
   PACKAGE_PERFORMANCE,
   REFUND_API_ENDPOINT,
+  REFUND_DISBURSED_API_ENDPOINT,
   ROUTES_API_ENDPOINT,
   ROUTES_DROPDOWN_API_ENDPOINT,
   SEATS_API_ENDPOINT,
@@ -499,6 +500,26 @@ const useApi = () => {
     return null;
   };
 
+  const refundDisbursed = async (refundId) => {
+    try {
+      const response = await axiosClient.apiClient(
+        "POST",
+        REFUND_DISBURSED_API_ENDPOINT,
+        { refund_id: refundId }
+      );
+      
+      if (response?.data) {
+        return response.data;
+      }
+      return { message: response.message, data: [] };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+
+
   const vehicleTrackingReport = async () => {
     try {
       const response = await axiosClient.apiClient(
@@ -861,6 +882,7 @@ const useApi = () => {
     addPackage,
     vehicleTrackingReport,
     fetchRefunds,
+    refundDisbursed,
     fetchGuideDropDown,
     fetchBookingInvoiceByBookingId,
     fetchGuideInformation,
