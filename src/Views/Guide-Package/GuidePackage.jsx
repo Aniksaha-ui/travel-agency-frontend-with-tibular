@@ -44,6 +44,12 @@ const GuidePackage = () => {
     navigation(`/guide/my-feedback/${package_id}`);
   };
 
+
+  const handleShowCosting = (package_id) =>{
+    navigation(`/guide/my-packageCosting/${package_id}`);
+
+  }
+
   return (
     <AdminLayout>
       <div className="page-wrapper">
@@ -92,6 +98,17 @@ const GuidePackage = () => {
                                 onClick={() => handlePackageReview(pack.id)}
                               >
                                 <i className="fas fa-comment"></i>
+                              </button>
+
+                               <button
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                updateTrip
+                                title="Costing Information"
+                                className="btn btn-sm btn-success me-2"
+                                onClick={() => handleShowCosting(pack.id)}
+                              >
+                                <i className="fas fa-money-bill"></i>
                               </button>
                             </td>
                           </tr>

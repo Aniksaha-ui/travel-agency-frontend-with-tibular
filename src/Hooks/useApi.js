@@ -828,7 +828,8 @@ const useApi = () => {
 
       const response = await axiosClient.apiClient(
         "POST",
-        `admin/guide/costingbypackage/${packageId}?page=${page}${query}`
+        `guide/costingByPackageList?page=${page}${query}`,
+        {package_id : packageId}
       );
       if (response) {
         if (response?.data) {
@@ -842,6 +843,56 @@ const useApi = () => {
       console.log(error);
     }
   };
+
+  const getPackageCosting = async(costId)=>{
+try {
+
+      const response = await axiosClient.apiClient(
+        "POST",
+        `admin/guide/costingbypackage/${costId}`
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+    const addPackageCostingByPackage = async (data) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      'admin/guide/costingbypackage',
+      data
+    );
+    console.log(response.data.status, "res");
+    if (response.data.status === true) {
+      return response.data.status;
+    }
+  };
+
+
+     const updatePackageCostingByPackage = async (data) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      'admin/guide/costingbypackage/update',
+      data
+    );
+    console.log(response.data.status, "res");
+    if (response.data.status === true) {
+      return response.data.status;
+    }
+  };
+
+  
+
+
 
   const fetchGuideFeedBack = async (page, search, payload) => {
     try {
@@ -920,6 +971,10 @@ const useApi = () => {
     fetchGuidePackages,
     fetchGuideFeedBack,
     fetchGuidePackagesCosting,
+    addPackageCostingByPackage,
+    updatePackageCostingByPackage,
+    getPackageCosting
+
   };
 };
 

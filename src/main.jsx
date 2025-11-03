@@ -42,6 +42,8 @@ import MonthlyRunningBalance from "./Views/Reports/MonthlyRunningBalance/Monthly
 import GuidePackage from "./Views/Guide-Package/GuidePackage.jsx";
 import GuidePackageFeedBackList from "./Views/Guide-Package/GuidePackageFeedBackList.jsx";
 import GuidePackageCosting from "./Views/Guide-Package-costing/GuidePackageCosting.jsx";
+import GuidePackageForm from "./Views/Guide-Package-costing/GuidePackageForm.jsx";
+import GuidePackageCostingForm from "./Views/Guide-Package-costing/GuidePackageForm.jsx";
 
 const queryClient = new QueryClient();
 
@@ -183,8 +185,13 @@ createRoot(document.getElementById("root")).render(
             ></Route>
 
                <Route
-              path="guide/my-packageCosting/addCosting/:id"
-              element={<GuidePackageCosting />}
+              path="guide/my-packageCosting/addCosting/:packageId"
+              element={<GuidePackageCostingForm action="add"/>}
+            ></Route>
+
+              <Route
+              path="guide/my-packageCosting/addCosting/:packageId/:costId"
+              element={<GuidePackageCostingForm action="update"/>}
             ></Route>
 
             <Route
