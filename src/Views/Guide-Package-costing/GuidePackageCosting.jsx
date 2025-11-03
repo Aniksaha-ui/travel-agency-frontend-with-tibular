@@ -4,12 +4,7 @@ import AdminLayout from "../../Layout/AdminLayout";
 import { useNavigate, useParams } from "react-router-dom";
 import Search from "../../Utils/Components/Search";
 import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
-import fetchData from "../../Utils/Functions/fetchInformation";
-import Loading from "../../Utils/Components/Loading";
-import {
-  GUIDE_PACKAGE_ASSIGN_INFORMATION,
-  GUIDE_PACKAGE_FEEDBACK_INFORMATION,
-} from "../../Utils/Constants/text";
+import { GUIDE_PACKAGE_COSTING } from "../../Utils/Constants/text";
 
 const GuidePackageCosting = () => {
   const [page, setPage] = useState(1);
@@ -48,9 +43,9 @@ const GuidePackageCosting = () => {
       });
       setLoading(false);
     }
-    if (response.data && response.data.data) {
+    if (response && response.data) {
       setLastPage(response.data.last_page);
-      setCostings(response.data.data ?? []);
+      setCostings(response.data ?? []);
       setPaginationInformation({
         to: response.data.to,
         from: response.data.from,
@@ -71,6 +66,10 @@ const GuidePackageCosting = () => {
     navigation(`/guide/package/${package_id}`);
   };
 
+  const handleAddCost = (package_id) => {
+    navigation(`/guide/my-packageCosting/addCosting/${package_id}`);
+  };
+
   return (
     <AdminLayout>
       <div className="page-wrapper">
@@ -87,9 +86,13 @@ const GuidePackageCosting = () => {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">
-                      {GUIDE_PACKAGE_FEEDBACK_INFORMATION}
-                    </h3>
+                    <h3 className="card-title">{GUIDE_PACKAGE_COSTING}</h3>
+                    <div
+                      onClick={() => handleAddCost(id)}
+                      className="btn btn-primary"
+                    >
+                      Add New
+                    </div>
                   </div>
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}
@@ -98,16 +101,20 @@ const GuidePackageCosting = () => {
                       <thead>
                         <tr>
                           <th>SL</th>
-                          <th>Comment</th>
-                          <th>Rating</th>
+                          <th>Cost Type</th>
+                          <th>Amount</th>
+                          <th>Description</th>
+                          <th>Attachment</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {costings.map((review, index) => (
+                        {costings.map((cost, index) => (
                           <tr key={index}>
                             <td>{index + 1}</td>
-                            <td>{review.feedback}</td>
-                            <td>{review.rating}</td>
+                            <td>{cost.cost_type}</td>
+                            <td>{cost.cost_amount}</td>
+                            <td>{cost.description}</td>
+                            <td>{cost.description}</td>
                           </tr>
                         ))}
                       </tbody>

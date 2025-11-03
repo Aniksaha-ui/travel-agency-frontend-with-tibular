@@ -28,21 +28,11 @@ export const SPONSOR = "Sponsor";
 export const PROFILE = "Profile";
 export const SETTINGS = "Settings";
 
-
 //guide panel
 export const GUIDE_PACKAGE_ASSIGN_INFORMATION = "Package Assign Information";
-export const GUIDE_PACKAGE_FEEDBACK_INFORMATION = "Package Feedback Information";
-
-
-
-
-
-
-
-
-
-
-
+export const GUIDE_PACKAGE_FEEDBACK_INFORMATION =
+  "Package Feedback Information";
+export const GUIDE_PACKAGE_COSTING = "Package Costing List";
 
 //charts
 export const CHART_TITLE_FOR_PAYMENT_TOTAL_AMOUNT =

@@ -182,6 +182,11 @@ createRoot(document.getElementById("root")).render(
               element={<GuidePackageCosting />}
             ></Route>
 
+               <Route
+              path="guide/my-packageCosting/addCosting/:id"
+              element={<GuidePackageCosting />}
+            ></Route>
+
             <Route
               path="guide/my-feedback/:id"
               element={<GuidePackageFeedBackList />}

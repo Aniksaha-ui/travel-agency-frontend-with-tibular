@@ -68,7 +68,6 @@ const HotelInformation = () => {
     navigation(`/admin/hotel/update/${id}`);
   };
 
-  console.log(hotels, "hotels");
 
   return (
     <AdminLayout>
