@@ -41,7 +41,7 @@ import { ROLES } from "../../Utils/Constants/common.js";
 
 const Header = () => {
   const userInformation = getLocalStorage("user") ?? "";
-  console.log(userInformation);
+  // console.log(userInformation);
   const navigate = useNavigate();
   const handleLogout = () => {
     Logout();

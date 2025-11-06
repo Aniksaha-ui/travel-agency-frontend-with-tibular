@@ -796,7 +796,8 @@ const useApi = () => {
       `/${HOTEL_API_ENDPOINT}/update/${id}`,
       data
     );
-    if (response?.data.data === true) {
+
+    if (response && response?.data && response?.data?.isExecute === true) {
       return response.data.isExecute;
     }
   };
@@ -829,7 +830,7 @@ const useApi = () => {
       const response = await axiosClient.apiClient(
         "POST",
         `guide/costingByPackageList?page=${page}${query}`,
-        {package_id : packageId}
+        { package_id: packageId }
       );
       if (response) {
         if (response?.data) {
@@ -844,9 +845,8 @@ const useApi = () => {
     }
   };
 
-  const getPackageCosting = async(costId)=>{
-try {
-
+  const getPackageCosting = async (costId) => {
+    try {
       const response = await axiosClient.apiClient(
         "POST",
         `admin/guide/costingbypackage/${costId}`
@@ -862,13 +862,12 @@ try {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
-
-    const addPackageCostingByPackage = async (data) => {
+  const addPackageCostingByPackage = async (data) => {
     const response = await axiosClient.apiClient(
       "POST",
-      'admin/guide/costingbypackage',
+      "admin/guide/costingbypackage",
       data
     );
     console.log(response.data.status, "res");
@@ -877,11 +876,10 @@ try {
     }
   };
 
-
-     const updatePackageCostingByPackage = async (data) => {
+  const updatePackageCostingByPackage = async (data) => {
     const response = await axiosClient.apiClient(
       "POST",
-      'admin/guide/costingbypackage/update',
+      "admin/guide/costingbypackage/update",
       data
     );
     console.log(response.data.status, "res");
@@ -889,10 +887,6 @@ try {
       return response.data.status;
     }
   };
-
-  
-
-
 
   const fetchGuideFeedBack = async (page, search, payload) => {
     try {
@@ -973,8 +967,7 @@ try {
     fetchGuidePackagesCosting,
     addPackageCostingByPackage,
     updatePackageCostingByPackage,
-    getPackageCosting
-
+    getPackageCosting,
   };
 };
 
