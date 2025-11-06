@@ -57,7 +57,6 @@ function Trips() {
   const handleDelete = async (id) => {
     const response = await api.deleteRoute(id);
     if (response) {
-      console.log(response, "response");
       toast("Route Delete Successfully");
       fetchRouteInformation(
         api.fetchGuide,

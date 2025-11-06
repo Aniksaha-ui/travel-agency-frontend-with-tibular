@@ -6,6 +6,7 @@ import {
   ADMIN_BOOKING_INVOICE_API_ENDPOINT,
   CUSTOMER_VALUE_REPORT,
   DASHBOARD,
+  FINANCIAL_REPORT,
   GUIDE_API_ENDPOINT,
   HOTEL_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
@@ -689,6 +690,30 @@ const useApi = () => {
     }
   };
 
+
+
+  const financialReport = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${FINANCIAL_REPORT}?page=${page}${query}`
+      );
+      if (response) {
+        if (response && response?.data && response?.data?.data) {
+          return response;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   const monthlyRunningBalance = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
@@ -956,6 +981,7 @@ const useApi = () => {
     tripPerformanceReport,
     packagePerformanceReport,
     customerValueReport,
+    financialReport,
     fetchHotelInformation,
     fetchHotelCheckIn,
     markAsCheckInOrOut,

@@ -50,7 +50,6 @@ function SeatsInformation() {
 
   const handleDelete = async (id) => {
     const response = await api.deleteSeat(id);
-    console.log(response);
     if (response) {
       toast("Route Delete Successfully");
       fetchRouteInformation(

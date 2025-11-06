@@ -10,7 +10,6 @@ const ProtectedRoute = ({ isAdmin, children }) => {
   },[])
     
   if (role==="admin") {
-    // console.log("if admin")
     return children;
 }
     return <Navigate to="admin/users" replace />;

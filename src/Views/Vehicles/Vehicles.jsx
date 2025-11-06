@@ -55,7 +55,6 @@ function VehicleInformation() {
   const handleDelete = async (id) => {
     const response = await api.deleteVehicle(id);
     if (response) {
-      console.log(response, "response");
       toast("Vehicles Delete Successfully");
       fetchRouteInformation(
         api.fetchGuide,

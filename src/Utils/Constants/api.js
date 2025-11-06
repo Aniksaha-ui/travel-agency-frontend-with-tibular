@@ -33,3 +33,4 @@ export const USER_HOTEL_API_ENDPOINT = "/hotel";
 export const DASHBOARD = "admin/dashboard";
 export const DASHBOARD_TABLE_VIEW = "admin/dashboard/databaseList";
 export const MONTH_RUNNING_BALANCE  ="admin/monthRunningBalance"
+export const FINANCIAL_REPORT  ="admin/financial_report"

@@ -30,7 +30,6 @@ const FormTrips = ({ action }) => {
       const fetchTripData = async () => {
         const tripData = await api.getTripById(id);
 
-        console.log(tripData, "trip data");
         setFormData(tripData.data);
       };
       fetchTripData();
@@ -97,7 +96,6 @@ const FormTrips = ({ action }) => {
 
     formData.departure_at = formatTo12Hour(formData.departure_at);
     formData.arrival_at = formatTo12Hour(formData.arrival_at);
-    console.log(formData, "data");
 
     const form_data = new FormData();
     Object.keys(formData).forEach((key) =>
@@ -106,7 +104,6 @@ const FormTrips = ({ action }) => {
 
     if (action === "add") {
       let response = await api.addTrip(form_data);
-      console.log(response, "response");
 
       if (response.isExecute == true) {
         toast(response.message);

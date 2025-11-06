@@ -48,9 +48,7 @@ const HotelInformation = () => {
 
   const handleDelete = async (id) => {
     const response = await api.deleteRoute(id);
-    console.log(response);
     if (response) {
-      console.log(response, "response");
       toast("Route Delete Successfully");
       fetchHotelInformation(
         api.fetchGuide,

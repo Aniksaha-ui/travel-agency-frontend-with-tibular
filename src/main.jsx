@@ -44,6 +44,7 @@ import GuidePackageFeedBackList from "./Views/Guide-Package/GuidePackageFeedBack
 import GuidePackageCosting from "./Views/Guide-Package-costing/GuidePackageCosting.jsx";
 import GuidePackageForm from "./Views/Guide-Package-costing/GuidePackageForm.jsx";
 import GuidePackageCostingForm from "./Views/Guide-Package-costing/GuidePackageForm.jsx";
+import FinancialReport from "./Views/Reports/FinancialReport/FinancialReport.jsx";
 
 const queryClient = new QueryClient();
 
@@ -172,6 +173,12 @@ createRoot(document.getElementById("root")).render(
             <Route
               path="admin/monthRunningBalance"
               element={<MonthlyRunningBalance />}
+            ></Route>
+
+
+              <Route
+              path="admin/finacialReport"
+              element={<FinancialReport />}
             ></Route>
 
             <Route

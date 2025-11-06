@@ -15,7 +15,6 @@ const BusLayout = ({ data }) => {
     return groups;
   }, {});
 
-  console.log(seatGroups, "seatGroups");
   return (
     <div className="card p-4 border-3 container my-4">
       <h3 className="text-center mb-4">Bus Layout</h3>

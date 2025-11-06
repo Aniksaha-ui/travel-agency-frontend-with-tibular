@@ -27,8 +27,6 @@ const AccountBalanceReport = () => {
 
   const fetchAccountBalance = async () => {
     const response = await api.fetchAccountBalanceReport();
-    console.log(response, "res");
-
     if (response && response.data) {
       setAccountBalance(response.data);
     }
@@ -37,8 +35,6 @@ const AccountBalanceReport = () => {
   const handleDetails = async (type) => {
     const response = await api.fetchAccountBalanceHistoryReport(type);
     if (response && response.data) {
-      console.log(response, "res");
-
       await setAccountHistory(response.data);
       setIsModalOpen(true);
     }

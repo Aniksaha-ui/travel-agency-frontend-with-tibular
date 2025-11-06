@@ -40,7 +40,6 @@ const BusLayout = ({ data }) => {
     return groups;
   }, {});
 
-  console.log(seatGroups, "data");
 
   return (
     <div className="card p-4 border-3 container my-4">
@@ -89,7 +88,6 @@ function TripsDetails() {
 
   const fetchTourDetailsInformation = async (tourId) => {
     const response = await api.fetchTourDetailsInformation(tourId);
-    console.log(response);
 
     if (response) {
       await setTripSummery(response.tripSummaries);

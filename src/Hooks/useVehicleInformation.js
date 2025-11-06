@@ -10,7 +10,6 @@ const useVehicleInformation = () => {
 
   const fetchVehicleDropDownInformation = async () => {
     const response = await api.fetchVehicleDropDownList();
-    console.log(response);
    setVehicles(response.data)
   };
   return [vehicles,setVehicles]

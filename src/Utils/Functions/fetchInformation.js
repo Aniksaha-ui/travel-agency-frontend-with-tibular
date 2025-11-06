@@ -9,7 +9,6 @@ const fetchData = async (
 ) => {
   try {
     const response = await apiFunction(page, search);
-
     if (response.data.length === 0) {
       setLastPage(1);
       setData([]);

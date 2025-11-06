@@ -42,7 +42,6 @@ const GuideForm = ({ action }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     const form_data = new FormData();
     Object.keys(formData).forEach((key) =>
       form_data.append(key, formData[key])

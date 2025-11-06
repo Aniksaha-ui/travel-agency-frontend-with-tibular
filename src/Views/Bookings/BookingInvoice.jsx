@@ -64,8 +64,6 @@ const BookingInvoice = () => {
 
   const fetchBookingInvoice = async (bookingId) => {
     const response = await api.fetchBookingInvoiceByBookingId(bookingId);
-    console.log(response.data[0]);
-
     setBookingInvoiceInfo(response.data[0]);
   };
 
