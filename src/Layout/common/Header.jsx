@@ -134,6 +134,7 @@ const Header = () => {
           path: "/admin/packagePerformance",
         },
         { title: "Customer Value Report", path: "/admin/customerValueReport" },
+        { title: "Financial Report", path: "/admin/financialReport" },
       ],
     },
   ]);

@@ -27,6 +27,7 @@ export const LOGOUT = "Logout";
 export const SPONSOR = "Sponsor";
 export const PROFILE = "Profile";
 export const SETTINGS = "Settings";
+export const FINANCIAL_REPORT = "Financial Report"
 
 //guide panel
 export const GUIDE_PACKAGE_ASSIGN_INFORMATION = "Package Assign Information";

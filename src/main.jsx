@@ -177,7 +177,7 @@ createRoot(document.getElementById("root")).render(
 
 
               <Route
-              path="admin/finacialReport"
+              path="admin/financialReport"
               element={<FinancialReport />}
             ></Route>
 

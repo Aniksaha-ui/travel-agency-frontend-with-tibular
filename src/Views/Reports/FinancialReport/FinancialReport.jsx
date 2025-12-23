@@ -7,7 +7,7 @@ import Search from "../../../Utils/Components/Search";
 import { PaginationFooter } from "../../../Utils/Components/PaginationFooter";
 import fetchData from "../../../Utils/Functions/fetchInformation";
 import moment from "moment";
-import { TRIP_PERFORMANCE } from "../../../Utils/Constants/text";
+import { FINANCIAL_REPORT } from "../../../Utils/Constants/text";
 import useGoBack from "../../../Hooks/useGoBack";
 import FinancialReportList from "./_partial/FinancialReportList";
 
@@ -65,10 +65,7 @@ function FinancialReport() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">{TRIP_PERFORMANCE}</h3>
-                    <div onClick={goBack} className="btn btn-primary">
-                      Back
-                    </div>
+                    <h3 className="card-title">{FINANCIAL_REPORT}</h3>
                   </div>
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}
