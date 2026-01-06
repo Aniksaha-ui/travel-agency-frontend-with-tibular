@@ -479,6 +479,7 @@ const useApi = () => {
       `${PACKAGE_API_ENDPOINT}/create`,
       packageData
     );
+    
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
@@ -922,6 +923,29 @@ const useApi = () => {
         "POST",
         `guide/myFeedBackByPackage?page=${page}${query}`,
         { package_id: payload }
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+   const fetchTickets = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${HOTEL_API_ENDPOINT}?page=${page}${query}`
       );
       if (response) {
         if (response?.data) {

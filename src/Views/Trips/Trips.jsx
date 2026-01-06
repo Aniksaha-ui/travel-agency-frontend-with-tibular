@@ -7,7 +7,7 @@ import Search from "../../Utils/Components/Search";
 import fetchData from "../../Utils/Functions/fetchInformation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { status } from "../../Utils/Constants/common";
+import { status, TRIP_ACTIVE } from "../../Utils/Constants/common";
 import moment from "moment";
 
 function Trips() {
@@ -145,11 +145,12 @@ function Trips() {
                             </td>
                             <td>{trip.price}</td>
                             <td>{status[trip.is_active]}</td>
+                              {trip.is_active === TRIP_ACTIVE && (
+
                             <td>
                               <button
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
-                                updateTrip
                                 title="Edit"
                                 className="btn btn-sm btn-success me-2"
                                 onClick={() => handleEdit(trip.id)}
@@ -175,7 +176,6 @@ function Trips() {
                                 <i className="fas fa-info"></i>
                               </button>
 
-                              {trip.is_active === 1 && (
                                 <button
                                   onClick={() => handleCompleted(trip.id)}
                                   data-bs-toggle="tooltip"
@@ -185,8 +185,9 @@ function Trips() {
                                 >
                                   <i className="fas fa-check"></i>
                                 </button>
-                              )}
+                           
                             </td>
+                               )}
                           </tr>
                         ))}
                       </tbody>

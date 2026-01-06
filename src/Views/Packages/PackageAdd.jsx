@@ -35,13 +35,20 @@ const PackageAdd = () => {
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+const handleChange = (e) => {
+  const { name, value, type, checked, files } = e.target;
+  if (type === "file") {
+    setFormData({
+      ...formData,
+      [name]: files[0],  
+    });
+  } else {
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? (checked ? 1 : 0) : value,
     });
-  };
+  }
+};
 
   const handleArrayChange = (type, index, value) => {
     const updated = [...formData[type]];
@@ -66,14 +73,34 @@ const PackageAdd = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    api.addPackage(formData).then((response) => {
-      if (response) {
-        toast("Package Added Successfully");
-        navigate("/admin/packages");
-      }
-    });
-  };
+  e.preventDefault();
+
+  const formDataToSend = new FormData();
+
+  for (const key in formData) {
+    if (Array.isArray(formData[key])) {
+      formData[key].forEach((item, index) => {
+        if (key === "pricing" && item.adult_price && item.child_price) {
+          formDataToSend.append(`${key}[${index}][adult_price]`, item.adult_price);
+          formDataToSend.append(`${key}[${index}][child_price]`, item.child_price);
+        } else {
+          formDataToSend.append(`${key}[${index}]`, item);
+        }
+      });
+    } else {
+      formDataToSend.append(key, formData[key]);
+    }
+  }
+
+  api.addPackage(formDataToSend).then((response) => {
+    if (response) {
+      toast("Package Added Successfully");
+      navigate("/admin/packages");
+    }
+  });
+};
+
+
   return (
     <AdminLayout>
       <div className="page-wrapper">
@@ -143,13 +170,11 @@ const PackageAdd = () => {
                         </select>
                       </div>
                       <div className="mb-3">
-                        <label>Image Url</label>
+                        <label>Image</label>
                         <input
-                          type="text"
+                          type="file"
                           className="form-control"
                           name="image"
-                          placeholder="Enter image URL"
-                          value={formData.image}
                           onChange={handleChange}
                           required
                         />
