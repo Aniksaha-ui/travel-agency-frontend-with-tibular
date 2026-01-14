@@ -20,6 +20,7 @@ import {
   ROUTES_DROPDOWN_API_ENDPOINT,
   SEATS_API_ENDPOINT,
   SINGLE_PACKAGE_DETAILS,
+  TICKET_API_ENDPOINT,
   TRIP_PERFORMANCE,
   TRIP_SINGLE_API_ENDPOINT,
   TRIP_SUMMERY_API_ENDPOINT,
@@ -957,11 +958,11 @@ const useApi = () => {
 
       const response = await axiosClient.apiClient(
         "GET",
-        `${HOTEL_API_ENDPOINT}?page=${page}${query}`
+        `${TICKET_API_ENDPOINT}?page=${page}${query}`
       );
       if (response) {
         if (response?.data) {
-          return response.data;
+          return response.data.data;
         }
       } else {
         return { message: response.message, data: [] };
@@ -1030,6 +1031,7 @@ const useApi = () => {
     addPackageCostingByPackage,
     updatePackageCostingByPackage,
     getPackageCosting,
+    fetchTickets
   };
 };
 

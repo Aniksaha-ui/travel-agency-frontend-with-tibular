@@ -6,6 +6,7 @@ import Search from "../../Utils/Components/Search";
 import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
 import fetchData from "../../Utils/Functions/fetchInformation";
 import Loading from "../../Utils/Components/Loading";
+import { ticketResolveStatus } from "../../Utils/Constants/status";
 
 const Ticket = () => {
   const [page, setPage] = useState(1);
@@ -20,9 +21,13 @@ const Ticket = () => {
   const [loading, setLoading] = useState("");
   const api = useApi();
   const navigation = useNavigate();
-  const kfetchHotelInformation = async () => {
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTicket, setSelectedTicket] = useState(null);
+
+  const fetchTicketInformation = async () => {
     await fetchData(
-      api.fetchHotelInformation,
+      api.fetchTickets,
       page,
       setLastPage,
       setTickets,
@@ -33,122 +38,280 @@ const Ticket = () => {
   };
 
   useEffect(() => {
-    if (search != "") {
-      setPage(1);
-    }
-    fetchHotelInformation();
+    if (search !== "") setPage(1);
+    fetchTicketInformation();
   }, [page, search]);
 
   if (loading) {
     return <Loading />;
   }
 
-  const handleAddNewHotel = () => {
-    navigation("/admin/hotel/add");
-  };
-
-  const handleDelete = async (id) => {
-    const response = await api.deleteRoute(id);
-    if (response) {
-      toast("Route Delete Successfully");
-      fetchHotelInformation(
-        api.fetchGuide,
-        page,
-        setLastPage,
-        setTickets,
-        search,
-        setPaginationInformation,
-        setLoading
-      );
-    }
-  };
-
-  const handleEdit = (id) => {
-    navigation(`/admin/hotel/update/${id}`);
-  };
-
-
   return (
     <AdminLayout>
       <div className="page-wrapper">
-        <div className="page-header d-print-none">
+        <div className="page-header d-print-none py-3">
           <div className="container-xl">
-            <div className="row g-2 align-items-center">
-              <div className="col"></div>
+            <div className="row align-items-center">
+              <div className="col">
+                <h2 className="page-title">Ticket Management</h2>
+              </div>
             </div>
           </div>
         </div>
+
         <div className="page-body">
           <div className="container-xl">
             <div className="row row-cards">
               <div className="col-12">
-                <div className="card">
-                  <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">Hotel Information</h3>
-                    <div
-                      onClick={() => handleAddNewHotel()}
-                      className="btn btn-primary"
-                    >
-                      Add New
-                    </div>
+                <div className="card shadow-sm">
+                  <div className="card-header d-flex align-items-center justify-content-between bg-light">
+                    <h3 className="card-title mb-0">Ticket Information</h3>
                   </div>
-                  <Search search={search} setSearch={setSearch} />{" "}
-                  {/* search */}
-                  <div className="table-responsive mx-2 mt-1">
-                    <table className="table table-bordered">
-                      <thead>
+
+                  {/* Search */}
+                  <div className="p-3 border-bottom">
+                    <Search search={search} setSearch={setSearch} />
+                  </div>
+
+                  {/* Table */}
+                  <div className="table-responsive p-3">
+                    <table className="table table-hover table-bordered align-middle">
+                      <thead className="table-light">
                         <tr>
-                          <th>SL</th>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Website </th>
-                          <th>location</th>
-                          <th>city</th>
-                          <th>country</th>
-                          <th>facilities</th>
-                          <th>Action</th>
+                          <th className="text-center">#</th>
+                          <th>Title</th>
+                          <th>Remarks</th>
+                          <th>Status</th>
+                          <th>Customer</th>
+                          <th className="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {tickets.map((guide, index) => (
-                          <tr key={index}>
-                            <td>{guide.id}</td>
-                            <td>{guide.name}</td>
-                            <td>{guide.email}</td>
-                            <td>{guide.website}</td>
-                            <td>{guide.location}</td>
-                            <td>{guide.city}</td>
-                            <td>{guide.country}</td>
-                            <td>{guide.facilities}</td>
-                            <td>
-                              <button
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                updateTrip
-                                title="Edit"
-                                className="btn btn-sm btn-success me-2"
-                                onClick={() => handleEdit(guide.id)}
-                              >
-                                <i className="fas fa-edit"></i>
-                              </button>
+                        {tickets.length > 0 ? (
+                          tickets.map((ticket, index) => (
+                            <tr key={ticket.id}>
+                              <td className="text-center">{ticket.id}</td>
+                              <td>{ticket.title}</td>
+                              <td>{ticket.remarks}</td>
+                              <td>
+                                <span
+                                  className={`badge ${
+                                    ticket.resloved_status === 1
+                                      ? "bg-success"
+                                      : "bg-warning text-dark"
+                                  }`}
+                                >
+                                  {ticketResolveStatus[ticket.resloved_status]}
+                                </span>
+                              </td>
+                              <td>{ticket.generate_by_name}</td>
+                              <td className="text-center">
+                                <button
+                                  className="btn btn-sm btn-primary"
+                                  onClick={() => {
+                                    setSelectedTicket(ticket);
+                                    setShowModal(true);
+                                  }}
+                                >
+                                  View Details
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td
+                              colSpan={6}
+                              className="text-center text-muted py-3"
+                            >
+                              No tickets found.
                             </td>
                           </tr>
-                        ))}
+                        )}
                       </tbody>
                     </table>
                   </div>
-                  <PaginationFooter
-                    paginationInformation={paginationInformation}
-                    lastPage={lastPage}
-                    page={page}
-                    setPage={setPage}
-                  />
+
+                  {/* Pagination */}
+                  <div className="p-3 border-top">
+                    <PaginationFooter
+                      paginationInformation={paginationInformation}
+                      lastPage={lastPage}
+                      page={page}
+                      setPage={setPage}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* ================= MODAL ================= */}
+     {showModal && selectedTicket && (
+  <>
+    <div
+      className="modal fade show d-block"
+      tabIndex="-1"
+      style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+    >
+      <div
+        className="modal-dialog modal-xl modal-dialog-centered"
+        style={{ maxWidth: "900px" }}
+      >
+        <div
+          className="modal-content"
+          style={{
+            backgroundColor: "#1e1e2f",
+            color: "#ccc",
+            borderRadius: "12px",
+            padding: "1.5rem",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
+          }}
+        >
+          {/* Header */}
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h4 style={{ color: "#a78bfa", fontWeight: "700" }}>
+              Ticket Details
+            </h4>
+            <button
+              type="button"
+              className="btn btn-link text-light fs-5"
+              onClick={() => setShowModal(false)}
+              style={{ textDecoration: "none" }}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+          </div>
+
+          {/* Details grid */}
+          <div
+            className="d-grid"
+            style={{
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "1.5rem 2rem",
+              marginBottom: "1.5rem",
+            }}
+          >
+            <div>
+              <small className="text-muted">Title</small>
+              <div>{selectedTicket.title || "-"}</div>
+            </div>
+
+            <div>
+              <small className="text-muted">Remarks</small>
+              <div>{selectedTicket.remarks || "-"}</div>
+            </div>
+
+            <div>
+              <small className="text-muted">Status</small>
+              <div>
+                <span
+                  className="badge"
+                  style={{
+                    backgroundColor:
+                      selectedTicket.resloved_status === 1 ? "#65a30d" : "#facc15",
+                    color: selectedTicket.resloved_status === 1 ? "#fff" : "#222",
+                    padding: "0.3em 0.8em",
+                    borderRadius: "10px",
+                    fontWeight: "600",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {ticketResolveStatus[selectedTicket.resloved_status]}
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <small className="text-muted">Resolved</small>
+              <div>
+                {selectedTicket.resolved_user_name || (
+                  <span className="text-secondary">—</span>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <small className="text-muted">Generated By</small>
+              <div>{selectedTicket.generate_by_name || "-"}</div>
+            </div>
+
+            <div>
+              <small className="text-muted">Resolved By</small>
+              <div>{selectedTicket.resolved_user_name || <span>—</span>}</div>
+            </div>
+
+            <div>
+              <small className="text-muted">Created At</small>
+              <div>{selectedTicket.created_at || "N/A"}</div>
+            </div>
+
+            <div>
+              <small className="text-muted">Updated At</small>
+              <div>{selectedTicket.updated_at || "N/A"}</div>
+            </div>
+
+            <div>
+              <small className="text-muted">Status Code</small>
+              <div>{selectedTicket.status || "-"}</div>
+            </div>
+          </div>
+
+          {/* Description - full width */}
+          <div style={{ marginBottom: "1.5rem" }}>
+            <small className="text-muted">Description</small>
+            <div
+              style={{
+                backgroundColor: "#27293d",
+                padding: "1rem",
+                borderRadius: "8px",
+                color: "#e0e0e0",
+                whiteSpace: "pre-wrap",
+                fontFamily: "monospace",
+              }}
+            >
+              {selectedTicket.description || "-"}
+            </div>
+          </div>
+
+          {/* Attachment area */}
+          <div style={{ marginBottom: "1.5rem" }}>
+            <small className="text-muted">Attachment</small>
+            <div>
+              {selectedTicket.attachment ? (
+                <a
+                  href={`${import.meta.env.VITE_IMAGE_URL}${selectedTicket.attachment}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-sm btn-outline-light"
+                >
+                  View Attachment
+                </a>
+              ) : (
+                <span className="text-secondary">No attachment</span>
+              )}
+            </div>
+          </div>
+
+          {/* Close button */}
+          <div className="text-end">
+            <button
+              className="btn btn-primary"
+              onClick={() => setShowModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="modal-backdrop fade show"></div>
+  </>
+)}
+
     </AdminLayout>
   );
 };

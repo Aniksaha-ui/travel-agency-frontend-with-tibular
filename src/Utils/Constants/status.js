@@ -8,3 +8,5 @@ export const refundDisbrusedStatus = {
   pending: "Pending",
   disbursed: "Disbursed",
 };
+
+export const ticketResolveStatus = ['pending','processing','closed'];
