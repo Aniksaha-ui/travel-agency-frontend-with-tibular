@@ -22,11 +22,11 @@ const AddRoutes = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    let response = api.addRoute(formData);
-    if (response) {
-      toast("Add New Route Successfully");
+    let response =await api.addRoute(formData);
+    if (response && response.message) {
+      toast(response.data.message ?? "Add New Route Successfully");
       navigate("/admin/routes");
     }
   };

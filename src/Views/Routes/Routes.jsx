@@ -51,8 +51,8 @@ function RouteInformation() {
 
   const handleDelete = async (id) => {
     const response = await api.deleteRoute(id);
-    if (response) {
-      toast("Route Delete Successfully");
+    if (response && response.message) {
+      toast(response.message ?? "Route Delete Successfully");
       fetchRouteInformation(
         api.fetchRoutes,
         page,

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import {
   ACCOUNT_BALANCE_API_ENDPOINT,
   ACCOUNT_HISTORY_API_ENDPOINT,
@@ -31,6 +32,7 @@ import {
   VEHICLES_API_ENDPOINT,
   VEHICLES_DROPDOWN_API_ENDPOINT,
 } from "../Utils/Constants/api";
+import { API_SUCCESS } from "../Utils/Constants/common";
 import useAxios from "./useAxios";
 
 const useApi = () => {
@@ -90,13 +92,15 @@ const useApi = () => {
       "GET",
       `${ROUTES_API_ENDPOINT}?page=${page}${query}`
     );
-    if (response) {
-      if (response?.data) {
+
+    if(response && response.data && response.data.isExecute === API_SUCCESS){
+        if (response?.data) {
         return response.data;
       }
-    } else {
-      return { message: response.message, data: [] };
+    }else{
+      toast(response.data.message)
     }
+ 
     return null;
   };
 
@@ -105,11 +109,12 @@ const useApi = () => {
       "GET",
       ROUTES_DROPDOWN_API_ENDPOINT
     );
-    if (response) {
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
       if (response?.data) {
         return response.data;
       }
     } else {
+      toast(response.data.message);
       return { message: response.message, data: [] };
     }
     return null;
@@ -121,8 +126,13 @@ const useApi = () => {
       ROUTES_API_ENDPOINT,
       route
     );
-    if (response?.data.data === true) {
-      return response.data.isExecute;
+
+    console.log(response.data.isExecute);
+    
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      return response.data;
+    }else{
+       toast(response.data.message)
     }
   };
 
@@ -131,8 +141,10 @@ const useApi = () => {
       "DELETE",
       `${ROUTES_API_ENDPOINT}/${id}`
     );
-    if (response?.data.data === 1) {
-      return response.data.isExecute;
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      return response.data;
+    }else{
+       toast(response.data.message)
     }
   };
 

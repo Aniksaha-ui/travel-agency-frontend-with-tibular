@@ -51,76 +51,137 @@ function TripPerformance() {
   return (
     <AdminLayout>
       <div className="page-wrapper">
+        {/* Page Header */}
         <div className="page-header d-print-none">
           <div className="container-xl">
-            <div className="row g-2 align-items-center">
-              <div className="col"></div>
+            <div className="row align-items-center">
+              <div className="col">
+                <h2 className="page-title fw-bold">{TRIP_PERFORMANCE}</h2>
+              </div>
+              <div className="col-auto">
+                <button onClick={goBack} className="btn btn-primary">
+                  ← Back
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Page Body */}
         <div className="page-body">
           <div className="container-xl">
-            <div className="row row-cards">
-              <div className="col-12">
-                <div className="card">
-                  <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">{TRIP_PERFORMANCE}</h3>
-                    <div onClick={goBack} className="btn btn-primary">
-                      Back
-                    </div>
-                  </div>
-                  <Search search={search} setSearch={setSearch} />{" "}
-                  {/* search */}
-                  <div className="table-responsive mx-2 mt-1">
-                    <table className="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>#SL</th>
-                          <th>Trip Name</th>
-                          <th>Total Seats</th>
-                          <th>Total Booked Seats</th>
-                          <th>Total Available Seat</th>
-                          <th>Total Income</th>
-                          <th>Total Cost</th>
-                          <th>Profit</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {trips.map((trip, index) => (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>
-                              {trip.trip_name}(
-                              {moment(trip.departure_time).format(
-                                "DD MMMM, YYYY"
-                              )}{" "}
-                              -{" "}
-                              {moment(trip.arrival_time).format(
-                                "DD MMMM, YYYY"
-                              )}
-                              )
-                            </td>
-                            <td>
-                              {parseInt(trip.total_seats_booked) +
-                                parseInt(trip.total_seats_available)}
-                            </td>
-                            <td>{trip.total_seats_booked}</td>
-                            <td>{trip.total_seats_available}</td>
-                            <td>{trip.total_income}</td>
-                            <td>{trip.total_cost}</td>
-                            <td>{trip.profit}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <PaginationFooter
-                    paginationInformation={paginationInformation}
-                    lastPage={lastPage}
-                    page={page}
-                    setPage={setPage}
-                  />
+            <div className="card shadow-sm">
+              <div className="card-body">
+                {/* Search */}
+                <div className="mb-3">
+                  <Search search={search} setSearch={setSearch} />
                 </div>
+
+                {/* Table */}
+                <div className="table-responsive">
+                  <table className="table table-bordered table-striped align-middle">
+                    <thead className="table-light">
+                      <tr className="text-center">
+                        <th>#</th>
+                        <th>Trip Info</th>
+                        <th>Seat Summary</th>
+                        <th>Trip Income</th>
+                        <th>Package Income</th>
+                        <th>Total Cost</th>
+                        <th>Trip Profit</th>
+                        <th>Package Profit</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {trips.map((trip, index) => {
+                        const totalSeats =
+                          parseInt(trip.total_seats_booked_trip) +
+                          parseInt(trip.total_seats_booked_package);
+
+                        return (
+                          <tr key={index}>
+                            <td className="text-center fw-bold">{index + 1}</td>
+
+                            {/* Trip Info */}
+                            <td>
+                              <div className="fw-semibold">
+                                {trip.trip_name}
+                              </div>
+                              <small className="text-muted">
+                                {moment(trip.departure_time).format(
+                                  "DD MMM YYYY"
+                                )}
+                                {" → "}
+                                {moment(trip.arrival_time).format(
+                                  "DD MMM YYYY"
+                                )}
+                              </small>
+                            </td>
+
+                            {/* Seat Summary */}
+                            <td>
+                              <div className="mb-1">
+                                <span className="badge bg-primary me-1">
+                                  Total: {totalSeats}
+                                </span>
+                                <span className="badge bg-success me-1">
+                                  Trip: {trip.total_seats_booked_trip}
+                                </span>
+                                <span className="badge bg-info">
+                                  Package: {trip.total_seats_booked_package}
+                                </span>
+                                <span className="badge bg-info">
+                                  Available: {trip.total_seats_available}
+                                </span>
+                              </div>
+                            </td>
+
+                            {/* Income & Cost */}
+                            <td className="text-success fw-semibold">
+                              ৳ {trip.total_income_trip}
+                            </td>
+                            <td className="text-success fw-semibold">
+                              ৳ {trip.total_income_package}
+                            </td>
+                            <td className="text-danger fw-semibold">
+                              ৳ {trip.total_cost}
+                            </td>
+
+                            {/* Profit */}
+                            <td
+                              className={
+                                trip.profit_trip >= 0
+                                  ? "text-success fw-bold"
+                                  : "text-danger fw-bold"
+                              }
+                            >
+                              ৳ {trip.profit_trip}
+                            </td>
+
+                            <td
+                              className={
+                                trip.profit_package >= 0
+                                  ? "text-success fw-bold"
+                                  : "text-danger fw-bold"
+                              }
+                            >
+                              ৳ {trip.profit_package}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Pagination */}
+                <PaginationFooter
+                  paginationInformation={paginationInformation}
+                  lastPage={lastPage}
+                  page={page}
+                  setPage={setPage}
+                />
               </div>
             </div>
           </div>

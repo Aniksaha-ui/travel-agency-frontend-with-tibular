@@ -43,6 +43,12 @@ const useAxios = () => {
       })
       .catch((error) => {
         console.log(`${error}`);
+
+      const { status, data } = error.response;
+        if (status === 422 || status === 400) {
+          toast(data?.message || "Please give valid input");
+          return null;
+        }
         if (error.message === NETWORK_ERROR) {
           console.log(error);
         } else if (error.message === LOGIN_ERROR) {
@@ -50,7 +56,7 @@ const useAxios = () => {
           Logout();
           navigate("/login");
         } else if (error.message === BAD_REQUEST_ERROR) {
-          toast("Please give the valid input");
+          toast(error.message ?? "Please give the valid input");
           Logout();
           navigate("/login");
         } else {
