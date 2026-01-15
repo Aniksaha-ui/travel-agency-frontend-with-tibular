@@ -9,6 +9,7 @@ import Loading from "../../Utils/Components/Loading";
 import TicketViewModal from "./partial/TicketViewModal";
 import TicketList from "./partial/TicketList";
 import { toast } from "react-toastify";
+import { TICKET_MANAGEMENT } from "../../Utils/Constants/text";
 
 const Ticket = () => {
   const [page, setPage] = useState(1);
@@ -60,6 +61,9 @@ const Ticket = () => {
         )
       );
     }
+    if(showModal){
+      setShowModal(false);
+    }
   };
 
   return (
@@ -69,7 +73,7 @@ const Ticket = () => {
           <div className="container-xl">
             <div className="row align-items-center">
               <div className="col">
-                <h2 className="page-title">Ticket Management</h2>
+                <h2 className="page-title">{TICKET_MANAGEMENT }</h2>
               </div>
             </div>
           </div>
@@ -148,6 +152,7 @@ const Ticket = () => {
         <TicketViewModal
           selectedTicket={selectedTicket}
           setShowModal={setShowModal}
+          handleApproved={handleApproved}
         />
       )}
     </AdminLayout>

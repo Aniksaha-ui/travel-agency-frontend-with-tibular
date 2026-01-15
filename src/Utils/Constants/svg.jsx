@@ -366,3 +366,29 @@ export const NotificationIcon = () => (
     <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
   </svg>
 );
+
+
+
+export const ComplaintIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    strokeWidth={2}
+    stroke="currentColor"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    
+    {/* Speech bubble */}
+    <path d="M4 5h16v11a2 2 0 0 1 -2 2h-7l-4 3v-3h-1a2 2 0 0 1 -2 -2z" />
+    
+    {/* Exclamation mark */}
+    <line x1="12" y1="8" x2="12" y2="13" />
+    <circle cx="12" cy="16" r="0.5" />
+  </svg>
+);

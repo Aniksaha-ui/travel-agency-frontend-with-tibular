@@ -4,6 +4,7 @@ import { getLocalStorage } from "../../Utils/Functions/localStorage";
 import { Logout } from "../../Utils/Functions/common";
 import {
   BookingManagementIcon,
+  ComplaintIcon,
   DashboardIcon,
   GuideManagementIcon,
   HotelCheckInIcon,
@@ -32,6 +33,7 @@ import {
   SEAT_MANAGEMENT,
   SETTINGS,
   SOURCE_CODE,
+  TICKET_MANAGEMENT,
   TRIP_MANAGEMENT,
   USER_MANAGEMENT,
   VEHICLE_MANAGEMENT,
@@ -83,18 +85,14 @@ const Header = () => {
       path: "/admin/packages",
       icon: <PackageManagementIcon />,
     },
+    
   ]);
 
   const [bottomMenuItems, setBottomMenuItems] = useState([
     {
-      title: HOTEL_MANAGEMENT,
-      path: "/admin/hotel",
-      icon: <HotelManagementIcon />,
-    },
-    {
-      title: HOTEL_CHECKIN,
-      path: "/admin/hotel/checkin",
-      icon: <HotelCheckInIcon />,
+      title: TICKET_MANAGEMENT,
+      path: "/admin/tickets",
+      icon: <ComplaintIcon />,
     },
     {
       title: GUIDE_MANAGEMENT,
@@ -110,6 +108,23 @@ const Header = () => {
       title: REFUND_MANAGEMENT,
       path: "/admin/refunds",
       icon: <RefundManagementIcon />,
+    },
+
+    {
+      title: HOTEL_MANAGEMENT,
+      icon: <HotelManagementIcon />,
+      children: [
+        {
+          title: HOTEL_MANAGEMENT,
+          path: "/admin/hotel",
+          icon: <HotelManagementIcon />,
+        },
+        {
+          title: HOTEL_CHECKIN,
+          path: "/admin/hotel/checkin",
+          icon: <HotelCheckInIcon />,
+        },
+      ],
     },
     {
       title: REPORTS_MANAGEMENT,
@@ -171,9 +186,9 @@ const Header = () => {
         >
           {item.children ? (
             <>
-              <a
+              <Link
                 className="nav-link dropdown-toggle"
-                href="#navbar-extra"
+                to="#navbar-extra"
                 data-bs-toggle="dropdown"
                 data-bs-auto-close="outside"
                 role="button"
@@ -183,7 +198,7 @@ const Header = () => {
                   {item.icon}
                 </span>
                 <span className="nav-link-title">{item.title}</span>
-              </a>
+              </Link>
               <div className="dropdown-menu">
                 <div className="dropdown-menu-columns">
                   <div className="dropdown-menu-column">
@@ -195,7 +210,10 @@ const Header = () => {
                           to={child.path}
                           key={cIndex}
                         >
-                          {child.title}
+                           <span className="nav-link-icon d-md-none d-lg-inline-block">
+                              {child.icon}
+                            </span>
+                            <span className="nav-link-title">{child.title}</span>
                         </Link>
                       ))}
                   </div>

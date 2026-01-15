@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { ticketResolveStatus } from "../../../Utils/Constants/status";
 
 const TicketList = ({
@@ -33,13 +34,28 @@ const TicketList = ({
         >
           <i className="fa fa-eye" aria-hidden="true"></i>
         </button>
+          &nbsp;
+        {ticket && ticket.status && ticket.status==0 &&(
+          <Fragment>
+          <button
+            className="btn btn-sm btn-success"
+            onClick={() => handleApproved(1, ticket?.id)}
+          >
+            <i className="fa fa-check" aria-hidden="true"></i>
+          </button>
+          &nbsp;
 
-        <button
-          className="btn btn-sm btn-success"
-          onClick={() => handleApproved(1, ticket?.id)}
-        >
-          <i className="fa fa-check" aria-hidden="true"></i>
-        </button>
+           <button
+            className="btn btn-sm btn-success"
+            onClick={() => handleApproved(2, ticket?.id)}
+          >
+            <i className="fas fa-times"></i>
+          
+          </button>
+          </Fragment>
+          
+        )}
+        
       </td>
     </tr>
   );

@@ -1,169 +1,210 @@
-import { Fragment } from "react"
-import { ticketResolveStatus } from "../../../Utils/Constants/status"
+import { Fragment } from "react";
+import { ticketResolveStatus } from "../../../Utils/Constants/status";
 
-const TicketViewModal = ({selectedTicket,setShowModal}) =>{
-    return (
-          <Fragment>
-    <div
-      className="modal fade show d-block"
-      tabIndex="-1"
-      style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-    >
+const TicketViewModal = ({ selectedTicket, setShowModal, handleApproved }) => {
+  return (
+    <Fragment>
       <div
-        className="modal-dialog modal-xl modal-dialog-centered"
-        style={{ maxWidth: "900px" }}
+        className="modal fade show d-block"
+        tabIndex="-1"
+        style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
       >
         <div
-          className="modal-content"
-          style={{
-            backgroundColor: "#1e1e2f",
-            color: "#ccc",
-            borderRadius: "12px",
-            padding: "1.5rem",
-            boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
-          }}
+          className="modal-dialog modal-xl modal-dialog-centered"
+          style={{ maxWidth: "900px" }}
         >
-          {/* Header */}
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <h4 style={{ color: "#a78bfa", fontWeight: "700" }}>
-              Ticket Details
-            </h4>
-            <button
-              type="button"
-              className="btn btn-link text-light fs-5"
-              onClick={() => setShowModal(false)}
-              style={{ textDecoration: "none" }}
-              aria-label="Close"
-            >
-              &times;
-            </button>
-          </div>
-
-          {/* Details grid */}
           <div
-            className="d-grid"
+            className="modal-content"
             style={{
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "1.5rem 2rem",
-              marginBottom: "1.5rem",
+              backgroundColor: "#1e1e2f",
+              color: "#ccc",
+              borderRadius: "12px",
+              padding: "1.5rem",
+              boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
             }}
           >
-            <div>
-              <small className="text-muted">Title</small>
-              <div>{selectedTicket.title || "-"}</div>
+            {/* Header */}
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <h4 style={{ color: "#a78bfa", fontWeight: "700" }}>
+                Ticket Details
+              </h4>
+              <button
+                type="button"
+                className="btn btn-link text-light fs-5"
+                onClick={() => setShowModal(false)}
+                style={{ textDecoration: "none" }}
+                aria-label="Close"
+              >
+                &times;
+              </button>
             </div>
 
-            <div>
-              <small className="text-muted">Remarks</small>
-              <div>{selectedTicket.remarks || "-"}</div>
-            </div>
-
-            <div>
-              <small className="text-muted">Status</small>
+            {/* Details grid */}
+            <div
+              className="d-grid"
+              style={{
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "1.5rem 2rem",
+                marginBottom: "1.5rem",
+              }}
+            >
               <div>
-                <span
-                  className="badge"
-                  style={{
-                    backgroundColor:
-                      selectedTicket.resloved_status === 1 ? "#65a30d" : "#facc15",
-                    color: selectedTicket.resloved_status === 1 ? "#fff" : "#222",
-                    padding: "0.3em 0.8em",
-                    borderRadius: "10px",
-                    fontWeight: "600",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {ticketResolveStatus[selectedTicket.resloved_status]}
-                </span>
+                <small className="text-muted">Title</small>
+                <div>{selectedTicket.title || "-"}</div>
+              </div>
+
+              <div>
+                <small className="text-muted">Remarks</small>
+                <div>{selectedTicket.remarks || "-"}</div>
+              </div>
+
+              <div>
+                <small className="text-muted">Status</small>
+                <div>
+                  <span
+                    className="badge"
+                    style={{
+                      backgroundColor:
+                        selectedTicket.resloved_status === 1
+                          ? "#65a30d"
+                          : "#facc15",
+                      color:
+                        selectedTicket.resloved_status === 1
+                          ? "#fff"
+                          : "#222",
+                      padding: "0.3em 0.8em",
+                      borderRadius: "10px",
+                      fontWeight: "600",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {
+                      ticketResolveStatus[
+                        selectedTicket.resloved_status
+                      ]
+                    }
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <small className="text-muted">Resolved</small>
+                <div>
+                  {selectedTicket.resolved_user_name || (
+                    <span className="text-secondary">—</span>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <small className="text-muted">Generated By</small>
+                <div>{selectedTicket.generate_by_name || "-"}</div>
+              </div>
+
+              <div>
+                <small className="text-muted">Resolved By</small>
+                <div>
+                  {selectedTicket.resolved_user_name || <span>—</span>}
+                </div>
+              </div>
+
+              <div>
+                <small className="text-muted">Created At</small>
+                <div>{selectedTicket.created_at || "N/A"}</div>
+              </div>
+
+              <div>
+                <small className="text-muted">Updated At</small>
+                <div>{selectedTicket.updated_at || "N/A"}</div>
+              </div>
+
+              <div>
+                <small className="text-muted">Status Code</small>
+                <div>{selectedTicket.status || "-"}</div>
               </div>
             </div>
 
-            <div>
-              <small className="text-muted">Resolved</small>
+            {/* Description */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <small className="text-muted">Description</small>
+              <div
+                style={{
+                  backgroundColor: "#27293d",
+                  padding: "1rem",
+                  borderRadius: "8px",
+                  color: "#e0e0e0",
+                  whiteSpace: "pre-wrap",
+                  fontFamily: "monospace",
+                }}
+              >
+                {selectedTicket.description || "-"}
+              </div>
+            </div>
+
+            {/* Attachment */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <small className="text-muted">Attachment</small>
               <div>
-                {selectedTicket.resolved_user_name || (
-                  <span className="text-secondary">—</span>
+                {selectedTicket.attachment ? (
+                  <a
+                    href={`${import.meta.env.VITE_IMAGE_URL}${selectedTicket.attachment}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-sm btn-outline-light"
+                  >
+                    View Attachment
+                  </a>
+                ) : (
+                  <span className="text-secondary">No attachment</span>
                 )}
               </div>
             </div>
 
-            <div>
-              <small className="text-muted">Generated By</small>
-              <div>{selectedTicket.generate_by_name || "-"}</div>
-            </div>
+            {/* Footer Buttons */}
+            <div className="d-flex justify-content-end align-items-center gap-2">
+              {selectedTicket &&
+                selectedTicket.status &&
+                selectedTicket.status == 0 && (
+                  <>
+                    <button
+                      className="btn btn-sm btn-success"
+                      onClick={() =>{
+                        handleApproved(1, selectedTicket?.id);
+                      }
+                      
+                      }
+                    >
+                      <i className="fa fa-check me-1" />
+                      Approve
+                    </button>
 
-            <div>
-              <small className="text-muted">Resolved By</small>
-              <div>{selectedTicket.resolved_user_name || <span>—</span>}</div>
-            </div>
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={() =>{
+                        handleApproved(2, selectedTicket?.id)
+                      }
+                      }
+                    >
+                      <i className="fas fa-times me-1" />
+                      Reject
+                    </button>
+                  </>
+                )}
 
-            <div>
-              <small className="text-muted">Created At</small>
-              <div>{selectedTicket.created_at || "N/A"}</div>
+              <button
+                className="btn btn-primary"
+                onClick={() => setShowModal(false)}
+              >
+                Close
+              </button>
             </div>
-
-            <div>
-              <small className="text-muted">Updated At</small>
-              <div>{selectedTicket.updated_at || "N/A"}</div>
-            </div>
-
-            <div>
-              <small className="text-muted">Status Code</small>
-              <div>{selectedTicket.status || "-"}</div>
-            </div>
-          </div>
-
-          {/* Description - full width */}
-          <div style={{ marginBottom: "1.5rem" }}>
-            <small className="text-muted">Description</small>
-            <div
-              style={{
-                backgroundColor: "#27293d",
-                padding: "1rem",
-                borderRadius: "8px",
-                color: "#e0e0e0",
-                whiteSpace: "pre-wrap",
-                fontFamily: "monospace",
-              }}
-            >
-              {selectedTicket.description || "-"}
-            </div>
-          </div>
-
-          {/* Attachment area */}
-          <div style={{ marginBottom: "1.5rem" }}>
-            <small className="text-muted">Attachment</small>
-            <div>
-              {selectedTicket.attachment ? (
-                <a
-                  href={`${import.meta.env.VITE_IMAGE_URL}${selectedTicket.attachment}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-sm btn-outline-light"
-                >
-                  View Attachment
-                </a>
-              ) : (
-                <span className="text-secondary">No attachment</span>
-              )}
-            </div>
-          </div>
-
-          {/* Close button */}
-          <div className="text-end">
-            <button
-              className="btn btn-primary"
-              onClick={() => setShowModal(false)}
-            >
-              Close
-            </button>
           </div>
         </div>
       </div>
-    </div>
-    <div className="modal-backdrop fade show"></div>
-  </Fragment>
-    )
-}
 
-export default TicketViewModal
+      <div className="modal-backdrop fade show"></div>
+    </Fragment>
+  );
+};
+
+export default TicketViewModal;
