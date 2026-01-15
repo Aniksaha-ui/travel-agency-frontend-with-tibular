@@ -7,7 +7,6 @@ export const TRIP_PERFORMANCE = "Trip Performance";
 export const PACKAGE_PERFORMANCE = "Package Performance";
 export const HOTEL_CHECKIN = "Hotel Checkin";
 export const MONTH_RUNNING_BALANCE = "Monthly Running Balance";
-export const TICKET_MANAGEMENT = "Ticket Management";
 
 // NAVBAR
 export const DASHBOARD = "Dashboard";
