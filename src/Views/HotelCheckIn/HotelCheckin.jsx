@@ -109,6 +109,8 @@ function HotelCheckIn() {
                             <td>{moment(check.check_out_time).format("ll")}</td>
                             <td>{hotelCheckinStatus[check.status]}</td>
                             <td>
+
+                            {check.status==0 &&(
                               <button
                                 onClick={() =>
                                   handleCheckin(
@@ -123,7 +125,9 @@ function HotelCheckIn() {
                               >
                                 <i className="fas fa-check"></i>
                               </button>
-
+                            )}
+                           
+                            {check.status==1 &&(
                               <button
                                 onClick={() =>
                                   handleCheckin(
@@ -138,6 +142,8 @@ function HotelCheckIn() {
                               >
                                 <i className="fas fa-times"></i>
                               </button>
+                            )}
+                             
                             </td>
                           </tr>
                         ))}
