@@ -94,14 +94,14 @@ const useApi = () => {
       `${ROUTES_API_ENDPOINT}?page=${page}${query}`
     );
 
-    if(response && response.data && response.data.isExecute === API_SUCCESS){
-        if (response?.data) {
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      if (response?.data) {
         return response.data;
       }
-    }else{
-      toast(response.data.message)
+    } else {
+      toast(response.data.message);
     }
- 
+
     return null;
   };
 
@@ -129,11 +129,11 @@ const useApi = () => {
     );
 
     console.log(response.data.isExecute);
-    
+
     if (response && response.data && response.data.isExecute === API_SUCCESS) {
       return response.data;
-    }else{
-       toast(response.data.message)
+    } else {
+      toast(response.data.message);
     }
   };
 
@@ -144,8 +144,8 @@ const useApi = () => {
     );
     if (response && response.data && response.data.isExecute === API_SUCCESS) {
       return response.data;
-    }else{
-       toast(response.data.message)
+    } else {
+      toast(response.data.message);
     }
   };
 
@@ -492,7 +492,7 @@ const useApi = () => {
       `${PACKAGE_API_ENDPOINT}/create`,
       packageData
     );
-    
+
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
@@ -704,8 +704,6 @@ const useApi = () => {
     }
   };
 
-
-
   const financialReport = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
@@ -726,7 +724,6 @@ const useApi = () => {
       console.log(error);
     }
   };
-
 
   const monthlyRunningBalance = async (page, search) => {
     try {
@@ -950,9 +947,7 @@ const useApi = () => {
     }
   };
 
-
-
-   const fetchTickets = async (page, search) => {
+  const fetchTickets = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
 
@@ -970,6 +965,19 @@ const useApi = () => {
       return null;
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const updateTicketStatus = async (ticketId, status) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `admin/tickets/update/${ticketId}`,
+      { status: status }
+    );
+
+
+    if (response && response.data && response.data.data && response.data.data.status === true) {
+      return response.data.data;
     }
   };
 
@@ -1031,7 +1039,8 @@ const useApi = () => {
     addPackageCostingByPackage,
     updatePackageCostingByPackage,
     getPackageCosting,
-    fetchTickets
+    fetchTickets,
+    updateTicketStatus,
   };
 };
 
