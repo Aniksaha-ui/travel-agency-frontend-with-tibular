@@ -10,3 +10,16 @@ export const refundDisbrusedStatus = {
 };
 
 export const ticketResolveStatus = ['pending','processing','closed'];
+
+export const CardType = {
+  bkash: "Bkash",
+  nagad: "Nagad",
+  card: "Card",
+};
+
+
+export const paymentPurpose = {
+  "hotel booking": "Hotel Booking",
+  "trip": "Trip Booking",
+  "package": "Package Booking",
+};

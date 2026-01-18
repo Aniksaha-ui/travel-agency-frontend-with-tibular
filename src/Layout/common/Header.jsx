@@ -31,6 +31,7 @@ import {
   ROUTE_MANAGEMENT,
   SEAT_MANAGEMENT,
   TICKET_MANAGEMENT,
+  TRANSACTION_MANAGEMENT,
   TRIP_MANAGEMENT,
   USER_MANAGEMENT,
   VEHICLE_MANAGEMENT,
@@ -85,6 +86,11 @@ const Header = () => {
   ]);
 
   const [bottomMenuItems, setBottomMenuItems] = useState([
+    {
+      title: TRANSACTION_MANAGEMENT,
+      path: "/admin/transactions",
+      icon: <MoneyIcon />,
+    },
     {
       title: TICKET_MANAGEMENT,
       path: "/admin/tickets",

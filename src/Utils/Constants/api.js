@@ -35,3 +35,4 @@ export const DASHBOARD_TABLE_VIEW = "admin/dashboard/databaseList";
 export const MONTH_RUNNING_BALANCE  ="admin/monthRunningBalance"
 export const FINANCIAL_REPORT  ="admin/financial_report"
 export const TICKET_API_ENDPOINT = "admin/tickets";
+export const TRANSACTION_API_ENDPOINT = "admin/transaction";

@@ -6,13 +6,9 @@ import AdminLayout from "../../../Layout/AdminLayout";
 import Search from "../../../Utils/Components/Search";
 import { PaginationFooter } from "../../../Utils/Components/PaginationFooter";
 import fetchData from "../../../Utils/Functions/fetchInformation";
-import moment from "moment";
-import { TRIP_PERFORMANCE } from "../../../Utils/Constants/text";
-import useGoBack from "../../../Hooks/useGoBack";
+import { TOP_CUSTOMERS } from "../../../Utils/Constants/text";
 
 function CustomerValueReport() {
-  const goBack = useGoBack();
-
   const [page, setPage] = useState(1);
   const [paginationInformation, setPaginationInformation] = useState({
     to: 0,
@@ -64,10 +60,8 @@ function CustomerValueReport() {
               <div className="col-12">
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
-                    <h3 className="card-title">{TRIP_PERFORMANCE}</h3>
-                    <div onClick={goBack} className="btn btn-primary">
-                      Back
-                    </div>
+                    <h3 className="card-title">{TOP_CUSTOMERS}</h3>
+                   
                   </div>
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}

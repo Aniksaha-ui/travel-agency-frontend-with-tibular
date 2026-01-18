@@ -21,6 +21,7 @@ import {
   SEATS_API_ENDPOINT,
   SINGLE_PACKAGE_DETAILS,
   TICKET_API_ENDPOINT,
+  TRANSACTION_API_ENDPOINT,
   TRIP_PERFORMANCE,
   TRIP_SINGLE_API_ENDPOINT,
   TRIP_SUMMERY_API_ENDPOINT,
@@ -981,6 +982,30 @@ const useApi = () => {
     }
   };
 
+
+   
+
+  const fetchTransactions = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${TRANSACTION_API_ENDPOINT}?page=${page}${query}`
+      );
+      if (response) {
+        
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -1041,6 +1066,7 @@ const useApi = () => {
     getPackageCosting,
     fetchTickets,
     updateTicketStatus,
+    fetchTransactions,
   };
 };
 

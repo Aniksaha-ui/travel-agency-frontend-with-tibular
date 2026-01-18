@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 import { hotelCheckinStatus } from "../../Utils/Constants/status";
 
 function HotelCheckIn() {
-  const goBack = useGoBack();
 
   const [page, setPage] = useState(1);
   const [paginationInformation, setPaginationInformation] = useState({
@@ -80,9 +79,6 @@ function HotelCheckIn() {
                 <div className="card">
                   <div className="card-header d-flex align-items-center justify-content-between">
                     <h3 className="card-title">{HOTEL_CHECKIN}</h3>
-                    <div onClick={goBack} className="btn btn-primary">
-                      Back
-                    </div>
                   </div>
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}
@@ -110,7 +106,7 @@ function HotelCheckIn() {
                             <td>{hotelCheckinStatus[check.status]}</td>
                             <td>
 
-                            {check.status==0 &&(
+                            {check.status==="pending" &&(
                               <button
                                 onClick={() =>
                                   handleCheckin(
@@ -127,7 +123,7 @@ function HotelCheckIn() {
                               </button>
                             )}
                            
-                            {check.status==1 &&(
+                            {check.status==="checked_in" &&(
                               <button
                                 onClick={() =>
                                   handleCheckin(
