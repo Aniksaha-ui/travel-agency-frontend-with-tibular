@@ -9,6 +9,7 @@ import {
   GuideManagementIcon,
   HotelCheckInIcon,
   HotelManagementIcon,
+  MoneyIcon,
   PackageManagementIcon,
   RefundManagementIcon,
   ReportManagementIcon,
@@ -85,7 +86,6 @@ const Header = () => {
       path: "/admin/packages",
       icon: <PackageManagementIcon />,
     },
-    
   ]);
 
   const [bottomMenuItems, setBottomMenuItems] = useState([
@@ -133,23 +133,43 @@ const Header = () => {
         {
           title: "Vehicle - Total Seat Report",
           path: "/admin/vehiclewiseseatreport",
+          icon: <VehicleManagementIcon />,
         },
-        { title: "Account - Balance Report", path: "/admin/account/balance" },
+        {
+          title: "Account - Balance Report",
+          path: "/admin/account/balance",
+          icon: <MoneyIcon />,
+        },
         {
           title: "Monthly Running Balance",
           path: "/admin/monthRunningBalance",
+          icon: <MoneyIcon />,
         },
         {
           title: "Vehicle Tracking Report",
           path: "/admin/vehicletrackingreport",
+          icon: <VehicleManagementIcon />,
         },
-        { title: "Trip Performance Report", path: "/admin/tripPerformance" },
+        {
+          title: "Trip Performance Report",
+          path: "/admin/tripPerformance",
+          icon: <TripManagementIcon />,
+        },
         {
           title: "Package Performance Report",
           path: "/admin/packagePerformance",
+          icon: <PackageManagementIcon />,
         },
-        { title: "Customer Value Report", path: "/admin/customerValueReport" },
-        { title: "Financial Report", path: "/admin/financialReport" },
+        {
+          title: "Customer Value Report",
+          path: "/admin/customerValueReport",
+          icon: <MoneyIcon />,
+        },
+        {
+          title: "Financial Report",
+          path: "/admin/financialReport",
+          icon: <MoneyIcon />,
+        },
       ],
     },
   ]);
@@ -210,10 +230,10 @@ const Header = () => {
                           to={child.path}
                           key={cIndex}
                         >
-                           <span className="nav-link-icon d-md-none d-lg-inline-block">
-                              {child.icon}
-                            </span>
-                            <span className="nav-link-title">{child.title}</span>
+                          <span className="nav-link-icon d-md-none d-lg-inline-block">
+                            {child.icon}
+                          </span>
+                          <span className="nav-link-title">{child.title}</span>
                         </Link>
                       ))}
                   </div>
@@ -226,7 +246,10 @@ const Header = () => {
                           to={child.path}
                           key={cIndex}
                         >
-                          {child.title}
+                          <span className="nav-link-icon d-md-none d-lg-inline-block">
+                            {child.icon}
+                          </span>
+                          <span className="nav-link-title">{child.title}</span>
                         </Link>
                       ))}
                   </div>

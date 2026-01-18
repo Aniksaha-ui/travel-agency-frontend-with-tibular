@@ -392,3 +392,24 @@ export const ComplaintIcon = () => (
     <circle cx="12" cy="16" r="0.5" />
   </svg>
 );
+
+
+export const MoneyIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    strokeWidth={2}
+    stroke="currentColor"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v10" />
+    <path d="M9.5 9.5c0 -1.38 1.12 -2.5 2.5 -2.5s2.5 1.12 2.5 2.5s-1.12 2.5 -2.5 2.5s-2.5 1.12 -2.5 2.5s1.12 2.5 2.5 2.5s2.5 -1.12 2.5 -2.5" />
+  </svg>
+);

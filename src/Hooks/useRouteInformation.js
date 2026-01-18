@@ -10,6 +10,8 @@ const useRoutesInformation = () => {
 
   const fetchrouteDropDownInformation = async () => {
     const response = await api.fetchRouteDropDownList();
+    console.log(response);
+    
     setRoutes(response.data);
   };
   return [routes, setRoutes];
