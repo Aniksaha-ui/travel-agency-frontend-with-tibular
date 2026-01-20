@@ -47,6 +47,7 @@ import GuidePackageCostingForm from "./Views/Guide-Package-costing/GuidePackageF
 import FinancialReport from "./Views/Reports/FinancialReport/FinancialReport.jsx";
 import Ticket from "./Views/Tickets/Ticket.jsx";
 import Transactions from "./Views/Transactions/Transactions.jsx";
+import Monitoring from "./Views/Monitoring/Monitoring.jsx";
 
 const queryClient = new QueryClient();
 
@@ -193,6 +194,12 @@ createRoot(document.getElementById("root")).render(
               <Route
               path="admin/transactions"
               element={<Transactions />}
+            ></Route>
+
+
+             <Route
+              path="admin/monitoring"
+              element={<Monitoring />}
             ></Route>
 
 
