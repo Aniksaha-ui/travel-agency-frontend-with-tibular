@@ -367,8 +367,6 @@ export const NotificationIcon = () => (
   </svg>
 );
 
-
-
 export const ComplaintIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -383,16 +381,15 @@ export const ComplaintIcon = () => (
     strokeLinejoin="round"
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    
+
     {/* Speech bubble */}
     <path d="M4 5h16v11a2 2 0 0 1 -2 2h-7l-4 3v-3h-1a2 2 0 0 1 -2 -2z" />
-    
+
     {/* Exclamation mark */}
     <line x1="12" y1="8" x2="12" y2="13" />
     <circle cx="12" cy="16" r="0.5" />
   </svg>
 );
-
 
 export const MoneyIcon = () => (
   <svg
@@ -411,5 +408,31 @@ export const MoneyIcon = () => (
     <circle cx="12" cy="12" r="9" />
     <path d="M12 7v10" />
     <path d="M9.5 9.5c0 -1.38 1.12 -2.5 2.5 -2.5s2.5 1.12 2.5 2.5s-1.12 2.5 -2.5 2.5s-2.5 1.12 -2.5 2.5s1.12 2.5 2.5 2.5s2.5 -1.12 2.5 -2.5" />
+  </svg>
+);
+
+export const SqlMonitorIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="icon"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    strokeWidth={2}
+    stroke="currentColor"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+
+    {/* Database */}
+    <ellipse cx="10" cy="6" rx="6" ry="3" />
+    <path d="M4 6v6c0 1.66 2.69 3 6 3" />
+    <path d="M4 9c0 1.66 2.69 3 6 3" />
+
+    {/* Magnifying glass */}
+    <circle cx="17.5" cy="14.5" r="3.5" />
+    <path d="M20 17l2 2" />
   </svg>
 );
