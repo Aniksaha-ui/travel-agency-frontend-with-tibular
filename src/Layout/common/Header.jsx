@@ -26,6 +26,7 @@ import {
   GUIDE_MANAGEMENT,
   HOTEL_CHECKIN,
   HOTEL_MANAGEMENT,
+  ONLINE_PAYMENT_CONFIG,
   PACKAGE_MANAGEMENT,
   REFUND_MANAGEMENT,
   REPORTS_MANAGEMENT,
@@ -130,6 +131,17 @@ const Header = () => {
       ],
     },
     {
+      title: "Settings",
+      icon: <HotelManagementIcon />,
+      children: [
+        {
+          title: ONLINE_PAYMENT_CONFIG,
+          path: "/admin/online-payment-configure",
+          icon: <PackageManagementIcon />,
+        },
+      ],
+    },
+    {
       title: REPORTS_MANAGEMENT,
       icon: <ReportManagementIcon />,
       children: [
@@ -178,10 +190,10 @@ const Header = () => {
           path: "/admin/monitoring",
           icon: <SqlMonitorIcon />,
         },
-         {
+        {
           title: "Package Booking Summary",
           path: "/admin/package-summary",
-          icon:  <PackageManagementIcon />,
+          icon: <PackageManagementIcon />,
         },
       ],
     },

@@ -31,7 +31,7 @@ export const SETTINGS = "Settings";
 export const FINANCIAL_REPORT = "Financial Report";
 export const TICKET_MANAGEMENT = "Tickets/Complains";
 export const TRANSACTION_MANAGEMENT = "Transactions";
-
+export const ONLINE_PAYMENT_CONFIG = "Online Payment Configure";
 
 //guide panel
 export const GUIDE_PACKAGE_ASSIGN_INFORMATION = "Package Assign Information";
