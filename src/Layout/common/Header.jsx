@@ -178,6 +178,11 @@ const Header = () => {
           path: "/admin/monitoring",
           icon: <SqlMonitorIcon />,
         },
+         {
+          title: "Package Booking Summary",
+          path: "/admin/package-summary",
+          icon:  <PackageManagementIcon />,
+        },
       ],
     },
   ]);

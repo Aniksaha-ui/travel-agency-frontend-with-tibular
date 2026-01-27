@@ -48,6 +48,7 @@ import FinancialReport from "./Views/Reports/FinancialReport/FinancialReport.jsx
 import Ticket from "./Views/Tickets/Ticket.jsx";
 import Transactions from "./Views/Transactions/Transactions.jsx";
 import Monitoring from "./Views/Monitoring/Monitoring.jsx";
+import PackageSummary from "./Views/PacakgeSummary/PackageSummary.jsx";
 
 const queryClient = new QueryClient();
 
@@ -200,6 +201,12 @@ createRoot(document.getElementById("root")).render(
              <Route
               path="admin/monitoring"
               element={<Monitoring />}
+            ></Route>
+
+
+                <Route
+              path="admin/package-summary"
+              element={<PackageSummary />}
             ></Route>
 
 

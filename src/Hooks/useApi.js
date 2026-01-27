@@ -15,6 +15,7 @@ import {
   MONTH_RUNNING_BALANCE,
   PACKAGE_API_ENDPOINT,
   PACKAGE_PERFORMANCE,
+  PACKAGE_SUMMARY_ENDPOINT,
   REFUND_API_ENDPOINT,
   REFUND_DISBURSED_API_ENDPOINT,
   ROUTES_API_ENDPOINT,
@@ -1029,6 +1030,27 @@ const useApi = () => {
     }
   };
 
+
+ const packageSummary = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${PACKAGE_SUMMARY_ENDPOINT}?page=${page}${query}`,
+      );
+      if (response && response.data) {
+          return response.data;
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
   return {
     getLocalStorageValue,
     login,
@@ -1091,6 +1113,7 @@ const useApi = () => {
     fetchTickets,
     updateTicketStatus,
     fetchTransactions,
+    packageSummary
   };
 };
 
