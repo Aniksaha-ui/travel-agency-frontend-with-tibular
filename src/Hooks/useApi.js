@@ -1040,12 +1040,76 @@ const useApi = () => {
       );
       if (response && response.data) {
           return response.data;
+      } 
+        return { message: response.message, data: [] };
+      
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
+   const fetchOnlinePaymentConfig = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+      const response = await axiosClient.apiClient(
+        "GET",
+        `admin/online-configure?page=${page}${query}`,
+      );
+      if (response && response.data) {
+          return response.data;
       } else {
         return { message: response.message, data: [] };
       }
-      return null;
+  
     } catch (error) {
       console.log(error);
+    }
+  };
+
+
+    const addConfigure = async (configure) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      "admin/online-configure",
+      configure,
+    );
+    console.log(response.data.status, "res");
+    if (response.data.status === true) {
+      return response.data.status;
+    }
+  };
+
+
+    const getConfigureById = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `admin/online-configure/${id}`,
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+
+    const updateConfigure = async (config) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `admin/online-configure/update`,
+      config,
+    );
+    console.log(response);
+    
+    if (response?.data.data === true) {
+      return response.data.isExecute;
     }
   };
 
@@ -1113,7 +1177,11 @@ const useApi = () => {
     fetchTickets,
     updateTicketStatus,
     fetchTransactions,
-    packageSummary
+    packageSummary,
+    fetchOnlinePaymentConfig,
+    addConfigure,
+    getConfigureById,
+    updateConfigure
   };
 };
 

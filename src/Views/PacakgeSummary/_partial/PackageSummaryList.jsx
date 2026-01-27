@@ -2,7 +2,7 @@ import ResponsiveTable from "../../Monitoring/_partial/ResponsiveTable";
 
 export const PackageSummaryList = ({ packageSummaryInfo }) => {
   return (
-    <ResponsiveTable title="Latest SQL Logs">
+    <ResponsiveTable title="Package-wise Booking Summary">
       <table className="table table-sm">
         <thead>
           <tr>

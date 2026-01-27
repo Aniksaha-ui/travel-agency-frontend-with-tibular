@@ -49,6 +49,8 @@ import Ticket from "./Views/Tickets/Ticket.jsx";
 import Transactions from "./Views/Transactions/Transactions.jsx";
 import Monitoring from "./Views/Monitoring/Monitoring.jsx";
 import PackageSummary from "./Views/PacakgeSummary/PackageSummary.jsx";
+import OnlinePaymentConfig from "./Views/OnlinePaymentConfig/OnlinePaymentConfig.jsx";
+import OnlinePaymentConfigForm from "./Views/OnlinePaymentConfig/OnlinePaymentConfigForm.jsx";
 
 const queryClient = new QueryClient();
 
@@ -204,10 +206,29 @@ createRoot(document.getElementById("root")).render(
             ></Route>
 
 
-                <Route
+            <Route
               path="admin/package-summary"
               element={<PackageSummary />}
             ></Route>
+
+
+             <Route
+              path="admin/online-payment-configure"
+              element={<OnlinePaymentConfig />}
+            ></Route>
+
+              <Route
+              path="admin/online-payment-configure/add"
+               element={<OnlinePaymentConfigForm action="add" />}
+            ></Route>
+
+            <Route
+              path="admin/online-payment-configure/update/:id"
+              element={<OnlinePaymentConfigForm action="update" />}
+            ></Route>
+
+
+
 
 
 
