@@ -6,6 +6,7 @@ import { TRANSACTION_MANAGEMENT } from "../../Utils/Constants/text";
 import Search from "../../Utils/Components/Search";
 import { PaginationFooter } from "../../Utils/Components/PaginationFooter";
 import TransactionList from "./partials/TransactionList";
+import TransactionViewModal from "./partials/TransactionViewModal";
 
 const Transactions = () => {
   const [page, setPage] = useState(1);
@@ -18,6 +19,8 @@ const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
   const api = useApi();
 
   const fetchTransactionInformation = async () => {
@@ -36,6 +39,11 @@ const Transactions = () => {
     if (search !== "") setPage(1);
     fetchTransactionInformation();
   }, [page, search]);
+
+  const handleView = (transaction) => {
+    setSelectedTransaction(transaction);
+    setShowModal(true);
+  };
 
   if (loading) {
     return <Loading />;
@@ -87,6 +95,7 @@ const Transactions = () => {
                           <th>Purpose</th>
                           <th>Payment Methsod</th>
                           <th>Amount</th>
+                          <th className="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -95,6 +104,7 @@ const Transactions = () => {
                             <TransactionList
                               key={index}
                               transaction={transaction}
+                              handleView={handleView}
                             />
                           ))
                         ) : (
@@ -109,7 +119,7 @@ const Transactions = () => {
                         )}
                       </tbody>
                       <tfoot>
-                        <tr>
+                        {/* <tr>
                           <td className="text-center">Total (in page)</td>
                           <td></td>
                           <td></td>
@@ -118,7 +128,7 @@ const Transactions = () => {
                           <td></td>
                           <td></td>
                           <td className="text-center">{total}</td>
-                        </tr>
+                        </tr> */}
                       </tfoot>
                     </table>
                   </div>
@@ -138,6 +148,13 @@ const Transactions = () => {
           </div>
         </div>
       </div>
+
+      {showModal && (
+        <TransactionViewModal
+          selectedTransaction={selectedTransaction}
+          setShowModal={setShowModal}
+        />
+      )}
     </AdminLayout>
   );
 };

@@ -1,7 +1,7 @@
 import moment from "moment";
 import PropTypes from "prop-types";
 
-const TransactionList = ({ transaction }) => {
+const TransactionList = ({ transaction, handleView }) => {
   return (
     <tr>
       <td className="text-center">
@@ -18,6 +18,14 @@ const TransactionList = ({ transaction }) => {
       <td>{transaction && transaction.purpose}</td>
       <td>{transaction && transaction.payment_method}</td>
       <td>{transaction && transaction.amount}</td>
+      <td className="text-center">
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => handleView(transaction)}
+        >
+          <i className="fa fa-eye"></i> View
+        </button>
+      </td>
     </tr>
   );
 };
@@ -33,6 +41,7 @@ TransactionList.propTypes = {
     payment_method: PropTypes.string,
     amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
+  handleView: PropTypes.func.isRequired,
 };
 
 export default TransactionList;
