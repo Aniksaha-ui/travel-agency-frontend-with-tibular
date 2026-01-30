@@ -51,12 +51,14 @@ import Monitoring from "./Views/Monitoring/Monitoring.jsx";
 import PackageSummary from "./Views/PacakgeSummary/PackageSummary.jsx";
 import OnlinePaymentConfig from "./Views/OnlinePaymentConfig/OnlinePaymentConfig.jsx";
 import OnlinePaymentConfigForm from "./Views/OnlinePaymentConfig/OnlinePaymentConfigForm.jsx";
+import ZoomBlocker from "./Utils/Components/ZoomBlocker.jsx";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
+      <ZoomBlocker />
       <BrowserRouter>
         <ToastContainer></ToastContainer>
 
@@ -182,7 +184,7 @@ createRoot(document.getElementById("root")).render(
             ></Route>
 
 
-              <Route
+            <Route
               path="admin/financialReport"
               element={<FinancialReport />}
             ></Route>
@@ -194,13 +196,13 @@ createRoot(document.getElementById("root")).render(
             ></Route>
 
 
-              <Route
+            <Route
               path="admin/transactions"
               element={<Transactions />}
             ></Route>
 
 
-             <Route
+            <Route
               path="admin/monitoring"
               element={<Monitoring />}
             ></Route>
@@ -212,14 +214,14 @@ createRoot(document.getElementById("root")).render(
             ></Route>
 
 
-             <Route
+            <Route
               path="admin/online-payment-configure"
               element={<OnlinePaymentConfig />}
             ></Route>
 
-              <Route
+            <Route
               path="admin/online-payment-configure/add"
-               element={<OnlinePaymentConfigForm action="add" />}
+              element={<OnlinePaymentConfigForm action="add" />}
             ></Route>
 
             <Route
@@ -242,14 +244,14 @@ createRoot(document.getElementById("root")).render(
               element={<GuidePackageCosting />}
             ></Route>
 
-               <Route
+            <Route
               path="guide/my-packageCosting/addCosting/:packageId"
-              element={<GuidePackageCostingForm action="add"/>}
+              element={<GuidePackageCostingForm action="add" />}
             ></Route>
 
-              <Route
+            <Route
               path="guide/my-packageCosting/addCosting/:packageId/:costId"
-              element={<GuidePackageCostingForm action="update"/>}
+              element={<GuidePackageCostingForm action="update" />}
             ></Route>
 
             <Route

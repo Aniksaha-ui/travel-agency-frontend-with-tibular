@@ -40,6 +40,18 @@ const MobileBottomNav = () => {
     const path = location.pathname;
     const [showMoreMenu, setShowMoreMenu] = useState(false);
 
+    // Prevent body browse scroll when menu is open
+    React.useEffect(() => {
+        if (showMoreMenu) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [showMoreMenu]);
+
     // Helper to check active state
     // Exact match for dashboard to avoid highlighting on sub-routes if desired, 
     // but usually partial match is better for sections.

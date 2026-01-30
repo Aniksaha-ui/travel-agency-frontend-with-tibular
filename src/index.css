@@ -1,4 +1,13 @@
 /* =========================================
+   Global Zoom Prevention
+   ========================================= */
+html,
+body {
+    /* Prevent pinch-zoom gestures on touch devices */
+    touch-action: pan-x pan-y;
+}
+
+/* =========================================
    Mobile Card Table System - Clean White Theme
    Transforms standard tables into app-like cards on mobile
    ========================================= */
