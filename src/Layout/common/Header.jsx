@@ -55,11 +55,11 @@ const Header = () => {
       path: "/admin/dashboard",
       icon: <DashboardIcon />,
     },
-  {
-          title: USER_MANAGEMENT,
-          path: "/admin/users",
-          icon: <UserManagementIcon />,
-        },
+    {
+      title: USER_MANAGEMENT,
+      path: "/admin/users",
+      icon: <UserManagementIcon />,
+    },
     {
       title: ROUTE_MANAGEMENT,
       path: "/admin/routes",
@@ -139,7 +139,7 @@ const Header = () => {
           path: "/admin/online-payment-configure",
           icon: <PackageManagementIcon />,
         },
-      
+
       ],
     },
     {
@@ -245,8 +245,11 @@ const Header = () => {
                 </span>
                 <span className="nav-link-title">{item.title}</span>
               </Link>
-              <div className="dropdown-menu">
-                <div className="dropdown-menu-columns">
+              <div
+                className={`dropdown-menu${index > bottomMenuItems.length - 3 ? " dropdown-menu-end" : ""
+                  }`}
+              >
+                <div className="dropdown-menu-columns" style={{ userSelect: "none" }}>
                   <div className="dropdown-menu-column">
                     {item.children
                       .slice(0, Math.ceil(item.children.length / 2))

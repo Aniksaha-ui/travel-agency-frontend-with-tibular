@@ -1,0 +1,122 @@
+/* =========================================
+   Mobile Card Table System - Clean White Theme
+   Transforms standard tables into app-like cards on mobile
+   ========================================= */
+
+@media (max-width: 767.98px) {
+
+    /* Hide the standard table header */
+    .mobile-card-table thead {
+        display: none;
+    }
+
+    /* Reset Bootstrap table borders */
+    .mobile-card-table.table-bordered,
+    .mobile-card-table.table-bordered>tbody>tr>td {
+        border: none !important;
+    }
+
+    /* Make the body block-level */
+    .mobile-card-table tbody {
+        display: block;
+        width: 100%;
+    }
+
+    /* Transform rows into cards */
+    .mobile-card-table tr {
+        display: block;
+        background: #ffffff;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        /* Soft premium shadow */
+        padding: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .mobile-card-table tr:active {
+        transform: scale(0.99);
+    }
+
+    /* Colorful Accent Strip - Gradient Side Border */
+    .mobile-card-table tr::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 100%;
+        /* Vibrant Gradient Accent */
+        background: linear-gradient(180deg, #ff0f7b, #f89b29);
+        border-radius: 12px 0 0 12px;
+    }
+
+    /* Standard Cells */
+    .mobile-card-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #f0f0f0 !important;
+        padding: 12px 0;
+        font-size: 0.95rem;
+        color: #000000;
+        /* Pure Black for text */
+        text-align: right;
+        font-weight: 500;
+    }
+
+    /* Remove border from last child & adjust alignment */
+    .mobile-card-table td:last-child {
+        border-bottom: none !important;
+        justify-content: flex-end;
+        padding-top: 16px;
+        gap: 10px;
+    }
+
+    /* Labels (Key) */
+    .mobile-card-table td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        /* Bold labels */
+        color: #000000;
+        /* Pure Black for labels */
+        text-align: left;
+        margin-right: 1rem;
+        flex-shrink: 0;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Primary Title Styling (Use for Name/ID columns) */
+    .mobile-card-table td.mobile-title {
+        display: block;
+        text-align: left;
+        font-size: 1.25rem;
+        font-weight: 900;
+        /* Extra Bold Title */
+        color: #000000;
+        /* Pure Black for Title */
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #f3f4f6 !important;
+        margin-bottom: 0.5rem;
+        padding-top: 0;
+        letter-spacing: -0.5px;
+    }
+
+    /* Hide label for title */
+    .mobile-card-table td.mobile-title::before {
+        display: none;
+    }
+
+    /* Badge alignment fix in flex container */
+    .mobile-card-table td .badge {
+        margin-left: auto;
+        /* Push badge to right */
+        font-size: 0.75rem;
+        padding: 0.5em 0.8em;
+    }
+}

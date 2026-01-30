@@ -75,7 +75,7 @@ function Packages() {
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}
                   <div className="table-responsive mx-2 mt-1">
-                    <table className="table table-bordered">
+                    <table className="table table-bordered mobile-card-table">
                       <thead>
                         <tr>
                           <th>SL</th>
@@ -91,14 +91,22 @@ function Packages() {
                       <tbody>
                         {packages.map((pkg, index) => (
                           <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{pkg.id}</td>
-                            <td>{pkg.name}</td>
-                            <td>{pkg.trip_name}</td>
-                            <td>{Includestatus[pkg.includes_meal]}</td>
-                            <td>{Includestatus[pkg.includes_hotel]}</td>
-                            <td>{Includestatus[pkg.includes_bus]}</td>
-                            <td>
+                            <td data-label="SL">{index + 1}</td>
+                            <td data-label="Package Id">{pkg.id}</td>
+                            <td className="mobile-title" data-label="Package Name">
+                              {pkg.name}
+                            </td>
+                            <td data-label="Trip Name">{pkg.trip_name}</td>
+                            <td data-label="Include Meal">
+                              {Includestatus[pkg.includes_meal]}
+                            </td>
+                            <td data-label="Include Hotel">
+                              {Includestatus[pkg.includes_hotel]}
+                            </td>
+                            <td data-label="Include Vehicle">
+                              {Includestatus[pkg.includes_bus]}
+                            </td>
+                            <td data-label="Action">
                               <button
                                 onClick={() => handleDetails(pkg.id)}
                                 data-bs-toggle="tooltip"

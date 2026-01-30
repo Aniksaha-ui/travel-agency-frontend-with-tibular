@@ -62,7 +62,7 @@ function Bookings() {
                   <Search search={search} setSearch={setSearch} />{" "}
                   {/* search */}
                   <div className="table-responsive mx-2 mt-1">
-                    <table className="table table-bordered">
+                    <table className="table table-bordered mobile-card-table">
                       <thead>
                         <tr>
                           <th>Booking Id</th>
@@ -79,15 +79,23 @@ function Bookings() {
                       <tbody>
                         {bookings.map((bookings, index) => (
                           <tr key={index}>
-                            <td>{bookings.id}</td>
-                            <td>{bookings.trip_name}</td>
-                            <td>{bookings.booking_type}</td>
-                            <td>{bookings.package_name}</td>
-                            <td>{bookings.username}</td>
-                            <td>{bookings.status}</td>
-                            <td>{bookings.seat_ids}</td>
-                            <td>{bookings.created_at}</td>
-                            <td>
+                            <td data-label="Booking Id">{bookings.id}</td>
+                            <td className="mobile-title" data-label="Trip Name">
+                              {bookings.trip_name}
+                            </td>
+                            <td data-label="Booking Type">
+                              {bookings.booking_type}
+                            </td>
+                            <td data-label="Package Name">
+                              {bookings.package_name}
+                            </td>
+                            <td data-label="User Name">{bookings.username}</td>
+                            <td data-label="Payment Status">{bookings.status}</td>
+                            <td data-label="Seats">{bookings.seat_ids}</td>
+                            <td data-label="Booking Date">
+                              {bookings.created_at}
+                            </td>
+                            <td data-label="Invoice">
                               <Link
                                 to={`/admin/bookinginvoice/${bookings.id}`}
                                 className="btn btn-sm btn-success me-2"
