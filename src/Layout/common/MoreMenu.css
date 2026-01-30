@@ -1,0 +1,143 @@
+/* Popup Overlay */
+.more-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.more-menu-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Menu Container */
+.more-menu-container {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    border-radius: 20px;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 20px;
+    padding-bottom: 25px;
+}
+
+.more-menu-overlay.visible .more-menu-container {
+    transform: translateY(0);
+}
+
+/* Grid Layout */
+.more-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding-top: 10px;
+}
+
+.more-menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #1f2937;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.more-menu-item:active {
+    transform: scale(0.95);
+}
+
+/* Icon Container */
+.more-menu-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #f3f4f6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    color: #1f2937;
+    transition: all 0.2s ease;
+}
+
+.more-menu-item:hover .more-menu-icon {
+    background-color: #e5e7eb;
+    color: #000;
+}
+
+.more-menu-item.active .more-menu-icon {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.more-menu-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Text */
+.more-menu-title {
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #4b5563;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* Section Title */
+.more-menu-section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.more-menu-section-title:first-child {
+    margin-top: 0;
+}
+
+/* Close Button */
+.more-menu-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.more-menu-close:active {
+    background: #e5e7eb;
+}
