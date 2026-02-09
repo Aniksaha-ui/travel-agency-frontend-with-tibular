@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getLocalStorage } from "../../Utils/Functions/localStorage";
+import { getLocalStorage, setLocalStorage } from "../../Utils/Functions/localStorage";
 import { Logout } from "../../Utils/Functions/common";
 
 import * as Icons from "../../Utils/Constants/svg.jsx";
@@ -23,8 +23,16 @@ const Header = () => {
   const [bottomMenuItems, setBottomMenuItems] = useState([]);
 
   useEffect(() => {
-    const getMenu = async () => {
-      const data = await fetchMenu();
+    const loadMenu = async () => {
+      let data = getLocalStorage("menu");
+
+      if (!data) {
+        data = await fetchMenu();
+        if (data) {
+          setLocalStorage("menu", data);
+        }
+      }
+
       if (data) {
         const mapItems = (items) =>
           items.map((item) => {
@@ -48,18 +56,13 @@ const Header = () => {
         }
       }
     };
-    if (userInformation && userInformation.role === ROLES[0]) {
-      getMenu();
+
+    if (userInformation && userInformation.role) { // or specific role check if needed
+        loadMenu();
     }
   }, []);
 
-  const [guideMenuItems, setGuideMenuItems] = useState([
-    {
-      title: DASHBOARD,
-      path: "/guide/myAssignPackages",
-      icon: <DashboardIcon />,
-    },
-  ]);
+
 
   const SidebarMenu = () => (
     <ul className="navbar-nav">
@@ -178,15 +181,8 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbar-menu">
           <div className="navbar">
             <div className="container-xl">
-              {userInformation &&
-                userInformation.role === ROLES[0] &&
-                SidebarMenu()}
-              {userInformation &&
-                userInformation.role === ROLES[0] &&
-                SidebarBottomMenu()}
-              {userInformation &&
-                userInformation.role === ROLES[1] &&
-                GuideSideBarMenu()}
+              {SidebarMenu()}
+              {SidebarBottomMenu()}
             </div>
           </div>
         </div>

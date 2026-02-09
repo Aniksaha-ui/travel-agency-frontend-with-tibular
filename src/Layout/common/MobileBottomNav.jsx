@@ -12,7 +12,7 @@ import "./MobileBottomNav.css";
 import "./MoreMenu.css";
 import useApi from "../../Hooks/useApi.js";
 import { ROLES } from "../../Utils/Constants/common.js";
-import { getLocalStorage } from "../../Utils/Functions/localStorage.js";
+import { getLocalStorage, setLocalStorage } from "../../Utils/Functions/localStorage.js";
 
 // Simple Menu Icon Component
 const MenuIcon = () => (
@@ -61,8 +61,16 @@ const MobileBottomNav = () => {
     }, [showMoreMenu]);
 
     useEffect(() => {
-        const getMenu = async () => {
-            const data = await fetchMenu();
+        const loadMenu = async () => {
+            let data = getLocalStorage("menu");
+            
+            if (!data) {
+                data = await fetchMenu();
+                 if (data) {
+                    setLocalStorage("menu", data);
+                }
+            }
+
             if (data) {
                 const mapItems = (items) =>
                     items.map((item) => {
@@ -92,7 +100,7 @@ const MobileBottomNav = () => {
                 const flatten = (items) => {
                     items.forEach(item => {
                         if (item.children) {
-                            flatten(item.children);
+                            flatten(item.children); // recursively flatten children
                         } else {
                             flattenedItems.push(item);
                         }
@@ -105,9 +113,9 @@ const MobileBottomNav = () => {
         };
 
         if (userInformation && userInformation.role === ROLES[0]) {
-            getMenu();
+            loadMenu();
         }
-    }, []);
+    }, [userInformation]);
 
 
     // Helper to check active state

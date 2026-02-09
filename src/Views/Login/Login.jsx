@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { setLocalStorage } from "../../Utils/Functions/localStorage";
 import AdminLayout from "../../Layout/AdminLayout";
 import useApi from "../../Hooks/useApi";
 import { useRecoilState } from "recoil";
@@ -46,6 +47,11 @@ const Login = () => {
       localStorage.setItem("token", response?.access_token);
       localStorage.setItem("user", JSON.stringify(response?.user));
       await setUserInfo(response?.user);
+      
+      const menuData = await api.fetchMenu();
+      if (menuData) {
+        setLocalStorage("menu", menuData);
+      }
     }
 
     if (response && response?.user && response?.user?.role === ROLES[0]) {
