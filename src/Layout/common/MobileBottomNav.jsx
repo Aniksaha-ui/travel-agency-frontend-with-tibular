@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
     BookingManagementIcon,
@@ -6,9 +6,13 @@ import {
     PackageManagementIcon,
     MoneyIcon,
 } from "../../Utils/Constants/svg";
-import { MAIN_MENU_ITEMS, BOTTOM_MENU_ITEMS } from "./MenuConfig";
+
+import * as Icons from "../../Utils/Constants/svg.jsx";
 import "./MobileBottomNav.css";
 import "./MoreMenu.css";
+import useApi from "../../Hooks/useApi.js";
+import { ROLES } from "../../Utils/Constants/common.js";
+import { getLocalStorage } from "../../Utils/Functions/localStorage.js";
 
 // Simple Menu Icon Component
 const MenuIcon = () => (
@@ -39,6 +43,10 @@ const MobileBottomNav = () => {
     const location = useLocation();
     const path = location.pathname;
     const [showMoreMenu, setShowMoreMenu] = useState(false);
+    const { fetchMenu } = useApi();
+    const [allMenuItems, setAllMenuItems] = useState([]);
+    const userInformation = getLocalStorage("user") ?? "";
+
 
     // Prevent body browse scroll when menu is open
     React.useEffect(() => {
@@ -52,37 +60,68 @@ const MobileBottomNav = () => {
         };
     }, [showMoreMenu]);
 
+    useEffect(() => {
+        const getMenu = async () => {
+            const data = await fetchMenu();
+            if (data) {
+                const mapItems = (items) =>
+                    items.map((item) => {
+                        const IconComponent = Icons[item.icon] || Icons.DashboardIcon;
+                        const children =
+                            item.children && item.children.length > 0
+                                ? mapItems(item.children)
+                                : null;
+
+                        return {
+                            ...item,
+                            icon: <IconComponent />,
+                            children: children,
+                        };
+                    });
+
+                let menuItems = [];
+                if (data.MAIN_MENU_ITEMS) {
+                    menuItems = [...menuItems, ...mapItems(data.MAIN_MENU_ITEMS)];
+                }
+                if (data.BOTTOM_MENU_ITEMS) {
+                    menuItems = [...menuItems, ...mapItems(data.BOTTOM_MENU_ITEMS)];
+                }
+
+                // Flatten the items for mobile view
+                const flattenedItems = [];
+                const flatten = (items) => {
+                    items.forEach(item => {
+                        if (item.children) {
+                            flatten(item.children);
+                        } else {
+                            flattenedItems.push(item);
+                        }
+                    });
+                };
+                
+                flatten(menuItems);
+                setAllMenuItems(flattenedItems);
+            }
+        };
+
+        if (userInformation && userInformation.role === ROLES[0]) {
+            getMenu();
+        }
+    }, []);
+
+
     // Helper to check active state
     // Exact match for dashboard to avoid highlighting on sub-routes if desired, 
     // but usually partial match is better for sections.
     const isActive = (route) => path === route || path.startsWith(route + "/");
 
-    // Helper to flatten menu items including children
-    const getAllItems = () => {
-        const items = [];
-
-        const processItem = (item) => {
-            if (item.children) {
-                item.children.forEach(processItem);
-            } else {
-                items.push(item);
-            }
-        };
-
-        MAIN_MENU_ITEMS.forEach(processItem);
-        BOTTOM_MENU_ITEMS.forEach(processItem);
-
-        return items;
-    };
-
-    const allMenuItems = getAllItems();
 
     return (
         <>
             <div className="mobile-bottom-nav d-md-none">
                 <Link
                     to="/admin/dashboard"
-                    className={`nav-item-mobile ${isActive("/admin/dashboard") ? "active" : ""}`}
+                    className={`nav-item-mobile ${isActive("/admin/dashboard") ? "active" : "nav-item-mobile-inactive"}`}
                 >
                     <DashboardIcon />
                     <span>Home</span>

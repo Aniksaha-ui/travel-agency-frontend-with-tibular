@@ -35,6 +35,7 @@ import {
   VEHICLE_WISE_TOTAL_SEAT_REPORT_API_ENDPOINT,
   VEHICLES_API_ENDPOINT,
   VEHICLES_DROPDOWN_API_ENDPOINT,
+  MENU_API_ENDPOINT,
 } from "../Utils/Constants/api";
 import { API_SUCCESS } from "../Utils/Constants/common";
 import useAxios from "./useAxios";
@@ -813,6 +814,18 @@ const useApi = () => {
     }
   };
 
+  const fetchMenu = async () => {
+    try {
+      const response = await axiosClient.apiClient("GET", MENU_API_ENDPOINT);
+      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+        return response.data.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    return null;
+  };
+
   const markAsCheckInOrOut = async (hotel_booking_id, status) => {
     const response = await axiosClient.apiClient(
       "POST",
@@ -1181,7 +1194,8 @@ const useApi = () => {
     fetchOnlinePaymentConfig,
     addConfigure,
     getConfigureById,
-    updateConfigure
+    updateConfigure,
+    fetchMenu,
   };
 };
 

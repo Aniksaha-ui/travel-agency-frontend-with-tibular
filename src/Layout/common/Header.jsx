@@ -1,23 +1,57 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getLocalStorage } from "../../Utils/Functions/localStorage";
 import { Logout } from "../../Utils/Functions/common";
-import { MAIN_MENU_ITEMS, BOTTOM_MENU_ITEMS } from "./MenuConfig";
+
+import * as Icons from "../../Utils/Constants/svg.jsx";
 import { DashboardIcon } from "../../Utils/Constants/svg.jsx";
 import { DASHBOARD } from "../../Utils/Constants/text.js";
 import Notification from "./Notification.jsx";
 import { ROLES } from "../../Utils/Constants/common.js";
+import useApi from "../../Hooks/useApi.js";
 
 const Header = () => {
   const userInformation = getLocalStorage("user") ?? "";
   const navigate = useNavigate();
+  const { fetchMenu } = useApi();
   const handleLogout = () => {
     Logout();
     navigate("/login");
   };
 
-  const [menuItems] = useState(MAIN_MENU_ITEMS);
-  const [bottomMenuItems] = useState(BOTTOM_MENU_ITEMS);
+  const [menuItems, setMenuItems] = useState([]);
+  const [bottomMenuItems, setBottomMenuItems] = useState([]);
+
+  useEffect(() => {
+    const getMenu = async () => {
+      const data = await fetchMenu();
+      if (data) {
+        const mapItems = (items) =>
+          items.map((item) => {
+            const IconComponent = Icons[item.icon] || Icons.DashboardIcon;
+            const children =
+              item.children && item.children.length > 0
+                ? mapItems(item.children)
+                : null;
+            return {
+              ...item,
+              icon: <IconComponent />,
+              children: children,
+            };
+          });
+
+        if (data.MAIN_MENU_ITEMS) {
+          setMenuItems(mapItems(data.MAIN_MENU_ITEMS));
+        }
+        if (data.BOTTOM_MENU_ITEMS) {
+          setBottomMenuItems(mapItems(data.BOTTOM_MENU_ITEMS));
+        }
+      }
+    };
+    if (userInformation && userInformation.role === ROLES[0]) {
+      getMenu();
+    }
+  }, []);
 
   const [guideMenuItems, setGuideMenuItems] = useState([
     {

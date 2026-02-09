@@ -38,3 +38,4 @@ export const TICKET_API_ENDPOINT = "admin/tickets";
 export const TRANSACTION_API_ENDPOINT = "admin/transaction";
 export const MONITORING_API_ENDPOINT = "admin/monitoring";
 export const PACKAGE_SUMMARY_ENDPOINT = "admin/packageWiseBooking";
+export const MENU_API_ENDPOINT = "admin/menu";
