@@ -36,6 +36,7 @@ import {
   VEHICLES_API_ENDPOINT,
   VEHICLES_DROPDOWN_API_ENDPOINT,
   MENU_API_ENDPOINT,
+  MENU_ITEMS_API_ENDPOINT,
 } from "../Utils/Constants/api";
 import { API_SUCCESS } from "../Utils/Constants/common";
 import useAxios from "./useAxios";
@@ -1044,7 +1045,7 @@ const useApi = () => {
   };
 
 
- const packageSummary = async (page, search) => {
+  const packageSummary = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
       const response = await axiosClient.apiClient(
@@ -1052,11 +1053,11 @@ const useApi = () => {
         `${PACKAGE_SUMMARY_ENDPOINT}?page=${page}${query}`,
       );
       if (response && response.data) {
-          return response.data;
-      } 
-        return { message: response.message, data: [] };
-      
-      
+        return response.data;
+      }
+      return { message: response.message, data: [] };
+
+
     } catch (error) {
       console.log(error);
     }
@@ -1065,7 +1066,7 @@ const useApi = () => {
 
 
 
-   const fetchOnlinePaymentConfig = async (page, search) => {
+  const fetchOnlinePaymentConfig = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
       const response = await axiosClient.apiClient(
@@ -1073,18 +1074,18 @@ const useApi = () => {
         `admin/online-configure?page=${page}${query}`,
       );
       if (response && response.data) {
-          return response.data;
+        return response.data;
       } else {
         return { message: response.message, data: [] };
       }
-  
+
     } catch (error) {
       console.log(error);
     }
   };
 
 
-    const addConfigure = async (configure) => {
+  const addConfigure = async (configure) => {
     const response = await axiosClient.apiClient(
       "POST",
       "admin/online-configure",
@@ -1097,7 +1098,7 @@ const useApi = () => {
   };
 
 
-    const getConfigureById = async (id) => {
+  const getConfigureById = async (id) => {
     const response = await axiosClient.apiClient(
       "GET",
       `admin/online-configure/${id}`,
@@ -1113,20 +1114,74 @@ const useApi = () => {
   };
 
 
-    const updateConfigure = async (config) => {
+  const updateConfigure = async (config) => {
     const response = await axiosClient.apiClient(
       "POST",
       `admin/online-configure/update`,
       config,
     );
     console.log(response);
-    
+
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
   };
 
 
+
+
+  /***************************************Menu API*********************************/
+  /***************************************Menu API*********************************/
+  const fetchMenuItems = async (page = "", search = "") => {
+    const query = search ? `?search=${encodeURIComponent(search)}&page=${page}` : `?page=${page}`;
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${MENU_ITEMS_API_ENDPOINT}${query}`
+    );
+    return response.data;
+  };
+
+  const addMenuItem = async (menuItem) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      MENU_ITEMS_API_ENDPOINT,
+      menuItem
+    );
+    return response?.data;
+  };
+
+  const getMenuItemById = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${MENU_ITEMS_API_ENDPOINT}/${id}`
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const updateMenuItem = async (id, menuItem) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `${MENU_ITEMS_API_ENDPOINT}/update/${id}`,
+      menuItem
+    );
+    return response?.data;
+  };
+
+  const deleteMenuItem = async (id) => {
+    const response = await axiosClient.apiClient(
+      "DELETE",
+      `${MENU_ITEMS_API_ENDPOINT}/${id}`
+    );
+    return response?.data;
+  };
+  /***************************************Menu API*********************************/
 
   return {
     getLocalStorageValue,
@@ -1196,6 +1251,11 @@ const useApi = () => {
     getConfigureById,
     updateConfigure,
     fetchMenu,
+    fetchMenuItems,
+    addMenuItem,
+    getMenuItemById,
+    updateMenuItem,
+    deleteMenuItem,
   };
 };
 

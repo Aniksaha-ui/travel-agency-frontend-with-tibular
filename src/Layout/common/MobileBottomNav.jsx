@@ -63,10 +63,10 @@ const MobileBottomNav = () => {
     useEffect(() => {
         const loadMenu = async () => {
             let data = getLocalStorage("menu");
-            
+
             if (!data) {
                 data = await fetchMenu();
-                 if (data) {
+                if (data) {
                     setLocalStorage("menu", data);
                 }
             }
@@ -106,7 +106,7 @@ const MobileBottomNav = () => {
                         }
                     });
                 };
-                
+
                 flatten(menuItems);
                 setAllMenuItems(flattenedItems);
             }
@@ -115,7 +115,7 @@ const MobileBottomNav = () => {
         if (userInformation && userInformation.role === ROLES[0]) {
             loadMenu();
         }
-    }, [userInformation]);
+    }, [userInformation?.role]);
 
 
     // Helper to check active state

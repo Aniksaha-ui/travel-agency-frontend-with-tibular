@@ -52,6 +52,8 @@ import PackageSummary from "./Views/PacakgeSummary/PackageSummary.jsx";
 import OnlinePaymentConfig from "./Views/OnlinePaymentConfig/OnlinePaymentConfig.jsx";
 import OnlinePaymentConfigForm from "./Views/OnlinePaymentConfig/OnlinePaymentConfigForm.jsx";
 import ZoomBlocker from "./Utils/Components/ZoomBlocker.jsx";
+import MenuItems from "./Views/Menu/MenuItems.jsx";
+import MenuItemForm from "./Views/Menu/MenuItemForm.jsx";
 
 const queryClient = new QueryClient();
 
@@ -67,6 +69,9 @@ createRoot(document.getElementById("root")).render(
             <Route path="/" element={<Login />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="admin/dashboard" element={<Dashboard />}></Route>
+            <Route path="admin/menu-items" element={<MenuItems />}></Route>
+            <Route path="admin/menu-items/add" element={<MenuItemForm action="add" />}></Route>
+            <Route path="admin/menu-items/update/:id" element={<MenuItemForm action="update" />}></Route>
             <Route path="admin/routes" element={<RouteInformation />}></Route>
             <Route path="admin/routes/add" element={<AddRoutes />}></Route>
             <Route path="/admin/users" element={<Users />}></Route>
