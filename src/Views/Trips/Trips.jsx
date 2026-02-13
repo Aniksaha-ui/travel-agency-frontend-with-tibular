@@ -86,6 +86,11 @@ function Trips() {
     }
   };
 
+
+  const handleUsers = (id) => {
+    navigation(`/admin/trips/users/${id}`);
+  };
+
   return (
     <AdminLayout>
       <div className="page-wrapper">
@@ -145,49 +150,62 @@ function Trips() {
                             </td>
                             <td>{trip.price}</td>
                             <td>{status[trip.is_active]}</td>
+                            <td>
                               {trip.is_active === TRIP_ACTIVE && (
 
-                            <td>
+                                <>
+                                  <button
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Edit"
+                                    className="btn btn-sm btn-success me-2"
+                                    onClick={() => handleEdit(trip.id)}
+                                  >
+                                    <i className="fas fa-edit"></i>
+                                  </button>
+                                  <button
+                                    onClick={() => handleDelete(trip.id)}
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Delete"
+                                    className="btn btn-sm btn-danger"
+                                  >
+                                    <i className="fas fa-trash"></i>
+                                  </button>
+                                  <button
+                                    onClick={() => handleDetails(trip.id)}
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Delete"
+                                    className="btn btn-sm btn-danger ms-2"
+                                  >
+                                    <i className="fas fa-info"></i>
+                                  </button>
+
+                                  <button
+                                    onClick={() => handleCompleted(trip.id)}
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Mark as Completed"
+                                    className="btn btn-sm btn-success ms-2"
+                                  >
+                                    <i className="fas fa-check"></i>
+                                  </button>
+
+                                </>
+                              )}
+
                               <button
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
                                 title="Edit"
                                 className="btn btn-sm btn-success me-2"
-                                onClick={() => handleEdit(trip.id)}
-                              >
-                                <i className="fas fa-edit"></i>
-                              </button>
-                              <button
-                                onClick={() => handleDelete(trip.id)}
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Delete"
-                                className="btn btn-sm btn-danger"
-                              >
-                                <i className="fas fa-trash"></i>
-                              </button>
-                              <button
-                                onClick={() => handleDetails(trip.id)}
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Delete"
-                                className="btn btn-sm btn-danger ms-2"
+                                onClick={() => handleUsers(trip.id)}
                               >
                                 <i className="fas fa-info"></i>
                               </button>
-
-                                <button
-                                  onClick={() => handleCompleted(trip.id)}
-                                  data-bs-toggle="tooltip"
-                                  data-bs-placement="top"
-                                  title="Mark as Completed"
-                                  className="btn btn-sm btn-success ms-2"
-                                >
-                                  <i className="fas fa-check"></i>
-                                </button>
-                           
                             </td>
-                               )}
+
                           </tr>
                         ))}
                       </tbody>

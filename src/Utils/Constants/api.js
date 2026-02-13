@@ -40,3 +40,4 @@ export const MONITORING_API_ENDPOINT = "admin/monitoring";
 export const PACKAGE_SUMMARY_ENDPOINT = "admin/packageWiseBooking";
 export const MENU_API_ENDPOINT = "admin/menu";
 export const MENU_ITEMS_API_ENDPOINT = "admin/menu_items";
+export const TRIPWISE_BOOKING_USERS_API_ENDPOINT = "admin/tripwiseBookingUsers";

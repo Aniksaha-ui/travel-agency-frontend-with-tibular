@@ -37,6 +37,7 @@ import {
   VEHICLES_DROPDOWN_API_ENDPOINT,
   MENU_API_ENDPOINT,
   MENU_ITEMS_API_ENDPOINT,
+  TRIPWISE_BOOKING_USERS_API_ENDPOINT,
 } from "../Utils/Constants/api";
 import { API_SUCCESS } from "../Utils/Constants/common";
 import useAxios from "./useAxios";
@@ -418,6 +419,21 @@ const useApi = () => {
     if (response?.data.data === true) {
       return response.data.isExecute;
     }
+  };
+
+  const fetchTripUsers = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${TRIPWISE_BOOKING_USERS_API_ENDPOINT}/${id}`,
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
   };
 
   const fetchTourDetailsInformation = async (tourId) => {
@@ -1256,6 +1272,7 @@ const useApi = () => {
     getMenuItemById,
     updateMenuItem,
     deleteMenuItem,
+    fetchTripUsers,
   };
 };
 

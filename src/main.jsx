@@ -54,6 +54,7 @@ import OnlinePaymentConfigForm from "./Views/OnlinePaymentConfig/OnlinePaymentCo
 import ZoomBlocker from "./Utils/Components/ZoomBlocker.jsx";
 import MenuItems from "./Views/Menu/MenuItems.jsx";
 import MenuItemForm from "./Views/Menu/MenuItemForm.jsx";
+import TripUsers from "./Views/Trips/TripUsers.jsx";
 
 const queryClient = new QueryClient();
 
@@ -70,8 +71,14 @@ createRoot(document.getElementById("root")).render(
             <Route path="/login" element={<Login />}></Route>
             <Route path="admin/dashboard" element={<Dashboard />}></Route>
             <Route path="admin/menu-items" element={<MenuItems />}></Route>
-            <Route path="admin/menu-items/add" element={<MenuItemForm action="add" />}></Route>
-            <Route path="admin/menu-items/update/:id" element={<MenuItemForm action="update" />}></Route>
+            <Route
+              path="admin/menu-items/add"
+              element={<MenuItemForm action="add" />}
+            ></Route>
+            <Route
+              path="admin/menu-items/update/:id"
+              element={<MenuItemForm action="update" />}
+            ></Route>
             <Route path="admin/routes" element={<RouteInformation />}></Route>
             <Route path="admin/routes/add" element={<AddRoutes />}></Route>
             <Route path="/admin/users" element={<Users />}></Route>
@@ -92,6 +99,7 @@ createRoot(document.getElementById("root")).render(
               element={<VehicleSeatLayout />}
             ></Route>
             <Route path="admin/trips" element={<Trips />}></Route>
+            <Route path="admin/trips/users/:id" element={<TripUsers />}></Route>
             <Route
               path="admin/trips/:tourId"
               element={<TripsDetails />}
@@ -188,36 +196,21 @@ createRoot(document.getElementById("root")).render(
               element={<MonthlyRunningBalance />}
             ></Route>
 
-
             <Route
               path="admin/financialReport"
               element={<FinancialReport />}
             ></Route>
 
+            <Route path="admin/tickets" element={<Ticket />}></Route>
 
-            <Route
-              path="admin/tickets"
-              element={<Ticket />}
-            ></Route>
+            <Route path="admin/transactions" element={<Transactions />}></Route>
 
-
-            <Route
-              path="admin/transactions"
-              element={<Transactions />}
-            ></Route>
-
-
-            <Route
-              path="admin/monitoring"
-              element={<Monitoring />}
-            ></Route>
-
+            <Route path="admin/monitoring" element={<Monitoring />}></Route>
 
             <Route
               path="admin/package-summary"
               element={<PackageSummary />}
             ></Route>
-
 
             <Route
               path="admin/online-payment-configure"
@@ -233,11 +226,6 @@ createRoot(document.getElementById("root")).render(
               path="admin/online-payment-configure/update/:id"
               element={<OnlinePaymentConfigForm action="update" />}
             ></Route>
-
-
-
-
-
 
             <Route
               path="guide/myAssignPackages"
@@ -269,5 +257,5 @@ createRoot(document.getElementById("root")).render(
         </RecoilRoot>
       </BrowserRouter>
     </QueryClientProvider>
-  </StrictMode>
+  </StrictMode>,
 );
