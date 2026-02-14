@@ -21,6 +21,7 @@ import FormTrips from "./Views/Trips/AddTrips.jsx";
 import VehicleBookingForTrip from "./Views/Vehicles/VehicleBookingForTrip.jsx";
 import TripsDetails from "./Views/Trips/TripsDetails.jsx";
 import AccountBalanceReport from "./Views/Reports/AccountReports/accountBalanceReport.jsx";
+import AccountHistoryReport from "./Views/Reports/AccountReports/AccountHistoryReport.jsx";
 import Bookings from "./Views/Bookings/Bookings.jsx";
 import Packages from "./Views/Packages/Packages.jsx";
 import PackageDetails from "./Views/Packages/PackageDetails.jsx";
@@ -169,6 +170,10 @@ createRoot(document.getElementById("root")).render(
             <Route
               path="admin/account/balance"
               element={<AccountBalanceReport />}
+            ></Route>
+            <Route
+              path="admin/account/history"
+              element={<AccountHistoryReport />}
             ></Route>
 
             <Route

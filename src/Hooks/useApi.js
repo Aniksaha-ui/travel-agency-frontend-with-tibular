@@ -38,6 +38,7 @@ import {
   MENU_API_ENDPOINT,
   MENU_ITEMS_API_ENDPOINT,
   TRIPWISE_BOOKING_USERS_API_ENDPOINT,
+  ACCOUNT_HISTORY_SEARCH_API_ENDPOINT,
 } from "../Utils/Constants/api";
 import { API_SUCCESS } from "../Utils/Constants/common";
 import useAxios from "./useAxios";
@@ -478,6 +479,23 @@ const useApi = () => {
       return { message: response.message, data: [] };
     }
     return null;
+  };
+
+  const accountHistorySearch = async ({ page, start_date, end_date }) => {
+    try {
+      const response = await axiosClient.apiClient(
+        "POST",
+        `${ACCOUNT_HISTORY_SEARCH_API_ENDPOINT}?page=${page}`,
+        { start_date, end_date }
+      );
+      if (response && response.data && response.data.isExecute === "SUCCESS") {
+        return response.data;
+      }
+      return { message: response.message, data: [] };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   };
 
   const fetchBookings = async (page = "", search = "") => {
@@ -1273,6 +1291,7 @@ const useApi = () => {
     updateMenuItem,
     deleteMenuItem,
     fetchTripUsers,
+    accountHistorySearch,
   };
 };
 

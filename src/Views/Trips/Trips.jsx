@@ -194,7 +194,8 @@ function Trips() {
 
                                 </>
                               )}
-
+                              &nbsp;
+                              &nbsp;
                               <button
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
@@ -202,7 +203,7 @@ function Trips() {
                                 className="btn btn-sm btn-success me-2"
                                 onClick={() => handleUsers(trip.id)}
                               >
-                                <i className="fas fa-info"></i>
+                                <i className="fas fa-user"></i>
                               </button>
                             </td>
 

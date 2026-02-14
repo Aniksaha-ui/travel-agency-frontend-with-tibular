@@ -5,6 +5,7 @@ import useApi from "../../Hooks/useApi";
 import Loading from "../../Utils/Components/Loading";
 import useGoBack from "../../Hooks/useGoBack";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const TripUsers = () => {
     const { id } = useParams();
@@ -171,7 +172,7 @@ const TripUsers = () => {
                                                                     <div className="text-muted">{user.email}</div>
                                                                 </td>
                                                                 <td data-label="Booking Date">
-                                                                    {user.booking_date}
+                                                                    {moment(user.booking_date).format('ll')}
                                                                 </td>
                                                                 <td data-label="Status">
                                                                     <span className={`badge bg-${user.status === 'paid' ? 'success' : 'warning'}`}>
