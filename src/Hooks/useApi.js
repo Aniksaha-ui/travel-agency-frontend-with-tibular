@@ -39,6 +39,9 @@ import {
   MENU_ITEMS_API_ENDPOINT,
   TRIPWISE_BOOKING_USERS_API_ENDPOINT,
   ACCOUNT_HISTORY_SEARCH_API_ENDPOINT,
+  MONTHLY_DAILY_BALANCE_REPORT,
+  OVERALL_SALES_REPORT,
+  ROUTE_WISE_SALES_REPORT,
 } from "../Utils/Constants/api";
 import { API_SUCCESS } from "../Utils/Constants/common";
 import useAxios from "./useAxios";
@@ -1217,6 +1220,57 @@ const useApi = () => {
   };
   /***************************************Menu API*********************************/
 
+
+
+
+  const fetchMonthlyDailyBalanceReport = async (page = 1) => {
+    try {
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${MONTHLY_DAILY_BALANCE_REPORT}?page=${page}`
+      );
+      if (response && response.data && response.data.status === "SUCCESS") {
+        return response.data;
+      }
+      return { message: response.message, data: [] };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const fetchOverallSalesSummary = async () => {
+    try {
+      const response = await axiosClient.apiClient(
+        "GET",
+        OVERALL_SALES_REPORT
+      );
+      if (response && response.data && response.data.isExecute === "SUCCESS") {
+        return response.data;
+      }
+      return { message: response.message, data: [] };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const fetchRouteWiseSalesSummary = async () => {
+    try {
+      const response = await axiosClient.apiClient(
+        "GET",
+        ROUTE_WISE_SALES_REPORT
+      );
+      if (response && response.data && response.data.isExecute === "SUCCESS") {
+        return response.data;
+      }
+      return { message: response.message, data: [] };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -1292,6 +1346,9 @@ const useApi = () => {
     deleteMenuItem,
     fetchTripUsers,
     accountHistorySearch,
+    fetchMonthlyDailyBalanceReport,
+    fetchOverallSalesSummary,
+    fetchRouteWiseSalesSummary,
   };
 };
 

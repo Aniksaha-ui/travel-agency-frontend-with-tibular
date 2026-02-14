@@ -29,7 +29,7 @@ export const barchartOption = (text) => ({
     legend: { position: "top" },
     title: {
       display: true,
-      text: "Credit vs Debit vs Closing Balance",
+      text: text,
     },
   },
 });
