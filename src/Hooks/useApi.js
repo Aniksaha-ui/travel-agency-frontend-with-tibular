@@ -42,6 +42,7 @@ import {
   MONTHLY_DAILY_BALANCE_REPORT,
   OVERALL_SALES_REPORT,
   ROUTE_WISE_SALES_REPORT,
+  BLOG_API_ENDPOINT,
 } from "../Utils/Constants/api";
 import { API_SUCCESS } from "../Utils/Constants/common";
 import useAxios from "./useAxios";
@@ -1271,6 +1272,55 @@ const useApi = () => {
     }
   };
 
+  const fetchBlogs = async (page = 1, search = "") => {
+    const query = search ? `&search=${encodeURIComponent(search)}` : "";
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${BLOG_API_ENDPOINT}?page=${page}${query}`
+    );
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const getBlogById = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${BLOG_API_ENDPOINT}/${id}`
+    );
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const addBlog = async (data) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      BLOG_API_ENDPOINT,
+      data
+    );
+    return response?.data;
+  };
+
+  const updateBlog = async (id, data) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `${BLOG_API_ENDPOINT}/update/${id}`,
+      data
+    );
+    return response?.data;
+  };
+
+  const deleteBlog = async (id) => {
+    const response = await axiosClient.apiClient(
+      "DELETE",
+      `${BLOG_API_ENDPOINT}/${id}`
+    );
+    return response?.data;
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -1349,6 +1399,11 @@ const useApi = () => {
     fetchMonthlyDailyBalanceReport,
     fetchOverallSalesSummary,
     fetchRouteWiseSalesSummary,
+    fetchBlogs,
+    getBlogById,
+    addBlog,
+    updateBlog,
+    deleteBlog,
   };
 };
 

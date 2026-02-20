@@ -59,6 +59,7 @@ import MenuItems from "./Views/Menu/MenuItems.jsx";
 import MenuItemForm from "./Views/Menu/MenuItemForm.jsx";
 import TripUsers from "./Views/Trips/TripUsers.jsx";
 import BlogBuilder from "./Views/Blog/BlogBuilder.jsx";
+import BlogList from "./Views/Blog/BlogList.jsx";
 
 const queryClient = new QueryClient();
 
@@ -74,7 +75,9 @@ createRoot(document.getElementById("root")).render(
             <Route path="/" element={<Login />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="admin/dashboard" element={<Dashboard />}></Route>
-            <Route path="admin/blog" element={<BlogBuilder />}></Route>
+            <Route path="admin/blog-list" element={<BlogList />}></Route>
+            <Route path="admin/blog/add" element={<BlogBuilder action="add" />}></Route>
+            <Route path="admin/blog/update/:id" element={<BlogBuilder action="update" />}></Route>
             <Route path="admin/menu-items" element={<MenuItems />}></Route>
             <Route
               path="admin/menu-items/add"

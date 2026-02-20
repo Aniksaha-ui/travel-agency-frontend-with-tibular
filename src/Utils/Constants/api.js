@@ -45,3 +45,4 @@ export const ACCOUNT_HISTORY_SEARCH_API_ENDPOINT = "admin/account-history";
 export const MONTHLY_DAILY_BALANCE_REPORT = "admin/monthlyDailyBalanceReport";
 export const OVERALL_SALES_REPORT = "admin/overall-sales-summary";
 export const ROUTE_WISE_SALES_REPORT = "admin/route-wise-sales-summary";
+export const BLOG_API_ENDPOINT = "admin/blogs";
