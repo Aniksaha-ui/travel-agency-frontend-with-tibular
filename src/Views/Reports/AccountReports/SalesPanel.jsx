@@ -3,20 +3,22 @@ import { Link, useLocation } from "react-router-dom";
 import AdminLayout from "../../../Layout/AdminLayout";
 import OverallSales from "./OverallSales/OverallSales";
 import RouteWiseSales from "./RouteWiseSales/RouteWiseSales";
+import TicketStatusReport from "./TicketStatusReport/TicketStatusReport";
 
 const SalesPanel = () => {
     const location = useLocation();
 
     // Determine active tab based on current URL path
-    // We default to 'overall' if no specific match, but in reality the router handles this.
-    // However, if we want to use ONE component 'SalesPanel' for both routes, we need to know which to show.
-    // If the path includes 'route-wise-sales', show route wise. Else overall.
+    const getActiveTab = (path) => {
+        if (path.includes('route-wise-sales')) return 'route';
+        if (path.includes('ticket-status-report')) return 'ticket';
+        return 'overall';
+    };
 
-    const isRouteWise = location.pathname.includes('route-wise-sales');
-    const [activeTab, setActiveTab] = useState(isRouteWise ? 'route' : 'overall');
+    const [activeTab, setActiveTab] = useState(getActiveTab(location.pathname));
 
     useEffect(() => {
-        setActiveTab(location.pathname.includes('route-wise-sales') ? 'route' : 'overall');
+        setActiveTab(getActiveTab(location.pathname));
     }, [location.pathname]);
 
     return (
@@ -26,8 +28,8 @@ const SalesPanel = () => {
                     <div className="container-xl">
                         <div className="row g-2 align-items-center">
                             <div className="col">
-                                <h2 className="page-title">Sales Analytics Panel</h2>
-                                <div className="text-muted mt-1">Comprehensive view of your sales performance</div>
+                                <h2 className="page-title">Analytics Panel</h2>
+                                <div className="text-muted mt-1">Comprehensive view of your system performance</div>
                             </div>
                         </div>
                     </div>
@@ -58,6 +60,16 @@ const SalesPanel = () => {
                                             Route Wise Sales
                                         </Link>
                                     </li>
+                                    <li className="nav-item">
+                                        <Link
+                                            to="/admin/account/ticket-status-report"
+                                            className={`nav-link fw-bold ${activeTab === 'ticket' ? 'active' : ''}`}
+                                            style={{ minWidth: '180px', justifyContent: 'center' }}
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-ticket me-2" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 5l0 2" /><path d="M15 11l0 2" /><path d="M15 17l0 2" /><path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2" /></svg>
+                                            Ticket Status Analysis
+                                        </Link>
+                                    </li>
                                 </ul>
                             </div>
                             <div className="card-body p-0 py-3 bg-light-lt">
@@ -69,6 +81,11 @@ const SalesPanel = () => {
                                 {activeTab === 'route' && (
                                     <div className="animate__animated animate__fadeIn">
                                         <RouteWiseSales />
+                                    </div>
+                                )}
+                                {activeTab === 'ticket' && (
+                                    <div className="animate__animated animate__fadeIn">
+                                        <TicketStatusReport />
                                     </div>
                                 )}
                             </div>

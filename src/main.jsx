@@ -60,6 +60,7 @@ import MenuItemForm from "./Views/Menu/MenuItemForm.jsx";
 import TripUsers from "./Views/Trips/TripUsers.jsx";
 import BlogBuilder from "./Views/Blog/BlogBuilder.jsx";
 import BlogList from "./Views/Blog/BlogList.jsx";
+import LowOccupancyTripReport from "./Views/Reports/TripReports/LowOccupancyTripReport.jsx";
 
 const queryClient = new QueryClient();
 
@@ -194,6 +195,10 @@ createRoot(document.getElementById("root")).render(
               path="admin/account/route-wise-sales"
               element={<SalesPanel />}
             ></Route>
+            <Route
+              path="admin/account/ticket-status-report"
+              element={<SalesPanel />}
+            ></Route>
 
             <Route
               path="admin/vehicletrackingreport"
@@ -203,6 +208,10 @@ createRoot(document.getElementById("root")).render(
             <Route
               path="admin/tripPerformance"
               element={<TripPerformance />}
+            ></Route>
+            <Route
+              path="admin/low-occupancy-report"
+              element={<LowOccupancyTripReport />}
             ></Route>
 
             <Route

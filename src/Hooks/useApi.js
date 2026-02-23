@@ -42,6 +42,8 @@ import {
   MONTHLY_DAILY_BALANCE_REPORT,
   OVERALL_SALES_REPORT,
   ROUTE_WISE_SALES_REPORT,
+  TICKET_STATUS_REPORT,
+  LOW_OCCUPANCY_TRIP_REPORT,
   BLOG_API_ENDPOINT,
 } from "../Utils/Constants/api";
 import { API_SUCCESS } from "../Utils/Constants/common";
@@ -1321,6 +1323,32 @@ const useApi = () => {
     return response?.data;
   };
 
+  const fetchTicketStatusReport = async () => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      TICKET_STATUS_REPORT,
+    );
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      return response.data;
+    } else {
+      toast(response.data.message);
+      return { message: response.message, data: [] };
+    }
+  };
+
+  const fetchLowOccupancyTripReport = async () => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      LOW_OCCUPANCY_TRIP_REPORT,
+    );
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      return response.data;
+    } else {
+      toast(response.data.message);
+      return { message: response.message, data: [] };
+    }
+  };
+
   return {
     getLocalStorageValue,
     login,
@@ -1399,6 +1427,8 @@ const useApi = () => {
     fetchMonthlyDailyBalanceReport,
     fetchOverallSalesSummary,
     fetchRouteWiseSalesSummary,
+    fetchTicketStatusReport,
+    fetchLowOccupancyTripReport,
     fetchBlogs,
     getBlogById,
     addBlog,
