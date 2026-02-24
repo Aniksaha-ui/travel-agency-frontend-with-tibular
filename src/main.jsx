@@ -230,14 +230,17 @@ createRoot(document.getElementById("root")).render(
               element={<MonthlyRunningBalance />}
             ></Route>
 
-            <Route
-              path="admin/user-growth-report"
-              element={<UserGrowthReport />}
-            ></Route>
+         
 
             <Route
               path="admin/financialReport"
               element={<FinancialReport />}
+            ></Route>
+
+
+               <Route
+              path="admin/user-growth-report"
+              element={<UserGrowthReport />}
             ></Route>
 
             <Route path="admin/tickets" element={<Ticket />}></Route>
