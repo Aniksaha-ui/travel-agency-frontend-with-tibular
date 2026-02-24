@@ -46,6 +46,10 @@ import {
   LOW_OCCUPANCY_TRIP_REPORT,
   BLOG_API_ENDPOINT,
   USER_GROWTH_REPORT,
+  REFUND_STATUS_REPORT,
+  AVERAGE_BOOKING_VALUE_REPORT,
+  LOW_PERFORMING_PACKAGES_REPORT,
+  HIGH_CANCELLATION_PACKAGES_REPORT,
 } from "../Utils/Constants/api";
 import { API_SUCCESS } from "../Utils/Constants/common";
 import useAxios from "./useAxios";
@@ -789,6 +793,58 @@ const useApi = () => {
     }
   };
 
+  const fetchRefundStatusReport = async () => {
+    try {
+      const response = await axiosClient.apiClient("GET", REFUND_STATUS_REPORT);
+      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+        return response.data;
+      }
+      return { message: response.data.message, data: [] };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const fetchAvgBookingValueReport = async () => {
+    try {
+      const response = await axiosClient.apiClient("GET", AVERAGE_BOOKING_VALUE_REPORT);
+      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+        return response.data;
+      }
+      return { message: response.data.message, data: [] };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const fetchLowPerformingPackagesReport = async () => {
+    try {
+      const response = await axiosClient.apiClient("GET", LOW_PERFORMING_PACKAGES_REPORT);
+      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+        return response.data;
+      }
+      return { message: response.data.message, data: [] };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const fetchHighCancellationPackagesReport = async () => {
+    try {
+      const response = await axiosClient.apiClient("GET", HIGH_CANCELLATION_PACKAGES_REPORT);
+      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+        return response.data;
+      }
+      return { message: response.data.message, data: [] };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   const financialReport = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
@@ -1414,6 +1470,10 @@ const useApi = () => {
     packagePerformanceReport,
     customerValueReport,
     fetchUserGrowthReport,
+    fetchRefundStatusReport,
+    fetchAvgBookingValueReport,
+    fetchLowPerformingPackagesReport,
+    fetchHighCancellationPackagesReport,
     financialReport,
     fetchHotelInformation,
     fetchHotelCheckIn,

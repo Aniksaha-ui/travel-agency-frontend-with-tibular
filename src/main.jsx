@@ -62,6 +62,10 @@ import BlogBuilder from "./Views/Blog/BlogBuilder.jsx";
 import BlogList from "./Views/Blog/BlogList.jsx";
 import LowOccupancyTripReport from "./Views/Reports/TripReports/LowOccupancyTripReport.jsx";
 import UserGrowthReport from "./Views/Reports/UserGrowthReport/UserGrowthReport.jsx";
+import RefundStatusReport from "./Views/Reports/ManagementReports/RefundStatusReport.jsx";
+import AvgBookingValueReport from "./Views/Reports/ManagementReports/AvgBookingValueReport.jsx";
+import LowPerformingPackages from "./Views/Reports/ManagementReports/LowPerformingPackages.jsx";
+import HighCancellationPackages from "./Views/Reports/ManagementReports/HighCancellationPackages.jsx";
 
 const queryClient = new QueryClient();
 
@@ -241,6 +245,26 @@ createRoot(document.getElementById("root")).render(
                <Route
               path="admin/user-growth-report"
               element={<UserGrowthReport />}
+            ></Route>
+
+            <Route
+              path="admin/refund-status-report"
+              element={<RefundStatusReport />}
+            ></Route>
+
+            <Route
+              path="admin/avg-booking-value-report"
+              element={<AvgBookingValueReport />}
+            ></Route>
+
+            <Route
+              path="admin/low-performing-packages"
+              element={<LowPerformingPackages />}
+            ></Route>
+
+            <Route
+              path="admin/high-cancellation-packages"
+              element={<HighCancellationPackages />}
             ></Route>
 
             <Route path="admin/tickets" element={<Ticket />}></Route>

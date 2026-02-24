@@ -9,6 +9,10 @@ export const HOTEL_CHECKIN = "Hotel Checkin";
 export const MONTH_RUNNING_BALANCE = "Monthly Running Balance";
 export const TOP_CUSTOMERS = "Top Customers";
 export const USER_GROWTH_REPORT = "User Growth Report";
+export const REFUND_STATUS_REPORT = "Refund Status Report";
+export const AVG_BOOKING_VALUE_REPORT = "Average Booking Value Report";
+export const LOW_PERFORMING_PACKAGES = "Low Performing Packages";
+export const HIGH_CANCELLATION_PACKAGES = "High Cancellation Packages";
 
 // NAVBAR
 export const DASHBOARD = "Dashboard";

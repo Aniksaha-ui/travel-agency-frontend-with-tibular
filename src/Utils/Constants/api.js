@@ -49,3 +49,7 @@ export const TICKET_STATUS_REPORT = "admin/ticket-status-report";
 export const LOW_OCCUPANCY_TRIP_REPORT = "admin/low-occupancy-trip-report";
 export const BLOG_API_ENDPOINT = "admin/blogs";
 export const USER_GROWTH_REPORT = "admin/user-growth-report";
+export const REFUND_STATUS_REPORT = "admin/refund-status-report";
+export const AVERAGE_BOOKING_VALUE_REPORT = "admin/avg-booking-value-report";
+export const LOW_PERFORMING_PACKAGES_REPORT = "admin/low-performing-packages";
+export const HIGH_CANCELLATION_PACKAGES_REPORT = "admin/high-cancellation-packages";
