@@ -45,6 +45,7 @@ import {
   TICKET_STATUS_REPORT,
   LOW_OCCUPANCY_TRIP_REPORT,
   BLOG_API_ENDPOINT,
+  USER_GROWTH_REPORT,
 } from "../Utils/Constants/api";
 import { API_SUCCESS } from "../Utils/Constants/common";
 import useAxios from "./useAxios";
@@ -771,6 +772,23 @@ const useApi = () => {
     }
   };
 
+  const fetchUserGrowthReport = async () => {
+    try {
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${USER_GROWTH_REPORT}`
+      );
+      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+        return response.data;
+      } else {
+        return { message: response.data.message, data: [] };
+      }
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   const financialReport = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
@@ -1395,6 +1413,7 @@ const useApi = () => {
     tripPerformanceReport,
     packagePerformanceReport,
     customerValueReport,
+    fetchUserGrowthReport,
     financialReport,
     fetchHotelInformation,
     fetchHotelCheckIn,

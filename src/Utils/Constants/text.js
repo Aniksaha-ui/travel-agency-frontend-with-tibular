@@ -8,6 +8,7 @@ export const PACKAGE_PERFORMANCE = "Package Performance";
 export const HOTEL_CHECKIN = "Hotel Checkin";
 export const MONTH_RUNNING_BALANCE = "Monthly Running Balance";
 export const TOP_CUSTOMERS = "Top Customers";
+export const USER_GROWTH_REPORT = "User Growth Report";
 
 // NAVBAR
 export const DASHBOARD = "Dashboard";

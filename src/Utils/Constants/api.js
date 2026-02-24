@@ -48,3 +48,4 @@ export const ROUTE_WISE_SALES_REPORT = "admin/route-wise-sales-summary";
 export const TICKET_STATUS_REPORT = "admin/ticket-status-report";
 export const LOW_OCCUPANCY_TRIP_REPORT = "admin/low-occupancy-trip-report";
 export const BLOG_API_ENDPOINT = "admin/blogs";
+export const USER_GROWTH_REPORT = "admin/user-growth-report";

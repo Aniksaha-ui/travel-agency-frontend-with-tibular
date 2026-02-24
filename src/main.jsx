@@ -61,6 +61,7 @@ import TripUsers from "./Views/Trips/TripUsers.jsx";
 import BlogBuilder from "./Views/Blog/BlogBuilder.jsx";
 import BlogList from "./Views/Blog/BlogList.jsx";
 import LowOccupancyTripReport from "./Views/Reports/TripReports/LowOccupancyTripReport.jsx";
+import UserGrowthReport from "./Views/Reports/UserGrowthReport/UserGrowthReport.jsx";
 
 const queryClient = new QueryClient();
 
@@ -227,6 +228,11 @@ createRoot(document.getElementById("root")).render(
             <Route
               path="admin/monthRunningBalance"
               element={<MonthlyRunningBalance />}
+            ></Route>
+
+            <Route
+              path="admin/user-growth-report"
+              element={<UserGrowthReport />}
             ></Route>
 
             <Route
