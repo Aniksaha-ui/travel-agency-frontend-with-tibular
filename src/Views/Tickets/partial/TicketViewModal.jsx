@@ -163,33 +163,55 @@ const TicketViewModal = ({ selectedTicket, setShowModal, handleApproved }) => {
             {/* Footer Buttons */}
             <div className="d-flex justify-content-end align-items-center gap-2">
               {selectedTicket &&
-                selectedTicket.status &&
                 selectedTicket.status == 0 && (
                   <>
                     <button
-                      className="btn btn-sm btn-success"
-                      onClick={() =>{
-                        handleApproved(1, selectedTicket?.id);
-                      }
-                      
-                      }
+                      className="btn btn-sm btn-info text-white"
+                      style={{ fontWeight: "600" }}
+                      onClick={() => {
+                        handleApproved(1, selectedTicket?.id, 1);
+                      }}
                     >
-                      <i className="fa fa-check me-1" />
-                      Approve
+                      <i className="fas fa-spinner fa-spin me-1" />
+                      Processing
+                    </button>
+
+                    <button
+                      className="btn btn-sm btn-success"
+                      style={{ fontWeight: "600" }}
+                      onClick={() => {
+                        handleApproved(1, selectedTicket?.id, 2);
+                      }}
+                    >
+                      <i className="fas fa-check-circle me-1" />
+                      Close Ticket
                     </button>
 
                     <button
                       className="btn btn-sm btn-danger"
-                      onClick={() =>{
-                        handleApproved(2, selectedTicket?.id)
-                      }
-                      }
+                      style={{ fontWeight: "600" }}
+                      onClick={() => {
+                        handleApproved(2, selectedTicket?.id);
+                      }}
                     >
-                      <i className="fas fa-times me-1" />
-                      Reject
+                      <i className="fas fa-times-circle me-1" />
+                      Decline
                     </button>
                   </>
                 )}
+
+              {selectedTicket && selectedTicket.status == 1 && selectedTicket.resloved_status == 1 && (
+                  <button
+                    className="btn btn-sm btn-success"
+                    style={{ fontWeight: "600" }}
+                    onClick={() => {
+                      handleApproved(1, selectedTicket?.id, 2);
+                    }}
+                  >
+                    <i className="fas fa-check-circle me-1" />
+                    Mark as Closed
+                  </button>
+              )}
 
               <button
                 className="btn btn-primary"

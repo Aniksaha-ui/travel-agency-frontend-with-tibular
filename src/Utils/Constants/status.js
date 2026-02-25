@@ -10,6 +10,8 @@ export const refundDisbrusedStatus = {
 };
 
 export const ticketResolveStatus = ['pending','processing','closed'];
+export const ticketMainStatus = ['Pending', 'Resolved', 'Declined'];
+
 
 export const CardType = {
   bkash: "Bkash",

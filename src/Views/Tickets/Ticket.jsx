@@ -49,14 +49,18 @@ const Ticket = () => {
     return <Loading />;
   }
 
-  const handleApproved = async (status, ticketId) => {
-    const response = await api.updateTicketStatus(ticketId, status);
+  const handleApproved = async (status, ticketId, resolvedStatus = null) => {
+    const response = await api.updateTicketStatus(ticketId, status, resolvedStatus);
     if(response && response.message){
       toast(response.message);
       setTickets((prevTicket) =>
         prevTicket.map((ticket) =>
           parseInt(ticket.id) == ticketId
-            ? { ...ticket, status: status }
+            ? { 
+                ...ticket, 
+                status: status,
+                resloved_status: resolvedStatus !== null ? resolvedStatus : status 
+              }
             : ticket
         )
       );

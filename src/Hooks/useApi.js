@@ -1121,11 +1121,11 @@ const useApi = () => {
     }
   };
 
-  const updateTicketStatus = async (ticketId, status) => {
+  const updateTicketStatus = async (ticketId, status, resolved_status) => {
     const response = await axiosClient.apiClient(
       "POST",
       `admin/tickets/update/${ticketId}`,
-      { status: status },
+      { status: status, resolved_status: resolved_status },
     );
 
     if (

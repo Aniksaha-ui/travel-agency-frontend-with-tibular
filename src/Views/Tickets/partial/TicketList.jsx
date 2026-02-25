@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ticketResolveStatus } from "../../../Utils/Constants/status";
+import { ticketResolveStatus, ticketMainStatus } from "../../../Utils/Constants/status";
 
 const TicketList = ({
   ticket,
@@ -15,47 +15,73 @@ const TicketList = ({
       <td>
         <span
           className={`badge ${
-            Number(ticket.resolved_status) === 1
+            Number(ticket.status) === 1
               ? "bg-success"
+              : Number(ticket.status) === 2
+              ? "bg-danger"
               : "bg-warning text-dark"
           }`}
         >
-          {ticketResolveStatus[ticket.status] ?? "Unknown"}
+          {ticketMainStatus[ticket.status] ?? "Unknown"}
         </span>
+        {Number(ticket.status) === 1 && (
+           <div className="small text-muted" style={{ fontSize: '0.75rem', marginTop: '2px' }}>
+             ({ticketResolveStatus[ticket.resloved_status] || 'N/A'})
+           </div>
+        )}
       </td>
       <td>{ticket.generate_by_name}</td>
       <td className="text-center">
-        <button
-          className="btn btn-sm btn-primary"
-          onClick={() => {
-            setSelectedTicket(ticket);
-            setShowModal(true);
-          }}
-        >
-          <i className="fa fa-eye" aria-hidden="true"></i>
-        </button>
-          &nbsp;
-        {ticket && ticket.status && ticket.status==0 &&(
-          <Fragment>
+        <div className="d-flex justify-content-center gap-1">
           <button
-            className="btn btn-sm btn-success"
-            onClick={() => handleApproved(1, ticket?.id)}
+            className="btn btn-sm btn-primary"
+            onClick={() => {
+              setSelectedTicket(ticket);
+              setShowModal(true);
+            }}
+            title="View Details"
           >
-            <i className="fa fa-check" aria-hidden="true"></i>
+            <i className="fa fa-eye" aria-hidden="true"></i>
           </button>
-          &nbsp;
+          
+          {ticket && ticket.status == 0 && (
+            <Fragment>
+              <button
+                className="btn btn-sm btn-info text-white"
+                onClick={() => handleApproved(1, ticket?.id, 1)}
+                title="Mark as Processing"
+              >
+                <i className="fas fa-spinner fa-spin" aria-hidden="true"></i>
+              </button>
+              
+              <button
+                className="btn btn-sm btn-success"
+                onClick={() => handleApproved(1, ticket?.id, 2)}
+                title="Mark as Closed"
+              >
+                <i className="fa fa-check" aria-hidden="true"></i>
+              </button>
 
-           <button
-            className="btn btn-sm btn-success"
-            onClick={() => handleApproved(2, ticket?.id)}
-          >
-            <i className="fas fa-times"></i>
-          
-          </button>
-          </Fragment>
-          
-        )}
-        
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => handleApproved(2, ticket?.id)}
+                title="Decline"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+            </Fragment>
+          )}
+
+          {ticket && Number(ticket.status) === 1 && Number(ticket.resloved_status) === 1 && (
+            <button
+               className="btn btn-sm btn-success"
+               onClick={() => handleApproved(1, ticket?.id, 2)}
+               title="Mark as Closed"
+            >
+               <i className="fa fa-check" aria-hidden="true"></i>
+            </button>
+          )}
+        </div>
       </td>
     </tr>
   );
