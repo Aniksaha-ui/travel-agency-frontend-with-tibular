@@ -49,8 +49,8 @@ const Ticket = () => {
     return <Loading />;
   }
 
-  const handleApproved = async (status, ticketId, resolvedStatus = null) => {
-    const response = await api.updateTicketStatus(ticketId, status, resolvedStatus);
+  const handleApproved = async (status, ticketId, resolvedStatus = null, resolvedRemarks = null) => {
+    const response = await api.updateTicketStatus(ticketId, status, resolvedStatus, resolvedRemarks);
     if(response && response.message){
       toast(response.message);
       setTickets((prevTicket) =>
@@ -59,7 +59,8 @@ const Ticket = () => {
             ? { 
                 ...ticket, 
                 status: status,
-                resloved_status: resolvedStatus !== null ? resolvedStatus : status 
+                resloved_status: resolvedStatus !== null ? resolvedStatus : status,
+                resolved_remarks: resolvedRemarks
               }
             : ticket
         )

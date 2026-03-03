@@ -1,7 +1,9 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { ticketResolveStatus } from "../../../Utils/Constants/status";
 
 const TicketViewModal = ({ selectedTicket, setShowModal, handleApproved }) => {
+  const [remarks, setRemarks] = useState("");
+
   return (
     <Fragment>
       <div
@@ -122,6 +124,12 @@ const TicketViewModal = ({ selectedTicket, setShowModal, handleApproved }) => {
                 <small className="text-muted">Status Code</small>
                 <div>{selectedTicket.status || "-"}</div>
               </div>
+              {selectedTicket.resolved_remarks && (
+                <div style={{ gridColumn: "span 3" }}>
+                  <small className="text-muted">Resolved Remarks</small>
+                  <div className="text-info">{selectedTicket.resolved_remarks}</div>
+                </div>
+              )}
             </div>
 
             {/* Description */}
@@ -160,56 +168,58 @@ const TicketViewModal = ({ selectedTicket, setShowModal, handleApproved }) => {
               </div>
             </div>
 
+            {selectedTicket && Number(selectedTicket.status) === 1 && Number(selectedTicket.resloved_status) === 1 && (
+               <div style={{ marginBottom: "1.5rem" }}>
+                  <label className="text-muted small mb-1">Resolved Remarks</label>
+                  <textarea 
+                    className="form-control form-control-sm bg-dark text-white border-secondary"
+                    rows="3"
+                    placeholder="Enter resolution remarks..."
+                    value={remarks}
+                    onChange={(e) => setRemarks(e.target.value)}
+                  ></textarea>
+               </div>
+            )}
+
             {/* Footer Buttons */}
             <div className="d-flex justify-content-end align-items-center gap-2">
               {selectedTicket &&
-                selectedTicket.status == 0 && (
+                Number(selectedTicket.status) === 0 && (
                   <>
                     <button
-                      className="btn btn-sm btn-info text-white"
+                      className="btn btn-sm btn-success"
                       style={{ fontWeight: "600" }}
                       onClick={() => {
                         handleApproved(1, selectedTicket?.id, 1);
                       }}
                     >
-                      <i className="fas fa-spinner fa-spin me-1" />
-                      Processing
-                    </button>
-
-                    <button
-                      className="btn btn-sm btn-success"
-                      style={{ fontWeight: "600" }}
-                      onClick={() => {
-                        handleApproved(1, selectedTicket?.id, 2);
-                      }}
-                    >
                       <i className="fas fa-check-circle me-1" />
-                      Close Ticket
+                      Approve
                     </button>
 
                     <button
                       className="btn btn-sm btn-danger"
                       style={{ fontWeight: "600" }}
                       onClick={() => {
-                        handleApproved(2, selectedTicket?.id);
+                        handleApproved(2, selectedTicket?.id, 2);
                       }}
                     >
                       <i className="fas fa-times-circle me-1" />
-                      Decline
+                      Reject
                     </button>
                   </>
                 )}
 
-              {selectedTicket && selectedTicket.status == 1 && selectedTicket.resloved_status == 1 && (
+              {selectedTicket && Number(selectedTicket.status) === 1 && Number(selectedTicket.resloved_status) === 1 && (
                   <button
-                    className="btn btn-sm btn-success"
+                    className="btn btn-sm btn-info text-white"
                     style={{ fontWeight: "600" }}
                     onClick={() => {
-                      handleApproved(1, selectedTicket?.id, 2);
+                      handleApproved(2, selectedTicket?.id, 2, remarks);
                     }}
                   >
                     <i className="fas fa-check-circle me-1" />
-                    Mark as Closed
+                    Mark as Resolved
                   </button>
               )}
 

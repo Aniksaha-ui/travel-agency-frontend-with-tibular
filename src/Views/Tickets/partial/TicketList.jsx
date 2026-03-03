@@ -44,28 +44,20 @@ const TicketList = ({
             <i className="fa fa-eye" aria-hidden="true"></i>
           </button>
           
-          {ticket && ticket.status == 0 && (
+          {ticket && Number(ticket.status) === 0 && (
             <Fragment>
               <button
-                className="btn btn-sm btn-info text-white"
-                onClick={() => handleApproved(1, ticket?.id, 1)}
-                title="Mark as Processing"
-              >
-                <i className="fas fa-spinner fa-spin" aria-hidden="true"></i>
-              </button>
-              
-              <button
                 className="btn btn-sm btn-success"
-                onClick={() => handleApproved(1, ticket?.id, 2)}
-                title="Mark as Closed"
+                onClick={() => handleApproved(1, ticket?.id, 1)}
+                title="Approve Ticket"
               >
                 <i className="fa fa-check" aria-hidden="true"></i>
               </button>
 
               <button
                 className="btn btn-sm btn-danger"
-                onClick={() => handleApproved(2, ticket?.id)}
-                title="Decline"
+                onClick={() => handleApproved(2, ticket?.id, 2)}
+                title="Reject Ticket"
               >
                 <i className="fas fa-times"></i>
               </button>
@@ -74,9 +66,9 @@ const TicketList = ({
 
           {ticket && Number(ticket.status) === 1 && Number(ticket.resloved_status) === 1 && (
             <button
-               className="btn btn-sm btn-success"
-               onClick={() => handleApproved(1, ticket?.id, 2)}
-               title="Mark as Closed"
+               className="btn btn-sm btn-info text-white"
+               onClick={() => handleApproved(2, ticket?.id, 2)}
+               title="Mark as Resolved"
             >
                <i className="fa fa-check" aria-hidden="true"></i>
             </button>
