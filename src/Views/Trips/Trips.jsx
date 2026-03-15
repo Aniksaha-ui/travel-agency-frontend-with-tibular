@@ -151,7 +151,7 @@ function Trips() {
                             <td>{trip.price}</td>
                             <td>{status[trip.is_active]}</td>
                             <td>
-                              {trip.is_active === TRIP_ACTIVE && (
+                              {parseInt(trip.is_active) == TRIP_ACTIVE && (
 
                                 <>
                                   <button

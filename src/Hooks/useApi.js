@@ -40,6 +40,7 @@ import {
   TRIPWISE_BOOKING_USERS_API_ENDPOINT,
   ACCOUNT_HISTORY_SEARCH_API_ENDPOINT,
   MONTHLY_DAILY_BALANCE_REPORT,
+  MONTHLY_DAILY_BALANCE_REPORTS,
   OVERALL_SALES_REPORT,
   ROUTE_WISE_SALES_REPORT,
   TICKET_STATUS_REPORT,
@@ -1320,6 +1321,23 @@ const useApi = () => {
     }
   };
 
+  const fetchMonthlyDailyBalanceReports = async (page = 1) => {
+    try {
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${MONTHLY_DAILY_BALANCE_REPORTS}?page=${page}`
+      );
+      if (response && response.data) {
+        // Handle both wrapped and unwrapped (direct pagination) responses
+        return response.data;
+      }
+      return { data: [], total: 0 };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   const fetchOverallSalesSummary = async () => {
     try {
       const response = await axiosClient.apiClient(
@@ -1508,6 +1526,7 @@ const useApi = () => {
     fetchTripUsers,
     accountHistorySearch,
     fetchMonthlyDailyBalanceReport,
+    fetchMonthlyDailyBalanceReports,
     fetchOverallSalesSummary,
     fetchRouteWiseSalesSummary,
     fetchTicketStatusReport,

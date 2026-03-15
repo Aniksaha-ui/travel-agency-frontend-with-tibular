@@ -43,6 +43,7 @@ export const MENU_ITEMS_API_ENDPOINT = "admin/menu_items";
 export const TRIPWISE_BOOKING_USERS_API_ENDPOINT = "admin/tripwiseBookingUsers";
 export const ACCOUNT_HISTORY_SEARCH_API_ENDPOINT = "admin/account-history";
 export const MONTHLY_DAILY_BALANCE_REPORT = "admin/monthlyDailyBalanceReport";
+export const MONTHLY_DAILY_BALANCE_REPORTS = "admin/monthly-daily-balance-reports";
 export const OVERALL_SALES_REPORT = "admin/overall-sales-summary";
 export const ROUTE_WISE_SALES_REPORT = "admin/route-wise-sales-summary";
 export const TICKET_STATUS_REPORT = "admin/ticket-status-report";

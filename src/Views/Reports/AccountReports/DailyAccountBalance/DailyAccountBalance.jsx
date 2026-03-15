@@ -9,6 +9,7 @@ import DailyAccountBalanceChart from "./Partials/DailyAccountBalanceChart";
 const DailyAccountBalance = () => {
     const api = useApi();
     const [page, setPage] = useState(1);
+    const [selectedReport, setSelectedReport] = useState(null);
 
     const { data, isLoading, isError, refetch } = useQuery({
         queryKey: ["monthlyDailyBalanceReport", page],
@@ -225,10 +226,145 @@ const DailyAccountBalance = () => {
                             setPage={setPage}
                             totals={totals}
                         />
+
+                        {/* History Section */}
+                        <div className="card shadow-sm mt-4">
+                            <div className="card-header border-bottom-0">
+                                <h3 className="card-title text-muted fw-bold">History of previous month</h3>
+                            </div>
+                            <div className="card-body">
+                                <DailyAccountBalanceReports 
+                                    api={api} 
+                                    setSelectedReport={setSelectedReport} 
+                                />
+                            </div>
+                        </div>
+
+                        {/* Modal for Report Viewing */}
+                        {selectedReport && (
+                            <ReportViewModal 
+                                report={selectedReport} 
+                                onClose={() => setSelectedReport(null)} 
+                            />
+                        )}
                     </div>
                 </div>
             </div>
         </AdminLayout>
+    );
+};
+
+// Modal Component for Viewing Report
+const ReportViewModal = ({ report, onClose }) => {
+    const reportUrl = `${import.meta.env.VITE_IMAGE_URL}${report.file_path}`;
+
+    return (
+        <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.6)", zIndex: 1050 }}>
+            <div className="modal-dialog modal-xl modal-dialog-centered">
+                <div className="modal-content shadow-lg border-0">
+                    <div className="modal-header bg-primary text-white">
+                        <h5 className="modal-title fw-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-file-analytics me-2" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 17l0 -5" /><path d="M12 17l0 -1" /><path d="M15 17l0 -3" /></svg>
+                            Viewing Report: {report.report_name}
+                        </h5>
+                        <button type="button" className="btn-close btn-close-white" onClick={onClose} aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body p-0" style={{ height: "80vh", minHeight: "600px" }}>
+                        <iframe
+                            src={reportUrl}
+                            width="100%"
+                            height="100%"
+                            style={{ border: "none" }}
+                            title={report.report_name}
+                        />
+                    </div>
+                    <div className="modal-footer bg-light d-flex justify-content-between">
+                        <a href={reportUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-download me-1" width="18" height="18" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+                            Open / Download
+                        </a>
+                        <button type="button" className="btn btn-secondary" onClick={onClose}>Close</button>
+                    </div>
+                </div>
+            </div>
+            <div className="modal-backdrop fade show" style={{ zIndex: -1 }}></div>
+        </div>
+    );
+};
+
+// Component for Reports List
+const DailyAccountBalanceReports = ({ api, setSelectedReport }) => {
+    const [page, setPage] = useState(1);
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["monthlyDailyBalanceReports", page],
+        queryFn: () => api.fetchMonthlyDailyBalanceReports(page),
+    });
+
+    if (isLoading) return <Loading />;
+    if (isError) return <div className="text-danger">Failed to load history reports.</div>;
+
+    // Unified data extraction to handle various possible response formats
+    const reports = Array.isArray(data?.data) ? data.data : (data?.data?.data || []);
+    const pagination = data?.current_page ? data : (data?.data || {});
+
+    return (
+        <div className="table-responsive">
+            <table className="table table-vcenter card-table table-hover">
+                <thead>
+                    <tr>
+                        <th>Report Name</th>
+                        <th>Month</th>
+                        <th>Created At</th>
+                        <th className="w-1">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {reports.length > 0 ? (
+                        reports.map((report) => (
+                            <tr key={report.id}>
+                                <td>{report.report_name}</td>
+                                <td>{new Date(report.report_month).toLocaleDateString("en-US", { month: "long", year: "numeric" })}</td>
+                                <td>{new Date(report.created_at).toLocaleString()}</td>
+                                <td>
+                                    <button 
+                                        className="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+                                        onClick={() => {
+                                            setSelectedReport(report);
+                                        }}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-eye" width="16" height="16" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                                        View
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="4" className="text-center text-muted py-4">No reports found</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+            
+            {/* Simple Pagination for Reports */}
+            {pagination.last_page > 1 && (
+                <div className="d-flex justify-content-center mt-3">
+                    <ul className="pagination mb-0">
+                        <li className={`page-item ${page === 1 ? 'disabled' : ''}`}>
+                            <button className="page-link" onClick={() => setPage(p => Math.max(1, p - 1))}>Prev</button>
+                        </li>
+                        {[...Array(pagination.last_page).keys()].map(n => (
+                            <li key={n+1} className={`page-item ${page === n + 1 ? 'active' : ''}`}>
+                                <button className="page-link" onClick={() => setPage(n + 1)}>{n + 1}</button>
+                            </li>
+                        ))}
+                        <li className={`page-item ${page === pagination.last_page ? 'disabled' : ''}`}>
+                            <button className="page-link" onClick={() => setPage(p => Math.min(pagination.last_page, p + 1))}>Next</button>
+                        </li>
+                    </ul>
+                </div>
+            )}
+        </div>
     );
 };
 
