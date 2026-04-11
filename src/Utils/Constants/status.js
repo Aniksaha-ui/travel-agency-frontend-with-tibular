@@ -9,8 +9,8 @@ export const refundDisbrusedStatus = {
   disbursed: "Disbursed",
 };
 
-export const ticketResolveStatus = ['pending','processing','closed'];
-export const ticketMainStatus = ['Pending', 'Resolved', 'Declined'];
+export const ticketResolveStatus = ['Pending', 'Accepted', 'Declined'];
+export const ticketMainStatus = ['pending', 'processing', 'closed'];
 
 
 export const CardType = {

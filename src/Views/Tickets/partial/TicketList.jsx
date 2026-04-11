@@ -14,20 +14,19 @@ const TicketList = ({
       <td>{ticket.remarks}</td>
       <td>
         <span
-          className={`badge ${
-            Number(ticket.status) === 1
-              ? "bg-success"
-              : Number(ticket.status) === 2
+          className={`badge ${Number(ticket.status) === 1
+            ? "bg-success"
+            : Number(ticket.status) === 2
               ? "bg-danger"
               : "bg-warning text-dark"
-          }`}
+            }`}
         >
           {ticketMainStatus[ticket.status] ?? "Unknown"}
         </span>
         {Number(ticket.status) === 1 && (
-           <div className="small text-muted" style={{ fontSize: '0.75rem', marginTop: '2px' }}>
-             ({ticketResolveStatus[ticket.resloved_status] || 'N/A'})
-           </div>
+          <div className="small text-muted" style={{ fontSize: '0.75rem', marginTop: '2px' }}>
+            ({ticketResolveStatus[ticket.resloved_status] || 'N/A'})
+          </div>
         )}
       </td>
       <td>{ticket.generate_by_name}</td>
@@ -43,8 +42,8 @@ const TicketList = ({
           >
             <i className="fa fa-eye" aria-hidden="true"></i>
           </button>
-          
-          {ticket && Number(ticket.status) === 0 && (
+
+          {ticket && Number(ticket.status) === 0 && Number(ticket.resloved_status) === 0 && (
             <Fragment>
               <button
                 className="btn btn-sm btn-success"
@@ -66,11 +65,11 @@ const TicketList = ({
 
           {ticket && Number(ticket.status) === 1 && Number(ticket.resloved_status) === 1 && (
             <button
-               className="btn btn-sm btn-info text-white"
-               onClick={() => handleApproved(2, ticket?.id, 2)}
-               title="Mark as Resolved"
+              className="btn btn-sm btn-info text-white"
+              onClick={() => handleApproved(2, ticket?.id, 2)}
+              title="Mark as Resolved"
             >
-               <i className="fa fa-check" aria-hidden="true"></i>
+              <i className="fa fa-check" aria-hidden="true"></i>
             </button>
           )}
         </div>
