@@ -2,6 +2,7 @@ export const LOGIN_TITLE = "Login to your account";
 export const SIGN_IN_BUTTON_TEXT = "Sign in ";
 export const ROUTE_TITLE = "Route List";
 export const USER_TITLE = "User List";
+export const VISA_COUNTRY_TITLE = "Visa Country Information";
 
 export const TRIP_PERFORMANCE = "Trip Performance";
 export const PACKAGE_PERFORMANCE = "Package Performance";
@@ -25,6 +26,7 @@ export const PACKAGE_MANAGEMENT = "Package Management";
 export const HOTEL_MANAGEMENT = "Hotel Management";
 export const HOTEL_CHECKIN_MANAGEMENT = "Hotel Checkin";
 export const GUIDE_MANAGEMENT = "Guide Management";
+export const VISA_COUNTRY_MANAGEMENT = "Visa Country Management";
 export const BOOKING_MANAGEMENT = "Bookings ";
 export const REFUND_MANAGEMENT = "Refund ";
 export const REPORTS_MANAGEMENT = "Reports ";

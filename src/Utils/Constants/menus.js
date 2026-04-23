@@ -26,6 +26,9 @@ export const REFUNDS_MENU = "/admin/refunds";
 export const GUIDE_MENU = "/admin/guide";
 export const ADD_GUIDE_MENU = "/admin/guide/add";
 export const UPDATE_GUIDE_MENU = "/admin/guide/update/:id";
+export const VISA_COUNTRY_MENU = "/admin/visa/countries";
+export const ADD_VISA_COUNTRY_MENU = "/admin/visa/countries/add";
+export const UPDATE_VISA_COUNTRY_MENU = "/admin/visa/countries/update/:id";
 
 export const HOTEL_MENU = "/admin/hotel";
 export const ADD_HOTEL_MENU = "/admin/hotel/add";

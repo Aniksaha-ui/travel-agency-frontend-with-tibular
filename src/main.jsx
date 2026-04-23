@@ -33,6 +33,8 @@ import Refunds from "./Views/Refunds/Refunds.jsx";
 import BookingInvoice from "./Views/Bookings/BookingInvoice.jsx";
 import GuideInformation from "./Views/Guides/Guides.jsx";
 import GuideForm from "./Views/Guides/GuideForm.jsx";
+import VisaCountries from "./Views/VisaCountries/VisaCountries.jsx";
+import VisaCountryForm from "./Views/VisaCountries/VisaCountryForm.jsx";
 import TripPerformance from "./Views/Reports/TripPerformance/TripPerformance.jsx";
 import PackagePerformance from "./Views/Reports/PackagePerformance/PackagePerformance.jsx";
 import CustomerValueReport from "./Views/Reports/CustomerValueReport/CustomerValueReport.jsx";
@@ -156,6 +158,19 @@ createRoot(document.getElementById("root")).render(
             <Route
               path="admin/guide/update/:id"
               element={<GuideForm action="update" />}
+            ></Route>
+
+            <Route
+              path="admin/visa/countries"
+              element={<VisaCountries />}
+            ></Route>
+            <Route
+              path="admin/visa/countries/add"
+              element={<VisaCountryForm action="add" />}
+            ></Route>
+            <Route
+              path="admin/visa/countries/update/:id"
+              element={<VisaCountryForm action="update" />}
             ></Route>
 
             <Route path="admin/hotel" element={<HotelInformation />}></Route>

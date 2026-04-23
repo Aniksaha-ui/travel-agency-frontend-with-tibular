@@ -9,6 +9,7 @@ import {
   DASHBOARD,
   FINANCIAL_REPORT,
   GUIDE_API_ENDPOINT,
+  VISA_COUNTRY_API_ENDPOINT,
   HOTEL_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
   MONITORING_API_ENDPOINT,
@@ -674,6 +675,27 @@ const useApi = () => {
     }
   };
 
+  const fetchVisaCountries = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${VISA_COUNTRY_API_ENDPOINT}?page=${page}${query}`,
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const addGuide = async (guide) => {
     const response = await axiosClient.apiClient(
       "POST",
@@ -697,6 +719,45 @@ const useApi = () => {
       }
     } else {
       return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const addVisaCountry = async (country) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      VISA_COUNTRY_API_ENDPOINT,
+      country,
+    );
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const getVisaCountryById = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${VISA_COUNTRY_API_ENDPOINT}/${id}`,
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const updateVisaCountry = async (id, country) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `${VISA_COUNTRY_API_ENDPOINT}/update/${id}`,
+      country,
+    );
+    if (response?.data) {
+      return response.data;
     }
     return null;
   };
@@ -1485,9 +1546,13 @@ const useApi = () => {
     fetchGuideDropDown,
     fetchBookingInvoiceByBookingId,
     fetchGuideInformation,
+    fetchVisaCountries,
     addGuide,
+    addVisaCountry,
     getGuideById,
+    getVisaCountryById,
     updateGuide,
+    updateVisaCountry,
     tripPerformanceReport,
     packagePerformanceReport,
     customerValueReport,

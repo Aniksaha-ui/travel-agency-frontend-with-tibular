@@ -25,6 +25,7 @@ export const REFUND_API_ENDPOINT = "admin/refund";
 export const REFUND_DISBURSED_API_ENDPOINT = "admin/refund/disburse";
 export const VEHICLE_API_ENDPOINT = "admin/useageOfVehicle";
 export const GUIDE_API_ENDPOINT = "admin/guide";
+export const VISA_COUNTRY_API_ENDPOINT = "admin/visa/countries";
 export const TRIP_PERFORMANCE = "/admin/tripPerformance";
 export const PACKAGE_PERFORMANCE = "/admin/packagePerformance";
 export const CUSTOMER_VALUE_REPORT = "admin/customerValue";

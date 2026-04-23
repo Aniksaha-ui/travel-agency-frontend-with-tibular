@@ -32,3 +32,18 @@ Booking list
 ----------------------------------------------------------
 In trip there will be a summery, where admin can see the details of the trip and also the vehicle layout 
 ---------------------------------------------------------
+
+
+----------------------------------------------------------
+Visa country admin screens
+----------------------------------------------------------
+
+Create list, add, and update screens for visa countries.
+
+Follow the existing guide page structure.
+
+API:
+- GET `admin/visa/countries`
+- POST `admin/visa/countries`
+- GET `admin/visa/countries/:id`
+- POST `admin/visa/countries/update/:id`
