@@ -47,3 +47,17 @@ API:
 - POST `admin/visa/countries`
 - GET `admin/visa/countries/:id`
 - POST `admin/visa/countries/update/:id`
+
+----------------------------------------------------------
+Visa types admin screens
+----------------------------------------------------------
+
+Create list, add, and update screens for visa types.
+
+Follow the visa countries page structure.
+
+API:
+- GET `admin/visa/types?country_id={id}`
+- POST `admin/visa/types`
+- GET `admin/visa/types/:id`
+- POST `admin/visa/types/update/:id`

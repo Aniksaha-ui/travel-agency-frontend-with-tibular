@@ -3,6 +3,7 @@ export const SIGN_IN_BUTTON_TEXT = "Sign in ";
 export const ROUTE_TITLE = "Route List";
 export const USER_TITLE = "User List";
 export const VISA_COUNTRY_TITLE = "Visa Country Information";
+export const VISA_TYPES_TITLE = "Visa Types Information";
 
 export const TRIP_PERFORMANCE = "Trip Performance";
 export const PACKAGE_PERFORMANCE = "Package Performance";

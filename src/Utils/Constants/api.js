@@ -26,6 +26,9 @@ export const REFUND_DISBURSED_API_ENDPOINT = "admin/refund/disburse";
 export const VEHICLE_API_ENDPOINT = "admin/useageOfVehicle";
 export const GUIDE_API_ENDPOINT = "admin/guide";
 export const VISA_COUNTRY_API_ENDPOINT = "admin/visa/countries";
+export const VISA_COUNTRY_DROPDOWN_API_ENDPOINT =
+  "admin/visa/countries/dropdown";
+export const VISA_TYPES_API_ENDPOINT = "admin/visa/types";
 export const TRIP_PERFORMANCE = "/admin/tripPerformance";
 export const PACKAGE_PERFORMANCE = "/admin/packagePerformance";
 export const CUSTOMER_VALUE_REPORT = "admin/customerValue";
@@ -33,8 +36,8 @@ export const HOTEL_API_ENDPOINT = "admin/hotel";
 export const USER_HOTEL_API_ENDPOINT = "/hotel";
 export const DASHBOARD = "admin/dashboard";
 export const DASHBOARD_TABLE_VIEW = "admin/dashboard/databaseList";
-export const MONTH_RUNNING_BALANCE = "admin/monthRunningBalance"
-export const FINANCIAL_REPORT = "admin/financial_report"
+export const MONTH_RUNNING_BALANCE = "admin/monthRunningBalance";
+export const FINANCIAL_REPORT = "admin/financial_report";
 export const TICKET_API_ENDPOINT = "admin/tickets";
 export const TRANSACTION_API_ENDPOINT = "admin/transaction";
 export const MONITORING_API_ENDPOINT = "admin/monitoring";
@@ -44,7 +47,8 @@ export const MENU_ITEMS_API_ENDPOINT = "admin/menu_items";
 export const TRIPWISE_BOOKING_USERS_API_ENDPOINT = "admin/tripwiseBookingUsers";
 export const ACCOUNT_HISTORY_SEARCH_API_ENDPOINT = "admin/account-history";
 export const MONTHLY_DAILY_BALANCE_REPORT = "admin/monthlyDailyBalanceReport";
-export const MONTHLY_DAILY_BALANCE_REPORTS = "admin/monthly-daily-balance-reports";
+export const MONTHLY_DAILY_BALANCE_REPORTS =
+  "admin/monthly-daily-balance-reports";
 export const OVERALL_SALES_REPORT = "admin/overall-sales-summary";
 export const ROUTE_WISE_SALES_REPORT = "admin/route-wise-sales-summary";
 export const TICKET_STATUS_REPORT = "admin/ticket-status-report";
@@ -54,4 +58,5 @@ export const USER_GROWTH_REPORT = "admin/user-growth-report";
 export const REFUND_STATUS_REPORT = "admin/refund-status-report";
 export const AVERAGE_BOOKING_VALUE_REPORT = "admin/avg-booking-value-report";
 export const LOW_PERFORMING_PACKAGES_REPORT = "admin/low-performing-packages";
-export const HIGH_CANCELLATION_PACKAGES_REPORT = "admin/high-cancellation-packages";
+export const HIGH_CANCELLATION_PACKAGES_REPORT =
+  "admin/high-cancellation-packages";

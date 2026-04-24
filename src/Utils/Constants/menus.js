@@ -29,6 +29,9 @@ export const UPDATE_GUIDE_MENU = "/admin/guide/update/:id";
 export const VISA_COUNTRY_MENU = "/admin/visa/countries";
 export const ADD_VISA_COUNTRY_MENU = "/admin/visa/countries/add";
 export const UPDATE_VISA_COUNTRY_MENU = "/admin/visa/countries/update/:id";
+export const VISA_TYPES_MENU = "/admin/visa/types";
+export const ADD_VISA_TYPES_MENU = "/admin/visa/types/add";
+export const UPDATE_VISA_TYPES_MENU = "/admin/visa/types/update/:id";
 
 export const HOTEL_MENU = "/admin/hotel";
 export const ADD_HOTEL_MENU = "/admin/hotel/add";

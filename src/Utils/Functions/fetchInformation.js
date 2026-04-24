@@ -5,10 +5,11 @@ const fetchData = async (
   setData,
   search,
   setPaginationInformation,
-  setLoading
+  setLoading,
+  additionalParam = null,
 ) => {
   try {
-    const response = await apiFunction(page, search);
+    const response = await apiFunction(page, search, additionalParam);
     if (response.data.length === 0) {
       setLastPage(1);
       setData([]);

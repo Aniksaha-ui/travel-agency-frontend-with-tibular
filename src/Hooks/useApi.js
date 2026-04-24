@@ -10,6 +10,8 @@ import {
   FINANCIAL_REPORT,
   GUIDE_API_ENDPOINT,
   VISA_COUNTRY_API_ENDPOINT,
+  VISA_COUNTRY_DROPDOWN_API_ENDPOINT,
+  VISA_TYPES_API_ENDPOINT,
   HOTEL_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
   MONITORING_API_ENDPOINT,
@@ -499,7 +501,7 @@ const useApi = () => {
       const response = await axiosClient.apiClient(
         "POST",
         `${ACCOUNT_HISTORY_SEARCH_API_ENDPOINT}?page=${page}`,
-        { start_date, end_date }
+        { start_date, end_date },
       );
       if (response && response.data && response.data.isExecute === "SUCCESS") {
         return response.data;
@@ -762,6 +764,83 @@ const useApi = () => {
     return null;
   };
 
+  const fetchVisaTypes = async (page, search, countryId) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+      const countryQuery = countryId ? `&country_id=${countryId}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${VISA_TYPES_API_ENDPOINT}?page=${page}${query}${countryQuery}`,
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addVisaType = async (visaType) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      VISA_TYPES_API_ENDPOINT,
+      visaType,
+    );
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const getVisaTypeById = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${VISA_TYPES_API_ENDPOINT}/${id}`,
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const updateVisaType = async (id, visaType) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `${VISA_TYPES_API_ENDPOINT}/update/${id}`,
+      visaType,
+    );
+    if (response?.data) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const fetchVisaCountriesDropdown = async () => {
+    try {
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${VISA_COUNTRY_DROPDOWN_API_ENDPOINT}?active_only=1`,
+      );
+      if (response?.data) {
+        return response.data;
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   const updateGuide = async (guide) => {
     const response = await axiosClient.apiClient(
       "POST",
@@ -842,9 +921,13 @@ const useApi = () => {
     try {
       const response = await axiosClient.apiClient(
         "GET",
-        `${USER_GROWTH_REPORT}`
+        `${USER_GROWTH_REPORT}`,
       );
-      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      if (
+        response &&
+        response.data &&
+        response.data.isExecute === API_SUCCESS
+      ) {
         return response.data;
       } else {
         return { message: response.data.message, data: [] };
@@ -858,7 +941,11 @@ const useApi = () => {
   const fetchRefundStatusReport = async () => {
     try {
       const response = await axiosClient.apiClient("GET", REFUND_STATUS_REPORT);
-      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      if (
+        response &&
+        response.data &&
+        response.data.isExecute === API_SUCCESS
+      ) {
         return response.data;
       }
       return { message: response.data.message, data: [] };
@@ -870,8 +957,15 @@ const useApi = () => {
 
   const fetchAvgBookingValueReport = async () => {
     try {
-      const response = await axiosClient.apiClient("GET", AVERAGE_BOOKING_VALUE_REPORT);
-      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      const response = await axiosClient.apiClient(
+        "GET",
+        AVERAGE_BOOKING_VALUE_REPORT,
+      );
+      if (
+        response &&
+        response.data &&
+        response.data.isExecute === API_SUCCESS
+      ) {
         return response.data;
       }
       return { message: response.data.message, data: [] };
@@ -883,8 +977,15 @@ const useApi = () => {
 
   const fetchLowPerformingPackagesReport = async () => {
     try {
-      const response = await axiosClient.apiClient("GET", LOW_PERFORMING_PACKAGES_REPORT);
-      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      const response = await axiosClient.apiClient(
+        "GET",
+        LOW_PERFORMING_PACKAGES_REPORT,
+      );
+      if (
+        response &&
+        response.data &&
+        response.data.isExecute === API_SUCCESS
+      ) {
         return response.data;
       }
       return { message: response.data.message, data: [] };
@@ -896,8 +997,15 @@ const useApi = () => {
 
   const fetchHighCancellationPackagesReport = async () => {
     try {
-      const response = await axiosClient.apiClient("GET", HIGH_CANCELLATION_PACKAGES_REPORT);
-      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      const response = await axiosClient.apiClient(
+        "GET",
+        HIGH_CANCELLATION_PACKAGES_REPORT,
+      );
+      if (
+        response &&
+        response.data &&
+        response.data.isExecute === API_SUCCESS
+      ) {
         return response.data;
       }
       return { message: response.data.message, data: [] };
@@ -994,7 +1102,11 @@ const useApi = () => {
   const fetchMenu = async () => {
     try {
       const response = await axiosClient.apiClient("GET", MENU_API_ENDPOINT);
-      if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      if (
+        response &&
+        response.data &&
+        response.data.isExecute === API_SUCCESS
+      ) {
         return response.data.data;
       }
     } catch (error) {
@@ -1183,14 +1295,19 @@ const useApi = () => {
     }
   };
 
-  const updateTicketStatus = async (ticketId, status, resolved_status, resolved_remarks = null) => {
+  const updateTicketStatus = async (
+    ticketId,
+    status,
+    resolved_status,
+    resolved_remarks = null,
+  ) => {
     const response = await axiosClient.apiClient(
       "POST",
       `admin/tickets/update/${ticketId}`,
-      { 
-        status: status, 
+      {
+        status: status,
         resolved_status: resolved_status,
-        resolved_remarks: resolved_remarks 
+        resolved_remarks: resolved_remarks,
       },
     );
 
@@ -1224,7 +1341,6 @@ const useApi = () => {
     }
   };
 
-
   const packageSummary = async (page, search) => {
     try {
       const query = search ? `&search=${encodeURIComponent(search)}` : "";
@@ -1236,15 +1352,10 @@ const useApi = () => {
         return response.data;
       }
       return { message: response.message, data: [] };
-
-
     } catch (error) {
       console.log(error);
     }
   };
-
-
-
 
   const fetchOnlinePaymentConfig = async (page, search) => {
     try {
@@ -1258,12 +1369,10 @@ const useApi = () => {
       } else {
         return { message: response.message, data: [] };
       }
-
     } catch (error) {
       console.log(error);
     }
   };
-
 
   const addConfigure = async (configure) => {
     const response = await axiosClient.apiClient(
@@ -1276,7 +1385,6 @@ const useApi = () => {
       return response.data.status;
     }
   };
-
 
   const getConfigureById = async (id) => {
     const response = await axiosClient.apiClient(
@@ -1293,7 +1401,6 @@ const useApi = () => {
     return null;
   };
 
-
   const updateConfigure = async (config) => {
     const response = await axiosClient.apiClient(
       "POST",
@@ -1307,16 +1414,15 @@ const useApi = () => {
     }
   };
 
-
-
-
   /***************************************Menu API*********************************/
   /***************************************Menu API*********************************/
   const fetchMenuItems = async (page = "", search = "") => {
-    const query = search ? `?search=${encodeURIComponent(search)}&page=${page}` : `?page=${page}`;
+    const query = search
+      ? `?search=${encodeURIComponent(search)}&page=${page}`
+      : `?page=${page}`;
     const response = await axiosClient.apiClient(
       "GET",
-      `${MENU_ITEMS_API_ENDPOINT}${query}`
+      `${MENU_ITEMS_API_ENDPOINT}${query}`,
     );
     return response.data;
   };
@@ -1325,7 +1431,7 @@ const useApi = () => {
     const response = await axiosClient.apiClient(
       "POST",
       MENU_ITEMS_API_ENDPOINT,
-      menuItem
+      menuItem,
     );
     return response?.data;
   };
@@ -1333,7 +1439,7 @@ const useApi = () => {
   const getMenuItemById = async (id) => {
     const response = await axiosClient.apiClient(
       "GET",
-      `${MENU_ITEMS_API_ENDPOINT}/${id}`
+      `${MENU_ITEMS_API_ENDPOINT}/${id}`,
     );
     if (response) {
       if (response?.data) {
@@ -1349,7 +1455,7 @@ const useApi = () => {
     const response = await axiosClient.apiClient(
       "POST",
       `${MENU_ITEMS_API_ENDPOINT}/update/${id}`,
-      menuItem
+      menuItem,
     );
     return response?.data;
   };
@@ -1357,20 +1463,17 @@ const useApi = () => {
   const deleteMenuItem = async (id) => {
     const response = await axiosClient.apiClient(
       "DELETE",
-      `${MENU_ITEMS_API_ENDPOINT}/${id}`
+      `${MENU_ITEMS_API_ENDPOINT}/${id}`,
     );
     return response?.data;
   };
   /***************************************Menu API*********************************/
 
-
-
-
   const fetchMonthlyDailyBalanceReport = async (page = 1) => {
     try {
       const response = await axiosClient.apiClient(
         "GET",
-        `${MONTHLY_DAILY_BALANCE_REPORT}?page=${page}`
+        `${MONTHLY_DAILY_BALANCE_REPORT}?page=${page}`,
       );
       if (response && response.data && response.data.status === "SUCCESS") {
         return response.data;
@@ -1386,7 +1489,7 @@ const useApi = () => {
     try {
       const response = await axiosClient.apiClient(
         "GET",
-        `${MONTHLY_DAILY_BALANCE_REPORTS}?page=${page}`
+        `${MONTHLY_DAILY_BALANCE_REPORTS}?page=${page}`,
       );
       if (response && response.data) {
         // Handle both wrapped and unwrapped (direct pagination) responses
@@ -1401,10 +1504,7 @@ const useApi = () => {
 
   const fetchOverallSalesSummary = async () => {
     try {
-      const response = await axiosClient.apiClient(
-        "GET",
-        OVERALL_SALES_REPORT
-      );
+      const response = await axiosClient.apiClient("GET", OVERALL_SALES_REPORT);
       if (response && response.data && response.data.isExecute === "SUCCESS") {
         return response.data;
       }
@@ -1419,7 +1519,7 @@ const useApi = () => {
     try {
       const response = await axiosClient.apiClient(
         "GET",
-        ROUTE_WISE_SALES_REPORT
+        ROUTE_WISE_SALES_REPORT,
       );
       if (response && response.data && response.data.isExecute === "SUCCESS") {
         return response.data;
@@ -1435,7 +1535,7 @@ const useApi = () => {
     const query = search ? `&search=${encodeURIComponent(search)}` : "";
     const response = await axiosClient.apiClient(
       "GET",
-      `${BLOG_API_ENDPOINT}?page=${page}${query}`
+      `${BLOG_API_ENDPOINT}?page=${page}${query}`,
     );
     if (response && response.data && response.data.isExecute === API_SUCCESS) {
       return response.data;
@@ -1446,7 +1546,7 @@ const useApi = () => {
   const getBlogById = async (id) => {
     const response = await axiosClient.apiClient(
       "GET",
-      `${BLOG_API_ENDPOINT}/${id}`
+      `${BLOG_API_ENDPOINT}/${id}`,
     );
     if (response && response.data && response.data.isExecute === API_SUCCESS) {
       return response.data;
@@ -1458,7 +1558,7 @@ const useApi = () => {
     const response = await axiosClient.apiClient(
       "POST",
       BLOG_API_ENDPOINT,
-      data
+      data,
     );
     return response?.data;
   };
@@ -1467,7 +1567,7 @@ const useApi = () => {
     const response = await axiosClient.apiClient(
       "POST",
       `${BLOG_API_ENDPOINT}/update/${id}`,
-      data
+      data,
     );
     return response?.data;
   };
@@ -1475,16 +1575,13 @@ const useApi = () => {
   const deleteBlog = async (id) => {
     const response = await axiosClient.apiClient(
       "DELETE",
-      `${BLOG_API_ENDPOINT}/${id}`
+      `${BLOG_API_ENDPOINT}/${id}`,
     );
     return response?.data;
   };
 
   const fetchTicketStatusReport = async () => {
-    const response = await axiosClient.apiClient(
-      "GET",
-      TICKET_STATUS_REPORT,
-    );
+    const response = await axiosClient.apiClient("GET", TICKET_STATUS_REPORT);
     if (response && response.data && response.data.isExecute === API_SUCCESS) {
       return response.data;
     } else {
@@ -1553,6 +1650,11 @@ const useApi = () => {
     getVisaCountryById,
     updateGuide,
     updateVisaCountry,
+    fetchVisaTypes,
+    addVisaType,
+    getVisaTypeById,
+    updateVisaType,
+    fetchVisaCountriesDropdown,
     tripPerformanceReport,
     packagePerformanceReport,
     customerValueReport,

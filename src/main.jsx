@@ -33,8 +33,10 @@ import Refunds from "./Views/Refunds/Refunds.jsx";
 import BookingInvoice from "./Views/Bookings/BookingInvoice.jsx";
 import GuideInformation from "./Views/Guides/Guides.jsx";
 import GuideForm from "./Views/Guides/GuideForm.jsx";
-import VisaCountries from "./Views/VisaCountries/VisaCountries.jsx";
-import VisaCountryForm from "./Views/VisaCountries/VisaCountryForm.jsx";
+import VisaCountries from "./Views/VisaCountries/List/VisaCountries.jsx";
+import VisaCountryForm from "./Views/VisaCountries/Form/VisaCountryForm.jsx";
+import VisaTypes from "./Views/VisaTypes/List/VisaTypes.jsx";
+import VisaTypeForm from "./Views/VisaTypes/Form/VisaTypeForm.jsx";
 import TripPerformance from "./Views/Reports/TripPerformance/TripPerformance.jsx";
 import PackagePerformance from "./Views/Reports/PackagePerformance/PackagePerformance.jsx";
 import CustomerValueReport from "./Views/Reports/CustomerValueReport/CustomerValueReport.jsx";
@@ -84,8 +86,14 @@ createRoot(document.getElementById("root")).render(
             <Route path="/login" element={<Login />}></Route>
             <Route path="admin/dashboard" element={<Dashboard />}></Route>
             <Route path="admin/blog-list" element={<BlogList />}></Route>
-            <Route path="admin/blog/add" element={<BlogBuilder action="add" />}></Route>
-            <Route path="admin/blog/update/:id" element={<BlogBuilder action="update" />}></Route>
+            <Route
+              path="admin/blog/add"
+              element={<BlogBuilder action="add" />}
+            ></Route>
+            <Route
+              path="admin/blog/update/:id"
+              element={<BlogBuilder action="update" />}
+            ></Route>
             <Route path="admin/menu-items" element={<MenuItems />}></Route>
             <Route
               path="admin/menu-items/add"
@@ -173,6 +181,16 @@ createRoot(document.getElementById("root")).render(
               element={<VisaCountryForm action="update" />}
             ></Route>
 
+            <Route path="admin/visa/types" element={<VisaTypes />}></Route>
+            <Route
+              path="admin/visa/types/add"
+              element={<VisaTypeForm action="add" />}
+            ></Route>
+            <Route
+              path="admin/visa/types/update/:id"
+              element={<VisaTypeForm action="update" />}
+            ></Route>
+
             <Route path="admin/hotel" element={<HotelInformation />}></Route>
             <Route
               path="admin/hotel/add"
@@ -249,15 +267,12 @@ createRoot(document.getElementById("root")).render(
               element={<MonthlyRunningBalance />}
             ></Route>
 
-         
-
             <Route
               path="admin/financialReport"
               element={<FinancialReport />}
             ></Route>
 
-
-               <Route
+            <Route
               path="admin/user-growth-report"
               element={<UserGrowthReport />}
             ></Route>
