@@ -30,6 +30,11 @@ export const VISA_COUNTRY_DROPDOWN_API_ENDPOINT =
   "admin/visa/countries/dropdown";
 export const VISA_TYPES_API_ENDPOINT = "admin/visa/types";
 export const VISA_REQUIREMENTS_API_ENDPOINT = "admin/visa/requirements";
+export const VISA_APPLICATIONS_API_ENDPOINT = "admin/visa/applications";
+export const VISA_ASSIGN_API_ENDPOINT = "admin/visa/assign";
+export const VISA_DOCUMENT_VERIFY_API_ENDPOINT = "admin/visa/document-verify";
+export const VISA_STATUS_UPDATE_API_ENDPOINT = "admin/visa/status-update";
+export const VISA_PRINT_API_ENDPOINT = "admin/visa/print";
 export const TRIP_PERFORMANCE = "/admin/tripPerformance";
 export const PACKAGE_PERFORMANCE = "/admin/packagePerformance";
 export const CUSTOMER_VALUE_REPORT = "admin/customerValue";

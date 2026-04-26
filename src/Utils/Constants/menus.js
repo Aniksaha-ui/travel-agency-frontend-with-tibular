@@ -36,6 +36,8 @@ export const VISA_REQUIREMENTS_MENU = "/admin/visa/requirements";
 export const ADD_VISA_REQUIREMENTS_MENU = "/admin/visa/requirements/add";
 export const UPDATE_VISA_REQUIREMENTS_MENU =
   "/admin/visa/requirements/update/:id";
+export const VISA_APPLICATIONS_MENU = "/admin/visa/applications";
+export const VISA_APPLICATION_DETAILS_MENU = "/admin/visa/applications/:id";
 
 export const HOTEL_MENU = "/admin/hotel";
 export const ADD_HOTEL_MENU = "/admin/hotel/add";

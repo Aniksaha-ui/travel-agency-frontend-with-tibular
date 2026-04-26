@@ -11,7 +11,12 @@ import {
   GUIDE_API_ENDPOINT,
   VISA_COUNTRY_API_ENDPOINT,
   VISA_COUNTRY_DROPDOWN_API_ENDPOINT,
+  VISA_APPLICATIONS_API_ENDPOINT,
+  VISA_ASSIGN_API_ENDPOINT,
+  VISA_DOCUMENT_VERIFY_API_ENDPOINT,
+  VISA_PRINT_API_ENDPOINT,
   VISA_REQUIREMENTS_API_ENDPOINT,
+  VISA_STATUS_UPDATE_API_ENDPOINT,
   VISA_TYPES_API_ENDPOINT,
   HOTEL_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
@@ -937,6 +942,147 @@ const useApi = () => {
     }
   };
 
+  const fetchVisaApplications = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${VISA_APPLICATIONS_API_ENDPOINT}?page=${page}${query}`,
+      );
+      if (response?.data) {
+        return response.data;
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const getVisaApplicationById = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${VISA_APPLICATIONS_API_ENDPOINT}/${id}`,
+    );
+    if (response?.data) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const updateVisaApplication = async (id, payload) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `${VISA_APPLICATIONS_API_ENDPOINT}/update/${id}`,
+      payload,
+    );
+    if (response?.data) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const assignVisaApplication = async (payload) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      VISA_ASSIGN_API_ENDPOINT,
+      payload,
+    );
+    if (response?.data) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const verifyVisaDocument = async (payload) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      VISA_DOCUMENT_VERIFY_API_ENDPOINT,
+      payload,
+    );
+    if (response?.data) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const updateVisaApplicationStatus = async (payload) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      VISA_STATUS_UPDATE_API_ENDPOINT,
+      payload,
+    );
+    if (response?.data) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const fetchUsersDropdown = async () => {
+    try {
+      const firstResponse = await axiosClient.apiClient(
+        "GET",
+        `${USER_API_ENDPOINT}?page=1&perPage=200`,
+      );
+      if (!firstResponse?.data?.data) {
+        return null;
+      }
+
+      const firstPageData = firstResponse.data.data;
+      const allUsers = firstPageData?.data ? [...firstPageData.data] : [];
+      const lastPage = firstPageData?.last_page ?? 1;
+
+      for (let page = 2; page <= lastPage; page += 1) {
+        const nextResponse = await axiosClient.apiClient(
+          "GET",
+          `${USER_API_ENDPOINT}?page=${page}&perPage=200`,
+        );
+
+        if (nextResponse?.data?.data?.data) {
+          allUsers.push(...nextResponse.data.data.data);
+        }
+      }
+
+      return {
+        ...firstResponse.data,
+        data: allUsers,
+      };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const printVisaApplication = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      const baseUrl = import.meta.env.VITE_BASE_URL ?? "";
+      const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+
+      const response = await fetch(
+        `${normalizedBaseUrl}${VISA_PRINT_API_ENDPOINT}/${id}`,
+        {
+          headers: {
+            Accept: "application/pdf",
+            authorization: token ? `Bearer ${token}` : "",
+          },
+        },
+      );
+
+      if (!response.ok) {
+        toast("Unable to open visa application PDF");
+        return null;
+      }
+
+      return await response.blob();
+    } catch (error) {
+      console.log(error);
+      toast("Unable to open visa application PDF");
+      return null;
+    }
+  };
+
   const updateGuide = async (guide) => {
     const response = await axiosClient.apiClient(
       "POST",
@@ -1756,6 +1902,14 @@ const useApi = () => {
     getVisaRequirementById,
     updateVisaRequirement,
     fetchVisaCountriesDropdown,
+    fetchVisaApplications,
+    getVisaApplicationById,
+    updateVisaApplication,
+    assignVisaApplication,
+    verifyVisaDocument,
+    updateVisaApplicationStatus,
+    fetchUsersDropdown,
+    printVisaApplication,
     tripPerformanceReport,
     packagePerformanceReport,
     customerValueReport,
