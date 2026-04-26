@@ -37,6 +37,8 @@ import VisaCountries from "./Views/VisaCountries/List/VisaCountries.jsx";
 import VisaCountryForm from "./Views/VisaCountries/Form/VisaCountryForm.jsx";
 import VisaTypes from "./Views/VisaTypes/List/VisaTypes.jsx";
 import VisaTypeForm from "./Views/VisaTypes/Form/VisaTypeForm.jsx";
+import VisaRequirements from "./Views/VisaRequirements/List/VisaRequirements.jsx";
+import VisaRequirementForm from "./Views/VisaRequirements/Form/VisaRequirementForm.jsx";
 import TripPerformance from "./Views/Reports/TripPerformance/TripPerformance.jsx";
 import PackagePerformance from "./Views/Reports/PackagePerformance/PackagePerformance.jsx";
 import CustomerValueReport from "./Views/Reports/CustomerValueReport/CustomerValueReport.jsx";
@@ -189,6 +191,18 @@ createRoot(document.getElementById("root")).render(
             <Route
               path="admin/visa/types/update/:id"
               element={<VisaTypeForm action="update" />}
+            ></Route>
+            <Route
+              path="admin/visa/requirements"
+              element={<VisaRequirements />}
+            ></Route>
+            <Route
+              path="admin/visa/requirements/add"
+              element={<VisaRequirementForm action="add" />}
+            ></Route>
+            <Route
+              path="admin/visa/requirements/update/:id"
+              element={<VisaRequirementForm action="update" />}
             ></Route>
 
             <Route path="admin/hotel" element={<HotelInformation />}></Route>

@@ -11,6 +11,7 @@ import {
   GUIDE_API_ENDPOINT,
   VISA_COUNTRY_API_ENDPOINT,
   VISA_COUNTRY_DROPDOWN_API_ENDPOINT,
+  VISA_REQUIREMENTS_API_ENDPOINT,
   VISA_TYPES_API_ENDPOINT,
   HOTEL_API_ENDPOINT,
   LOGIN_API_ENDPOINT,
@@ -786,6 +787,41 @@ const useApi = () => {
     }
   };
 
+  const fetchVisaTypesDropdown = async () => {
+    try {
+      const firstResponse = await axiosClient.apiClient(
+        "GET",
+        `${VISA_TYPES_API_ENDPOINT}?page=1`,
+      );
+      if (!firstResponse?.data) {
+        return null;
+      }
+
+      const firstPageData = firstResponse.data?.data;
+      const allVisaTypes = firstPageData?.data ? [...firstPageData.data] : [];
+      const lastPage = firstPageData?.last_page ?? 1;
+
+      for (let page = 2; page <= lastPage; page += 1) {
+        const nextResponse = await axiosClient.apiClient(
+          "GET",
+          `${VISA_TYPES_API_ENDPOINT}?page=${page}`,
+        );
+
+        if (nextResponse?.data?.data?.data) {
+          allVisaTypes.push(...nextResponse.data.data.data);
+        }
+      }
+
+      return {
+        ...firstResponse.data,
+        data: allVisaTypes,
+      };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   const addVisaType = async (visaType) => {
     const response = await axiosClient.apiClient(
       "POST",
@@ -818,6 +854,66 @@ const useApi = () => {
       "POST",
       `${VISA_TYPES_API_ENDPOINT}/update/${id}`,
       visaType,
+    );
+    if (response?.data) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const fetchVisaRequirements = async (page, search) => {
+    try {
+      const query = search ? `&search=${encodeURIComponent(search)}` : "";
+
+      const response = await axiosClient.apiClient(
+        "GET",
+        `${VISA_REQUIREMENTS_API_ENDPOINT}?page=${page}${query}`,
+      );
+      if (response) {
+        if (response?.data) {
+          return response.data;
+        }
+      } else {
+        return { message: response.message, data: [] };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addVisaRequirement = async (visaRequirement) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      VISA_REQUIREMENTS_API_ENDPOINT,
+      visaRequirement,
+    );
+    if (response && response.data && response.data.isExecute === API_SUCCESS) {
+      return response.data;
+    }
+    return null;
+  };
+
+  const getVisaRequirementById = async (id) => {
+    const response = await axiosClient.apiClient(
+      "GET",
+      `${VISA_REQUIREMENTS_API_ENDPOINT}/${id}`,
+    );
+    if (response) {
+      if (response?.data) {
+        return response.data;
+      }
+    } else {
+      return { message: response.message, data: [] };
+    }
+    return null;
+  };
+
+  const updateVisaRequirement = async (id, visaRequirement) => {
+    const response = await axiosClient.apiClient(
+      "POST",
+      `${VISA_REQUIREMENTS_API_ENDPOINT}/update/${id}`,
+      visaRequirement,
     );
     if (response?.data) {
       return response.data;
@@ -1651,9 +1747,14 @@ const useApi = () => {
     updateGuide,
     updateVisaCountry,
     fetchVisaTypes,
+    fetchVisaTypesDropdown,
     addVisaType,
     getVisaTypeById,
     updateVisaType,
+    fetchVisaRequirements,
+    addVisaRequirement,
+    getVisaRequirementById,
+    updateVisaRequirement,
     fetchVisaCountriesDropdown,
     tripPerformanceReport,
     packagePerformanceReport,
