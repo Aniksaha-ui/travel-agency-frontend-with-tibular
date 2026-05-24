@@ -6,6 +6,7 @@ import Loading from "../../Utils/Components/Loading";
 import useGoBack from "../../Hooks/useGoBack";
 import { toast } from "react-toastify";
 import moment from "moment";
+import { calculateBookingTotal } from "../utils/calculate"
 
 const TripUsers = () => {
     const { id } = useParams();
@@ -37,14 +38,7 @@ const TripUsers = () => {
         }
     }, [id]);
 
-    const calculateBookingTotal = (seatIds, price) => {
-        if (!seatIds) return 0;
-        // visual check: ensure it works even if seatIds is not a string (though api says it is)
-        const ids = String(seatIds);
-        const seatCount = ids.split(',').filter(s => s.trim() !== '').length;
-        const unitPrice = parseFloat(price) || 0;
-        return seatCount * unitPrice;
-    };
+   
 
     const grandTotal = useMemo(() => {
         return users.reduce((acc, user) => {
